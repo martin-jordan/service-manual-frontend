@@ -1,12 +1,12 @@
-# Government Frontend
+# Service Manual Frontend
 
-Government Frontend is a public-facing app to display the majority of documents
+Service Manual Frontend is a public-facing app to display the majority of documents
 on the /government part of GOV.UK. It is a replacement for the public-facing
 parts of the [Whitehall](https://github.com/alphagov/whitehall) application.
 
 ## Screenshots
 
-![A  Case Study](https://raw.githubusercontent.com/alphagov/government-frontend/master/docs/assets/case-study-screenshot.png)
+![A  Case Study](https://raw.githubusercontent.com/alphagov/service-manual-frontend/master/docs/assets/case-study-screenshot.png)
 
 ## Live examples
 
@@ -28,14 +28,14 @@ This is a Ruby on Rails application that fetches documents from
 `./startup.sh`
 
 The app should start on http://localhost:3090 or
-http://government-frontend.dev.gov.uk on GOV.UK development machines.
+http://service-manual-frontend.dev.gov.uk on GOV.UK development machines.
 
 ### Running the test suite
 
 The test suite relies on the presence of the
 [govuk-content-schemas](http://github.com/alphagov/govuk-content-schemas)
 repository. If it is present at the same directory level as
-the government-frontend repository then run the tests with:
+the service-manual-frontend repository then run the tests with:
 
 `bundle exec rake`
 

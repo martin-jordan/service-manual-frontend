@@ -94,7 +94,7 @@ class ContentItemsControllerTest < ActionController::TestCase
     get :show, path: path_for(content_item_without_images)
 
     assert_response :success
-    assert_select '.sidebar-image img[src="/government-frontend/placeholder.jpg"]', count: 1
+    assert_select '.sidebar-image img[src="/service-manual-frontend/placeholder.jpg"]', count: 1
   end
 
   test 'renders service manual guides' do

@@ -13,7 +13,7 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module GovernmentFrontend
+module ServiceManualFrontend
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -38,6 +38,6 @@ module GovernmentFrontend
     config.action_dispatch.rack_cache = nil
 
     # Path within public/ where assets are compiled to
-    config.assets.prefix = '/government-frontend'
+    config.assets.prefix = '/service-manual-frontend'
   end
 end

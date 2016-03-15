@@ -2,7 +2,7 @@
 export DISPLAY=:99
 export GOVUK_APP_DOMAIN=test.gov.uk
 export GOVUK_ASSET_ROOT=http://static.test.gov.uk
-export GITHUB_STATUS_CONTEXT="Verify government-frontend against content format examples"
+export GITHUB_STATUS_CONTEXT="Verify service-manual-frontend against content format examples"
 env
 
 function github_status {
