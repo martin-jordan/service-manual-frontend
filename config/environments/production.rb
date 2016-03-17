@@ -21,7 +21,7 @@ Rails.application.configure do
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
   # `RAILS_SERVE_STATIC_ASSETS` is an heroku-specific environment variable
-  config.serve_static_assets = ENV["RAILS_SERVE_STATIC_ASSETS"] =~ /(true|yes)/i
+  config.serve_static_assets = %w(true yes).include?(String(ENV["RAILS_SERVE_STATIC_ASSETS"]).downcase)
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
