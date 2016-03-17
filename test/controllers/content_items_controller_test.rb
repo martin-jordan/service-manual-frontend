@@ -13,7 +13,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test "gets item from content store" do
-    content_item = content_store_has_schema_example('case_study', 'case_study')
+    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
 
     get :show, path: path_for(content_item)
     assert_response :success
@@ -49,7 +49,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test "gets item from content store even when url contains multi-byte UTF8 character" do
-    content_item = content_store_has_schema_example('case_study', 'case_study')
+    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
     utf8_path    = "government/case-studies/caf\u00e9-culture"
     content_item['base_path'] = "/#{utf8_path}"
 
@@ -84,17 +84,6 @@ class ContentItemsControllerTest < ActionController::TestCase
 
     get :show, path: path
     assert_response :forbidden
-  end
-
-  test 'content item without images is rendered with a placeholder image' do
-    content_item_without_images = govuk_content_schema_example('case_study', 'case_study')
-    content_item_without_images['details'].delete('image')
-    content_store_has_item(content_item_without_images['base_path'], content_item_without_images)
-
-    get :show, path: path_for(content_item_without_images)
-
-    assert_response :success
-    assert_select '.sidebar-image img[src="/service-manual-frontend/placeholder.jpg"]', count: 1
   end
 
   test 'renders service manual guides' do
