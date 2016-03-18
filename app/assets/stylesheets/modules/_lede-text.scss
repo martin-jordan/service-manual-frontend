@@ -1,0 +1,7 @@
+.lede {
+  @include core-24;
+
+  &--with-bottom-margin {
+    @include responsive-bottom-margin;
+  }
+}
