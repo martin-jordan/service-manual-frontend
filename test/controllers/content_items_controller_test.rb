@@ -38,16 +38,6 @@ class ContentItemsControllerTest < ActionController::TestCase
     assert_equal "max-age=900, private", @response.headers['Cache-Control']
   end
 
-  test "renders translated content items in their locale" do
-    content_item = content_store_has_schema_example('case_study', 'translated')
-    translated_format_name = I18n.t("content_item.format.case_study", count: 1, locale: 'es')
-
-    get :show, path: path_for(content_item)
-
-    assert_response :success
-    assert_select "title", %r(#{translated_format_name})
-  end
-
   test "gets item from content store even when url contains multi-byte UTF8 character" do
     content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
     utf8_path    = "government/case-studies/caf\u00e9-culture"
