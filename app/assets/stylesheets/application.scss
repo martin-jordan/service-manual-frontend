@@ -6,14 +6,14 @@
 @import "shims";
 @import "typography";
 
-// service-manual-frontend mixins
+// Mixins
 @import "mixins/margins";
 
 // Modules
 @import "modules/community-contact";
 @import "modules/govspeak-wrapper";
 @import "modules/lede-text";
-@import "modules/main-content";
+@import "modules/main-service-manual";
 @import "modules/metadata";
 @import "modules/notice";
 @import "modules/page-contents";
