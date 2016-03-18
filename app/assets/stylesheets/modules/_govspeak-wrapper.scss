@@ -1,0 +1,7 @@
+.govspeak-wrapper {
+  padding-top: 0.9375em;
+
+  @include media(tablet) {
+    padding-top: 1.875em;
+  }
+}
