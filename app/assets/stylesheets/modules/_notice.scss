@@ -1,19 +1,20 @@
-@mixin notice {
+.notice {
   clear: both;
   @include responsive-bottom-margin;
-  padding: $gutter-two-thirds;
+  padding: $gutter-half;
+
   border: 5px solid $govuk-blue;
 
-  @include media(mobile) {
-    padding: $gutter-half;
+  @include media(tablet) {
+    padding: $gutter-two-thirds;
   }
 
-  h2 {
+  &__title {
     @include bold-36;
     margin-bottom: $gutter-one-third;
   }
 
-  p {
+  &__description {
     @include core-19;
   }
 }
