@@ -1,10 +1,10 @@
 // The main application stylesheet
 
-// govuk_frontend_toolkit imports
-@import 'colours';
-@import 'measurements';
-@import 'shims';
-@import 'typography';
+// govuk_frontend_toolkit
+@import "colours";
+@import "measurements";
+@import "shims";
+@import "typography";
 
 // service-manual-frontend mixins
 @import "mixins/margins";
