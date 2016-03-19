@@ -45,7 +45,6 @@ module GovukContentSchemaExamples
     def supported_formats
       %w{
         redirect
-        statistics_announcement
         take_part
         topical_event_about_page
         unpublishing
