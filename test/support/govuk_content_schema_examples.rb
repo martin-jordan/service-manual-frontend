@@ -44,7 +44,6 @@ module GovukContentSchemaExamples
 
     def supported_formats
       %w{
-        html_publication
         redirect
         statistics_announcement
         take_part
