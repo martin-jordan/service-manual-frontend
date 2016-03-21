@@ -1,0 +1,36 @@
+.subsection {
+  width: 100%;
+  margin-bottom: $gutter;
+
+  @include media(tablet) {
+    margin-bottom: $gutter * 1.5;
+  }
+
+  &__title {
+    @include bold-24;
+    margin-bottom: 5px;
+  }
+
+  &__description {
+    @include core-19;
+    color: $secondary-text-colour;
+    margin-bottom: $gutter-one-quarter;
+
+    @include media(tablet) {
+      margin-bottom: $gutter-half;
+    }
+  }
+
+  &__list {
+    @include core-19;
+    padding-left: $gutter-two-thirds;
+  }
+
+  &__list-item {
+    margin-bottom: 5px;
+  }
+
+  &__list-item a {
+    text-decoration: underline;
+  }
+}

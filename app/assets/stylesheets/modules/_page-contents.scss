@@ -1,0 +1,37 @@
+.page-contents {
+  margin-top: 1em;
+
+  @include media(tablet) {
+    margin-top: 2em;
+  }
+
+  &__title {
+    @include bold-16;
+    margin-bottom: 5px;
+  }
+
+  &__list li {
+    @include core-16;
+    list-style-type: none;
+    margin-bottom: 5px;
+    margin-left: $gutter-half;
+    padding-right: $gutter-half;
+
+    &:before {
+      content: "–";
+      float: left;
+      display: block;
+      width: $gutter-half;
+      margin-left: -$gutter-half;
+    }
+  }
+
+  &__list a {
+    text-decoration: none;
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: underline;
+    }
+  }
+}

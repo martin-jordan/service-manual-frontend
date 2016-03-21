@@ -1,4 +1,4 @@
-<%= content_for :page_class, "service-manual-topic" %>
+<%= content_for :page_class, "service-manual" %>
 <%= content_for :title, @content_item.title %>
 
 <% content_for :phase_message do %>
@@ -18,17 +18,17 @@
 <div class="grid-row">
   <div class="column-two-thirds">
 
-    <p class="lede">
+    <p class="lede lede--with-bottom-margin">
       <%= @content_item.description %>
     </p>
 
     <% @content_item.groups.each do |link_group| %>
       <div class="subsection">
-        <h2 class="subsection-title"><%= link_group.name %></h2>
-        <p class="subsection-description"><%= link_group.description %></p>
-        <ul class="subsection-list">
+        <h2 class="subsection__title"><%= link_group.name %></h2>
+        <p class="subsection__description"><%= link_group.description %></p>
+        <ul class="subsection__list">
           <% link_group.linked_items.each do |linked_item| %>
-            <li class="subsection-list-item">
+            <li class="subsection__list-item">
               <%= link_to linked_item.label, linked_item.href %>
             </li>
           <% end %>
@@ -41,14 +41,14 @@
   <div class="column-third">
     <% if @content_item.content_owners.any? %>
       <aside class="related">
-        <h2 class="related-title" id="related-communities">Join the conversation</h2>
-        <p class="related-description">
+        <h2 class="related__title" id="related-communities">Join the conversation</h2>
+        <p class="related__description">
           Discuss the work you're doing with other service teams across government.
         </p>
         <nav role="navigation" aria-labelledby="related-communities">
-          <ul class="related-list">
+          <ul class="related__list">
             <% @content_item.content_owners.each do |content_owner| %>
-              <li class="related-list-item">
+              <li class="related__list-item">
                 <%= link_to @content_owner.title, @content_owner.href %>
               </li>
             <% end %>

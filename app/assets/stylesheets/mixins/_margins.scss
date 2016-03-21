@@ -18,3 +18,25 @@
   @include responsive-bottom-margin;
   @include responsive-top-margin;
 }
+
+
+@mixin gutter-bottom-margin {
+  margin-bottom: $gutter;
+}
+
+@mixin gutter-top-margin {
+  margin-top: $gutter;
+}
+
+@mixin gutter-vertical-margins {
+  @include gutter-bottom-margin;
+  @include gutter-top-margin;
+}
+
+@mixin gutter-bottom-margin-to-double {
+  margin-bottom: $gutter;
+
+  @include media(tablet) {
+    margin-bottom: $gutter * 2;
+  }
+}
