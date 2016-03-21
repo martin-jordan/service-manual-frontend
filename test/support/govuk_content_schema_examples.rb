@@ -45,7 +45,6 @@ module GovukContentSchemaExamples
     def supported_formats
       %w{
         redirect
-        take_part
         topical_event_about_page
         unpublishing
         working_group
