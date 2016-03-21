@@ -46,7 +46,6 @@ module GovukContentSchemaExamples
       %w{
         redirect
         unpublishing
-        working_group
       }
     end
   end
