@@ -45,7 +45,6 @@ module GovukContentSchemaExamples
     def supported_formats
       %w{
         redirect
-        unpublishing
       }
     end
   end
