@@ -43,9 +43,7 @@ module GovukContentSchemaExamples
     end
 
     def supported_formats
-      %w{
-        redirect
-      }
+      %w{}
     end
   end
 end
