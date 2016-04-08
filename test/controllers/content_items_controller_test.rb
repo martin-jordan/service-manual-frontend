@@ -13,7 +13,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test "gets item from content store" do
-    content_item = content_store_has_schema_example('case_study', 'case_study')
+    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
 
     get :show, path: path_for(content_item)
     assert_response :success
@@ -21,7 +21,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test "sets the expiry as sent by content-store" do
-    content_item = content_store_has_schema_example('coming_soon', 'coming_soon')
+    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
     content_store_has_item(content_item['base_path'], content_item, max_age: 20)
 
     get :show, path: path_for(content_item)
@@ -30,7 +30,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test "honours cache-control private items" do
-    content_item = content_store_has_schema_example('coming_soon', 'coming_soon')
+    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
     content_store_has_item(content_item['base_path'], content_item, private: true)
 
     get :show, path: path_for(content_item)
@@ -38,18 +38,8 @@ class ContentItemsControllerTest < ActionController::TestCase
     assert_equal "max-age=900, private", @response.headers['Cache-Control']
   end
 
-  test "renders translated content items in their locale" do
-    content_item = content_store_has_schema_example('case_study', 'translated')
-    translated_format_name = I18n.t("content_item.format.case_study", count: 1, locale: 'es')
-
-    get :show, path: path_for(content_item)
-
-    assert_response :success
-    assert_select "title", %r(#{translated_format_name})
-  end
-
   test "gets item from content store even when url contains multi-byte UTF8 character" do
-    content_item = content_store_has_schema_example('case_study', 'case_study')
+    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
     utf8_path    = "government/case-studies/caf\u00e9-culture"
     content_item['base_path'] = "/#{utf8_path}"
 
@@ -57,15 +47,6 @@ class ContentItemsControllerTest < ActionController::TestCase
 
     get :show, path: utf8_path
     assert_response :success
-  end
-
-  test "includes government navigation and sets the correct active item" do
-    content_item = content_store_has_schema_example('case_study', 'case_study')
-
-    get :show, path: path_for(content_item)
-
-    assert_response :success
-    assert_select shared_component_selector('government_navigation'), match: "case-studies"
   end
 
   test "returns 404 for item not in content store" do
@@ -84,17 +65,6 @@ class ContentItemsControllerTest < ActionController::TestCase
 
     get :show, path: path
     assert_response :forbidden
-  end
-
-  test 'content item without images is rendered with a placeholder image' do
-    content_item_without_images = govuk_content_schema_example('case_study', 'case_study')
-    content_item_without_images['details'].delete('image')
-    content_store_has_item(content_item_without_images['base_path'], content_item_without_images)
-
-    get :show, path: path_for(content_item_without_images)
-
-    assert_response :success
-    assert_select '.sidebar-image img[src="/service-manual-frontend/placeholder.jpg"]', count: 1
   end
 
   test 'renders service manual guides' do

@@ -1,17 +1,6 @@
 # Service Manual Frontend
 
-Service Manual Frontend is a public-facing app to display the majority of documents
-on the /government part of GOV.UK. It is a replacement for the public-facing
-parts of the [Whitehall](https://github.com/alphagov/whitehall) application.
-
-## Screenshots
-
-![A  Case Study](https://raw.githubusercontent.com/alphagov/service-manual-frontend/master/docs/assets/case-study-screenshot.png)
-
-## Live examples
-
-- [gov.uk/government/case-studies/2013-elections-in-swaziland](https://www.gov.uk/government/case-studies/2013-elections-in-swaziland)
-- [gov.uk/government/statistics/announcements/diagnostic-imaging-dataset-for-september-2015](https://www.gov.uk/government/statistics/announcements/diagnostic-imaging-dataset-for-september-2015)
+Service Manual Frontend is a public-facing app to display the service manual formats on GOV.UK.
 
 ## Technical documentation
 
@@ -27,7 +16,7 @@ This is a Ruby on Rails application that fetches documents from
 
 `./startup.sh`
 
-The app should start on http://localhost:3090 or
+The app should start on http://localhost:3122 or
 http://service-manual-frontend.dev.gov.uk on GOV.UK development machines.
 
 ### Running the test suite
