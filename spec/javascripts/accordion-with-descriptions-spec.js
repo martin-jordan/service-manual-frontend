@@ -82,7 +82,6 @@ describe('An accordion with descriptions module', function () {
     expect($openCloseAllButton).toHaveText("Open all");
   });
 
-  // Ensure that the value for the aria-controls attribute matches the IDs of all of the subsections
   it("has a value for the aria-controls attribute which includes all of the subsection_content_IDs", function () {
     var $openCloseAllButton = $element.find('.js-subsection-controls button');
 
