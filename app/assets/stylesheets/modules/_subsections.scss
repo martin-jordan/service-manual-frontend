@@ -1,6 +1,9 @@
 // Topic subsections
 // Fallback styles first, for when JS is disabled
 
+// Here we're using BEM which uses __ to denote an element within a block
+// scss-lint:disable SelectorFormat
+
 .subsection {
   width: 100%;
   margin-bottom: $gutter;
@@ -146,6 +149,7 @@
       background-repeat: no-repeat;
       background-position: 0 -16px;
     }
+
     &--is-open {
       .subsection__icon {
         background-position: 0 0;
@@ -156,6 +160,7 @@
       padding-top: $gutter-half;
       padding-bottom: $gutter-half;
     }
+
     &--is-open {
       .subsection__content {
         @include media(tablet) {
@@ -165,8 +170,8 @@
     }
 
     &__list {
-    padding-left: 0;
-    list-style-type: none;
+      padding-left: 0;
+      list-style-type: none;
     }
 
     &__list-item a {
