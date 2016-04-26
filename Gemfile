@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby File.read(".ruby-version").strip
 
 gem 'airbrake', '4.0'
-gem 'govuk_frontend_toolkit', '2.0.1'
+gem 'govuk_frontend_toolkit', '4.10.0'
 gem 'logstasher', '0.6.1'
 gem 'plek', '1.11'
 gem 'rails', '4.1.14.1'
