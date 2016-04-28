@@ -58,6 +58,10 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     crumbs
   end
 
+  def summary
+    content_item['details']['summary']
+  end
+
 private
 
   def updated_at

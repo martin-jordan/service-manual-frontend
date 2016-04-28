@@ -16,4 +16,18 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
       refute page.has_content?('Published by')
     end
   end
+
+  test "displays a summary if present" do
+    setup_and_visit_content_item('point_page')
+
+    within('.lede') do
+      assert page.has_content?('Research to develop a deep knowledge of who the service users are')
+    end
+  end
+
+  test "the lede is not visible unless there is a summary" do
+    setup_and_visit_content_item('basic_with_related_discussions')
+
+    refute page.has_css?('.lede')
+  end
 end
