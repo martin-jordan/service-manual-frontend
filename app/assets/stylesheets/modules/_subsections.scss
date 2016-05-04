@@ -29,15 +29,16 @@
 
   &__list {
     @include core-19;
-    padding-left: $gutter-two-thirds;
+    padding-left: 0;
+    list-style-type: none;
   }
 
   &__list-item {
-    margin-bottom: 5px;
+    margin-bottom: 0.5em;
   }
 
   &__list-item a {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 
@@ -167,15 +168,6 @@
           padding-top: 5px;
         }
       }
-    }
-
-    &__list {
-      padding-left: 0;
-      list-style-type: none;
-    }
-
-    &__list-item a {
-      text-decoration: none;
     }
 
   }
