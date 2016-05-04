@@ -9,6 +9,7 @@ class ServiceManualTopicPresenter
     @description = content_item["description"]
     @format = content_item["format"]
     @locale = content_item["locale"]
+    @visually_collapsed = content_item["details"]["visually_collapsed"]
   end
 
   def breadcrumbs
@@ -31,6 +32,10 @@ class ServiceManualTopicPresenter
 
   def phase
     "beta"
+  end
+
+  def visually_collapsed?
+    @visually_collapsed
   end
 
 private
