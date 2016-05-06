@@ -30,13 +30,29 @@ class ServiceManualTopicTest < ActionDispatch::IntegrationTest
   end
 
   test "it lists communities in the sidebar" do
-    setup_and_visit_content_item('service_manual_topic')
+    setup_and_visit_example('service_manual_topic', 'service_manual_topic')
 
     within('.related-communities') do
       assert page.has_link?("Agile delivery community",
         href: "/service-manual/communities/agile-delivery-community")
       assert page.has_link?("User research community",
         href: "/service-manual/communities/user-research-community")
+    end
+  end
+
+  test "it does not insert the accordion buttons if the topic isn't visually collapsed" do
+    using_javascript_driver do
+      setup_and_visit_example('service_manual_topic', 'service_manual_topic')
+
+      refute page.has_css?(".subsection__button")
+    end
+  end
+
+  test "it inserts the accordion buttons if the topic is visually collapsed" do
+    using_javascript_driver do
+      setup_and_visit_example('service_manual_topic', 'service_manual_topic_collapsed')
+
+      assert page.has_css?(".subsection__button")
     end
   end
 end

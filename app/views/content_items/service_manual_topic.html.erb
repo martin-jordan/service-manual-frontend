@@ -22,7 +22,11 @@
       <%= @content_item.description %>
     </p>
 
-    <div class="js-hidden" data-module="accordion-with-descriptions">
+    <% if @content_item.visually_collapsed? %>
+      <div class="js-hidden" data-module="accordion-with-descriptions">
+    <% else %>
+      <div>
+    <% end %>
       <div class="subsection-wrapper">
 
         <% @content_item.groups.each_with_index do |link_group, idx| %>
