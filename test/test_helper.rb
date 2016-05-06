@@ -103,10 +103,10 @@ class ActionDispatch::IntegrationTest
   end
 
   def setup_and_visit_content_example(example)
-    @content_item = JSON.parse(example).tap do |item|
-      content_store_has_item(item["base_path"], item.to_json)
-      visit item["base_path"]
-    end
+    base_path = JSON.parse(example).fetch('base_path')
+
+    content_store_has_item(base_path, example)
+    visit base_path
   end
 
   def get_content_example(name)
