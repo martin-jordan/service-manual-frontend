@@ -50,53 +50,6 @@ class ActionDispatch::IntegrationTest
     end
   end
 
-  def assert_has_component_metadata_pair(label, value)
-    within shared_component_selector("metadata") do
-      # Flatten top level / "other" args, for consistent hash access
-      component_args = JSON.parse(page.text).tap do |args|
-        args.merge!(args.delete("other"))
-      end
-      assert_equal value, component_args.fetch(label)
-    end
-  end
-
-  def assert_has_component_title(title)
-    within shared_component_selector("title") do
-      assert_equal title, JSON.parse(page.text).fetch("title")
-    end
-  end
-
-  def assert_has_component_govspeak(content, index: 1)
-    within_component_govspeak(index: index) do
-      assert_equal content, JSON.parse(page.text).fetch("content")
-    end
-  end
-
-  def within_component_govspeak(index: 1)
-    within(shared_component_selector("govspeak") + ":nth-of-type(#{index})") do
-      component_args = JSON.parse(page.text)
-      yield component_args
-    end
-  end
-
-  def assert_has_component_breadcrumbs(breadcrumbs)
-    within shared_component_selector("breadcrumbs") do
-      assert_equal breadcrumbs, JSON.parse(page.text).deep_symbolize_keys.fetch(:breadcrumbs)
-    end
-  end
-
-  def assert_has_contents_list(contents)
-    assert page.has_css?(".dash-list"), "Failed to find an element with a class of dash-list"
-    within ".dash-list" do
-      contents.each do |heading|
-        selector = "a[href=\"##{heading[:id]}\"]"
-        text = heading.fetch(:text)
-        assert page.has_css?(selector), "Failed to find an element matching: #{selector}"
-        assert page.has_css?(selector, text: text), "Failed to find an element matching #{selector} with text: #{text}"
-      end
-    end
-  end
-
   def setup_and_visit_content_item(name)
     example = get_content_example(name)
     setup_and_visit_content_example(example)
