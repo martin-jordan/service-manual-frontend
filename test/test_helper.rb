@@ -50,28 +50,15 @@ class ActionDispatch::IntegrationTest
     end
   end
 
-  def setup_and_visit_content_item(name)
-    example = get_content_example(name)
-    setup_and_visit_content_example(example)
-  end
-
-  def setup_and_visit_content_example(example)
+  def setup_and_visit_example(format, name)
+    example = get_content_example_by_format_and_name(format, name)
     base_path = JSON.parse(example).fetch('base_path')
 
     content_store_has_item(base_path, example)
     visit base_path
   end
 
-  def get_content_example(name)
-    get_content_example_by_format_and_name(schema_format, name)
-  end
-
   def get_content_example_by_format_and_name(format, name)
     GovukContentSchemaTestHelpers::Examples.new.get(format, name)
-  end
-
-  # Override this method if your test file doesn't match the convention
-  def schema_format
-    self.class.to_s.gsub('Test', '').underscore
   end
 end
