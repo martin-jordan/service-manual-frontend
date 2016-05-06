@@ -40,16 +40,20 @@ class ServiceManualTopicTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "it does not apply the accordion if the topic isn't visually collapsed" do
-    setup_and_visit_content_item('service_manual_topic')
+  test "it does not insert the accordion buttons if the topic isn't visually collapsed" do
+    using_javascript_driver do
+      setup_and_visit_content_item('service_manual_topic')
 
-    refute page.has_css?(%{div[data-module="accordion-with-descriptions"]})
+      refute page.has_css?(".subsection__button")
+    end
   end
 
-  test "it does apply the accordion if the topic is visually collapsed" do
-    example = get_content_example_by_format_and_name('service_manual_topic', 'service_manual_topic_collapsed')
-    setup_and_visit_content_example(example)
+  test "it inserts the accordion buttons if the topic is visually collapsed" do
+    using_javascript_driver do
+      example = get_content_example_by_format_and_name('service_manual_topic', 'service_manual_topic_collapsed')
+      setup_and_visit_content_example(example)
 
-    assert page.has_css?(%{div[data-module="accordion-with-descriptions"]})
+      assert page.has_css?(".subsection__button")
+    end
   end
 end
