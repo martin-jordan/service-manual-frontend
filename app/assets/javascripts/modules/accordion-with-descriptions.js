@@ -53,6 +53,8 @@
         toggleIcon($(this));
         toggleState($(this).find('.subsection__button'));
         setOpenCloseAllText();
+        setSessionStorage();
+        removeSessionStorage();
         return false;
       });
 
@@ -61,6 +63,8 @@
         toggleIcon($(this).parent().parent());
         toggleState($(this));
         setOpenCloseAllText();
+        setSessionStorage();
+        removeSessionStorage();
         return false;
       });
 
@@ -122,6 +126,55 @@
         $node.attr("aria-expanded", state);
       }
 
+      function setSessionStorage() {
+        var isOpenSubsections = $('.subsection--is-open').length;
+        if (isOpenSubsections) {
+          var $openSubsections = $('.subsection--is-open');
+          $openSubsections.each(function(index) {
+            var subsectionOpenContentId = $(this).find('.subsection__content').attr('id');
+            // console.log("Open section: "+subsectionOpenContentId);
+            sessionStorage.setItem( subsectionOpenContentId , subsectionOpenContentId);
+          });
+        }
+      }
+
+      function removeSessionStorage() {
+        var isClosedSubsections = $('.subsection').length;
+        if (isClosedSubsections) {
+          var $closedSubsections = $('.subsection');
+          $closedSubsections.each(function(index) {
+            var subsectionClosedContentId = $(this).find('.subsection__content').attr('id');
+            // console.log("Closed section: "+subsectionClosedContentId);
+            sessionStorage.removeItem( subsectionClosedContentId , subsectionClosedContentId);
+          });
+        }
+      }
+
+      function checkSessionStorage() {
+
+        // Get sections from Session Storage
+        var sessionStorageItems = [];
+        for ( var i = 0, len = sessionStorage.length; i < len; ++i ) {
+          sessionStorageItems.push(sessionStorage.key( i ));
+        }
+
+        // For each item in sessionStorage, this is the ID of the open section
+        // Change class to '.subsection--is-open' and the section will open
+        $.each( sessionStorageItems, function( key, value ) {
+          // console.log( key + ": " + value );
+          var $sectionInStorage = $('#'+value);
+
+          openSection($sectionInStorage);
+          var action = 'open';
+          // We want to update the button, with the aria-controls value matching the value above
+          // Only do it for this open section
+          setExpandedState($('button').attr('aria-conrols',value), "true");
+        });
+      }
+
+      // Check session storage
+      checkSessionStorage();
+
       // Add the toggle functionality all sections
       $openOrCloseAllButton.on('click', function(e) {
         var action = '';
@@ -156,6 +209,12 @@
             showCloseIcon($(this));
           }
         });
+
+        // Add any open sections to Session Storage
+        setSessionStorage();
+
+        // Remove any closed sections from Session Storage
+        removeSessionStorage();
 
         return false;
       });
