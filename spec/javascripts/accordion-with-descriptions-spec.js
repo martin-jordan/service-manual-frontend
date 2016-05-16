@@ -163,6 +163,20 @@ describe('An accordion with descriptions module', function () {
       expect($subsectionButton).toHaveAttr('aria-expanded','true');
     });
 
+    it("has its state saved in session storage", function () {
+      var GOVUKServiceManualTopic = "GOVUK_service_manual_agile_delivery";
+
+      var $subsectionButton = $element.find('.subsection__title button');
+      $subsectionButton.click();
+
+      var $openSubsections = $('.subsection--is-open');
+      var subsectionOpenContentId = $openSubsections.find('.subsection__content').attr('id');
+      sessionStorage.setItem(GOVUKServiceManualTopic+subsectionOpenContentId , 'Opened');
+
+      var storedItem = sessionStorage.getItem(GOVUKServiceManualTopic+subsectionOpenContentId);
+      expect(storedItem).toEqual('Opened');
+    });
+
   });
 
   describe('When a section is closed', function () {
@@ -185,6 +199,16 @@ describe('An accordion with descriptions module', function () {
       expect($subsectionButton).toHaveAttr('aria-expanded','true');
       $subsectionButton.click();
       expect($subsectionButton).toHaveAttr('aria-expanded','false');
+    });
+
+    it("has its state removed in session storage", function () {
+      var GOVUKServiceManualTopic = "GOVUK_service_manual_agile_delivery";
+
+      var $closedSubsections = $element.find('.subsection');
+      var subsectionClosedContentId = $closedSubsections.find('.subsection__content').attr('id');
+      sessionStorage.removeItem(GOVUKServiceManualTopic+subsectionClosedContentId , 'Opened');
+      var removedItem = sessionStorage.getItem(GOVUKServiceManualTopic+subsectionClosedContentId);
+      expect(removedItem).not.toExist();
     });
 
   });
