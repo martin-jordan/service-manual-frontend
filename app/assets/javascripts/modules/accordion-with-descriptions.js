@@ -8,7 +8,7 @@
       // Indicate that js has worked
       $element.addClass('js-accordion-with-descriptions');
 
-       // Prevent FOUC, remove class hiding content
+      // Prevent FOUC, remove class hiding content
       $element.removeClass('js-hidden');
 
       // Insert the markup for the subsection-controls
@@ -33,6 +33,17 @@
       for (var i = 0; i < totalSubsections; i++) {
         ariaControlsValue += "subsection_content_"+i+" ";
       }
+
+      // Create a unique prefix for each service manual topic
+      var GOVUKserviceManualPrefix = "GOVUK_service_manual";
+      var GOVUKserviceManualTopic = $('h1').text();
+      GOVUKserviceManualTopic = GOVUKserviceManualTopic.replace(/\s+/g,"_");
+      GOVUKserviceManualTopic = GOVUKserviceManualTopic.toLowerCase();
+      var GOVUKServiceManualTopic = GOVUKserviceManualPrefix+"_"+GOVUKserviceManualTopic+"_";
+
+      // Add a data attribute to the wrapper with the current page's topic
+      var $subsectionWrapper = $element.find('.subsection-wrapper');
+      $subsectionWrapper.attr('data-service-manual-topic', GOVUKServiceManualTopic);
 
       // Get the open/close all button
       var $openOrCloseAllButton = $element.find('.js-subsection-controls button');
@@ -67,6 +78,13 @@
         removeSessionStorage();
         return false;
       });
+
+      function openStoredSections($section) {
+        toggleSection($section);
+        toggleIcon($section);
+        toggleState($section.parent().find('.subsection__button'));
+        setOpenCloseAllText();
+      }
 
       function setOpenCloseAllText() {
         var openSubsections = $('.subsection--is-open').length;
@@ -132,8 +150,7 @@
           var $openSubsections = $('.subsection--is-open');
           $openSubsections.each(function(index) {
             var subsectionOpenContentId = $(this).find('.subsection__content').attr('id');
-            // console.log("Open section: "+subsectionOpenContentId);
-            sessionStorage.setItem( subsectionOpenContentId , subsectionOpenContentId);
+            sessionStorage.setItem( GOVUKServiceManualTopic+subsectionOpenContentId , 'Opened');
           });
         }
       }
@@ -144,32 +161,24 @@
           var $closedSubsections = $('.subsection');
           $closedSubsections.each(function(index) {
             var subsectionClosedContentId = $(this).find('.subsection__content').attr('id');
-            // console.log("Closed section: "+subsectionClosedContentId);
-            sessionStorage.removeItem( subsectionClosedContentId , subsectionClosedContentId);
+            sessionStorage.removeItem( GOVUKServiceManualTopic+subsectionClosedContentId , subsectionClosedContentId);
           });
         }
       }
 
       function checkSessionStorage() {
 
-        // Get sections from Session Storage
-        var sessionStorageItems = [];
-        for ( var i = 0, len = sessionStorage.length; i < len; ++i ) {
-          sessionStorageItems.push(sessionStorage.key( i ));
-        }
+        var $subsectionContent = $element.find('.subsection__content');
 
-        // For each item in sessionStorage, this is the ID of the open section
-        // Change class to '.subsection--is-open' and the section will open
-        $.each( sessionStorageItems, function( key, value ) {
-          // console.log( key + ": " + value );
-          var $sectionInStorage = $('#'+value);
-
-          openSection($sectionInStorage);
-          var action = 'open';
-          // We want to update the button, with the aria-controls value matching the value above
-          // Only do it for this open section
-          setExpandedState($('button').attr('aria-conrols',value), "true");
+        $subsectionContent.each(function(index) {
+          var subsectionContentId = $(this).attr('id');
+          if(sessionStorage.getItem(GOVUKServiceManualTopic+subsectionContentId)){
+            openStoredSections($("#"+subsectionContentId));
+          }
         });
+
+        setOpenCloseAllText();
+
       }
 
       // Check session storage
