@@ -1,9 +1,26 @@
 require 'gds_api/content_store'
+require 'slimmer/headers'
 
 class ContentItemsController < ApplicationController
+  include Slimmer::Headers
   rescue_from GdsApi::HTTPForbidden, with: :error_403
 
   def show
+    # The Slimmer middleware is responsible for intercepting the response and inserting the navigation header into the HTML body. We need to set the request headers here for the search form in the header to have the correct hidden input to scope the search results to just the service manual.
+
+    # It should look something like:
+
+    # <form id="search" class="site-search" action="/search" method="get" role="search">
+    #   <input type="search" name="q" id="site-search-text" title="Search" class="js-search-focus">
+    #   <input class="submit" type="submit" value="Search">
+    #   <input type="hidden" name="filter_manual" value="/service-manual">
+    # </form>
+    set_slimmer_headers(
+      search_parameters: {
+        "filter_manual" => "/service-manual"
+      }.to_json,
+    )
+
     if load_content_item
       set_expiry
       set_locale
