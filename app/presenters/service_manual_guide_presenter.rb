@@ -1,6 +1,5 @@
 class ServiceManualGuidePresenter < ContentItemPresenter
   ContentOwner = Struct.new(:title, :href)
-  RelatedDiscussion = Struct.new(:title, :href)
 
   include ActionView::Helpers::DateHelper
   attr_reader :body, :publish_time, :header_links

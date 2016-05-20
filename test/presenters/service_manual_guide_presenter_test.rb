@@ -10,10 +10,6 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     content_owner = presented_guide.content_owners.first
     assert content_owner.title.present?
     assert content_owner.href.present?
-
-    related_discussion = presented_guide.related_discussion
-    assert related_discussion.title.present?
-    assert related_discussion.href.present?
   end
 
   test '#last_published_time_in_words outputs a human readable definition of time ago' do
@@ -77,7 +73,7 @@ private
 
   def presented_guide(overriden_attributes = {})
     ServiceManualGuidePresenter.new(
-      JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', 'basic_with_related_discussions')).merge(overriden_attributes)
+      JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', 'service_manual_guide')).merge(overriden_attributes)
     )
   end
 end

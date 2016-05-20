@@ -44,12 +44,6 @@
             </dd>
           <% end %>
         <% end %>
-        <% if @content_item.related_discussion %>
-          <dt>Related discussion:</dt>
-          <dd>
-            <%= link_to @content_item.related_discussion.title, @content_item.related_discussion.href, rel: 'external' %>
-          </dd>
-        <% end %>
         <dt>Last updated:</dt>
         <dd>
           <%= @content_item.last_published_time_in_words %>

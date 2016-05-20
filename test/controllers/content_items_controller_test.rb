@@ -13,7 +13,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test "gets item from content store" do
-    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
+    content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
 
     get :show, path: path_for(content_item)
     assert_response :success
@@ -21,7 +21,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test "sets the expiry as sent by content-store" do
-    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
+    content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
     content_store_has_item(content_item['base_path'], content_item, max_age: 20)
 
     get :show, path: path_for(content_item)
@@ -30,7 +30,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test "honours cache-control private items" do
-    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
+    content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
     content_store_has_item(content_item['base_path'], content_item, private: true)
 
     get :show, path: path_for(content_item)
@@ -39,7 +39,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test "gets item from content store even when url contains multi-byte UTF8 character" do
-    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
+    content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
     utf8_path    = "government/case-studies/caf\u00e9-culture"
     content_item['base_path'] = "/#{utf8_path}"
 
@@ -68,7 +68,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   end
 
   test 'renders service manual guides' do
-    content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
+    content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
 
     get :show, path: path_for(content_item)
     ENV.delete("FLAG_ENABLE_SERVICE_MANUAL")
