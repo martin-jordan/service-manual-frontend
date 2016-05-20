@@ -71,7 +71,6 @@ class ContentItemsControllerTest < ActionController::TestCase
     content_item = content_store_has_schema_example('service_manual_guide', 'basic_with_related_discussions')
 
     get :show, path: path_for(content_item)
-    ENV.delete("FLAG_ENABLE_SERVICE_MANUAL")
     assert_response :success
     assert_equal content_item['title'], assigns[:content_item].title
   end
