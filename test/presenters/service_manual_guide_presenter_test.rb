@@ -73,20 +73,6 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     assert_equal expected, guide.content_owners
   end
 
-  test '#content_owner falls back to using deprecated content owner info in details' do
-    guide = presented_guide(
-      'details' => { 'content_owner' => { 'title' => 'Agile Community', 'href' => '/service-manual/communities/agile-delivery-community' } },
-      'links' => {}
-    )
-
-    expected = [
-      ServiceManualGuidePresenter::ContentOwner.new(
-        "Agile Community",
-        "/service-manual/communities/agile-delivery-community")
-    ]
-    assert_equal expected, guide.content_owners
-  end
-
 private
 
   def presented_guide(overriden_attributes = {})
