@@ -18,7 +18,7 @@
 
       // Wrap each title in a button, with aria controls matching the ID of the subsection
       $subsectionTitle.each(function(index) {
-        $(this).wrapInner( '<button class="subsection__button" aria-expanded="false" aria-controls="subsection_content_' + index +'"></a>' );
+        $(this).wrapInner( '<button class="subsection__button" aria-expanded="false" aria-controls="subsection_content_'+index+'"></button>' );
       });
 
       var $subsectionButton = $element.find('.subsection__button');
