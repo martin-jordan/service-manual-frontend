@@ -77,20 +77,14 @@
 
     &__header {
       position: relative;
-      padding-top: $gutter-half;
-      padding-bottom: $gutter-half;
+      padding-top: 14px;
+      padding-bottom: 12px;
       border-top: 1px solid $border-colour;
 
       // Change the background of the header on hover
       &:hover {
         cursor: pointer;
         background: $highlight-colour;
-      }
-    }
-
-    &--is-open {
-      .subsection__header {
-        padding-bottom: 6px;
       }
     }
 
@@ -123,14 +117,6 @@
       }
     }
 
-    &--is-open {
-      .subsection__description {
-        @include media(tablet) {
-          margin-bottom: $gutter-one-quarter;
-        }
-      }
-    }
-
     &__icon {
       position: absolute;
       top: 50%;
@@ -159,14 +145,15 @@
     }
 
     &__content {
-      padding-top: $gutter-half;
+      padding-top: 5px;
       padding-bottom: $gutter-half;
     }
 
     &--is-open {
       .subsection__content {
         @include media(tablet) {
-          padding-top: 5px;
+          padding-top: 10px;
+          padding-bottom: $gutter;
         }
       }
     }
