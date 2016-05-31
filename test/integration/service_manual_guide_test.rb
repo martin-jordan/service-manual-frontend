@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ServiceManualGuideTest < ActionDispatch::IntegrationTest
   test "service manual guide shows content owners" do
-    setup_and_visit_example('service_manual_guide', 'basic_with_related_discussions')
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
     within('.metadata') do
       assert page.has_link?('Agile delivery community')
@@ -26,7 +26,7 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
   end
 
   test "the lede is not visible unless there is a summary" do
-    setup_and_visit_example('service_manual_guide', 'basic_with_related_discussions')
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
     refute page.has_css?('.lede')
   end

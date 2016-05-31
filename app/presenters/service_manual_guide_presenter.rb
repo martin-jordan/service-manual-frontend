@@ -1,6 +1,5 @@
 class ServiceManualGuidePresenter < ContentItemPresenter
   ContentOwner = Struct.new(:title, :href)
-  RelatedDiscussion = Struct.new(:title, :href)
 
   include ActionView::Helpers::DateHelper
   attr_reader :body, :publish_time, :header_links
@@ -13,18 +12,8 @@ class ServiceManualGuidePresenter < ContentItemPresenter
   end
 
   def content_owners
-    if links_content_owners_attributes.any?
-      links_content_owners_attributes.map do |content_owner_attributes|
-        ContentOwner.new(content_owner_attributes["title"], content_owner_attributes["base_path"])
-      end
-    else
-      # During a migration period we need to be able to retrieve content owners
-      # from the details as well. Once all guides have been republished and no
-      # guides contain content_owners in the details then this branch and
-      # associated private method can be removed.
-      details_content_owners_attributes.map do |content_owner_attributes|
-        ContentOwner.new(content_owner_attributes["title"], content_owner_attributes["href"])
-      end
+    links_content_owners_attributes.map do |content_owner_attributes|
+      ContentOwner.new(content_owner_attributes["title"], content_owner_attributes["base_path"])
     end
   end
 
@@ -70,9 +59,5 @@ private
 
   def links_content_owners_attributes
     content_item.to_hash.fetch('links', {}).fetch('content_owners', [])
-  end
-
-  def details_content_owners_attributes
-    [content_item.to_hash.fetch('details', {}).fetch('content_owner', nil)].compact
   end
 end

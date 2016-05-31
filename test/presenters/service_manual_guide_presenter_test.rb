@@ -10,10 +10,6 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     content_owner = presented_guide.content_owners.first
     assert content_owner.title.present?
     assert content_owner.href.present?
-
-    related_discussion = presented_guide.related_discussion
-    assert related_discussion.title.present?
-    assert related_discussion.href.present?
   end
 
   test '#last_published_time_in_words outputs a human readable definition of time ago' do
@@ -73,25 +69,11 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     assert_equal expected, guide.content_owners
   end
 
-  test '#content_owner falls back to using deprecated content owner info in details' do
-    guide = presented_guide(
-      'details' => { 'content_owner' => { 'title' => 'Agile Community', 'href' => '/service-manual/communities/agile-delivery-community' } },
-      'links' => {}
-    )
-
-    expected = [
-      ServiceManualGuidePresenter::ContentOwner.new(
-        "Agile Community",
-        "/service-manual/communities/agile-delivery-community")
-    ]
-    assert_equal expected, guide.content_owners
-  end
-
 private
 
   def presented_guide(overriden_attributes = {})
     ServiceManualGuidePresenter.new(
-      JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', 'basic_with_related_discussions')).merge(overriden_attributes)
+      JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', 'service_manual_guide')).merge(overriden_attributes)
     )
   end
 end
