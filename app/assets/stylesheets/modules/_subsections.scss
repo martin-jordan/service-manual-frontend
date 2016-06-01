@@ -91,6 +91,7 @@
     &__title {
       button {
         color: $govuk-blue;
+        cursor: pointer;
 
         @include bold-24;
         background: none;
