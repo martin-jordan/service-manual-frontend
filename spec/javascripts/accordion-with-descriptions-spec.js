@@ -130,7 +130,7 @@ describe('An accordion with descriptions module', function () {
     });
 
     // Check that the total number of is-open classes matches the number of sections (so all are opened)
-    it("has two subsections which have an open state (this is equal to the totoal number of sections), the button text should be Close all", function () {
+    it("has two subsections which have an open state (this is equal to the total number of sections), the button text should be Close all", function () {
       var $openCloseAllButton = $element.find('.js-subsection-controls button');
       var openSubsections = $element.find('.subsection--is-open').length;
 
