@@ -32,10 +32,6 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     updated_at.strftime("%e %B %Y %H:%M")
   end
 
-  def main_topic
-    @main_topic ||= Array(content_item["links"] && content_item["links"]["topics"]).first
-  end
-
   def main_topic_title
     main_topic["title"] if main_topic.present?
   end
@@ -59,5 +55,9 @@ private
 
   def links_content_owners_attributes
     content_item.to_hash.fetch('links', {}).fetch('content_owners', [])
+  end
+
+  def main_topic
+    @main_topic ||= Array(content_item["links"] && content_item["links"]["service_manual_topics"]).first
   end
 end
