@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
   test 'presents the basic details required to display a Service Manual Guide' do
-    assert_equal "Agile", presented_guide.title
+    assert_equal "Agile Delivery", presented_guide.title
     assert_equal "service_manual_guide", presented_guide.format
     assert presented_guide.body.size > 10
     assert presented_guide.header_links.size >= 1
@@ -23,31 +23,31 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
   end
 
   test 'breadcrumbs have a root and a topic link' do
-    presented_guide = presented_guide("links" => { "topics" => [{ "title" => "Topic", "base_path" => "/service-manual/topic" }] })
+    guide = presented_guide
     assert_equal [
                    { title: "Service manual", url: "/service-manual" },
-                   { title: "Topic", url: "/service-manual/topic" },
-                   { title: "Agile" },
+                   { title: "Agile", url: "/service-manual/agile" },
+                   { title: "Agile Delivery" },
                  ],
-                 presented_guide.breadcrumbs
+                 guide.breadcrumbs
   end
 
   test "breadcrumbs gracefully omit topic if it's not present" do
     presented_guide = presented_guide("links" => {})
     assert_equal [
                    { title: "Service manual", url: "/service-manual" },
-                   { title: "Agile" },
+                   { title: "Agile Delivery" },
                  ],
                  presented_guide.breadcrumbs
   end
 
   test "#main_topic_title is the title of the main topic" do
-    guide = presented_guide("links" => { "topics" => [{ "title" => "Agile Delivery", "base_path" => "/service-manual/topic" }] })
-    assert_equal 'Agile Delivery', guide.main_topic_title
+    guide = presented_guide
+    assert_equal 'Agile', guide.main_topic_title
   end
 
   test "#main_topic_title can be empty" do
-    guide = presented_guide
+    guide = presented_guide("links" => {})
     assert_nil guide.main_topic_title
   end
 
