@@ -16,7 +16,7 @@
       var totalSubsections = $element.find('.subsection__content').length;
 
       var $openOrCloseAllButton;
-      var GOVUKServiceManualTopic = createServiceManualTopicPrefix();
+      var GOVUKServiceManualTopic = serviceManualTopicPrefix();
 
       addOpenCloseAllButton();
       addButtonsToSubsections();
@@ -29,13 +29,21 @@
       bindToggleForSubsections();
       bindToggleOpenCloseAllButton();
 
+      function getserviceManualTopic() {
+        return $('h1').text();
+      }
 
-      function createServiceManualTopicPrefix() {
-        var GOVUKserviceManualPrefix = "GOVUK_service_manual";
-        var GOVUKserviceManualTopic = $('h1').text();
-        GOVUKserviceManualTopic = GOVUKserviceManualTopic.replace(/\s+/g,"_");
-        GOVUKserviceManualTopic = GOVUKserviceManualTopic.toLowerCase();
-        var GOVUKServiceManualTopic = GOVUKserviceManualPrefix+"_"+GOVUKserviceManualTopic+"_";
+      function replaceSpacesWithUnderscores(str) {
+        return str.replace(/\s+/g,"_");
+      }
+
+
+      function serviceManualTopicPrefix() {
+        var topic = getserviceManualTopic();
+        topic = replaceSpacesWithUnderscores(topic);
+        topic = topic.toLowerCase();
+
+        return "GOVUK_service_manual_" + topic + "_";
       }
 
       function addOpenCloseAllButton() {
