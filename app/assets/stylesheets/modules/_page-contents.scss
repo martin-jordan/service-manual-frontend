@@ -36,4 +36,8 @@
       text-decoration: underline;
     }
   }
+  // Styles required by GOVUK.HighlightActiveNavItem JS
+  &__list .active {
+    font-weight: bold;
+  }
 }
