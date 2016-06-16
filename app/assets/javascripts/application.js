@@ -4,4 +4,4 @@
 //= require_tree .
 
 window.GOVUK.stickAtTopWhenScrolling.init();
-window.GOVUK.stopScrollingAtFooter.init();
+window.GOVUK.stopScrollingAtFooter.addEl($('.js-stick-at-top-when-scrolling'));
