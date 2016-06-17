@@ -1,0 +1,2 @@
+class ServiceManualServiceStandardPresenter < ContentItemPresenter
+end
