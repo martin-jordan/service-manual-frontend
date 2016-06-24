@@ -25,4 +25,16 @@ class ContentItemPresenterTest < ActiveSupport::TestCase
 
     assert_includes points, "title" => "1. Understand user needs"
   end
+
+  test "#breadcrumbs contains a link to the service manual root" do
+    content_item_hash = {
+      "title" => "Digital Service Standard"
+    }
+
+    assert ServiceManualServiceStandardPresenter.new(content_item_hash).breadcrumbs,
+      [
+        { title: "Service manual", url: "/service-manual" },
+        { title: "Digital Service Standard" },
+      ]
+  end
 end

@@ -3,6 +3,13 @@ class ServiceManualServiceStandardPresenter < ContentItemPresenter
     either_links["children"]
   end
 
+  def breadcrumbs
+    [
+      { title: "Service manual", url: "/service-manual" },
+      { title: title }
+    ]
+  end
+
 private
 
   def either_links
