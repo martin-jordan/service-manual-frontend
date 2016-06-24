@@ -1,6 +1,7 @@
 class ServiceManualServiceStandardPresenter < ContentItemPresenter
   def points
-    Array(content_item["details"]["points"])
+    point_hashes = Array(content_item["details"]["points"])
+    point_hashes.sort_by { |point_hash| point_hash["title"] }
   end
 
   def breadcrumbs
