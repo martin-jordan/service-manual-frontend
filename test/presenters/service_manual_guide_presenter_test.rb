@@ -41,14 +41,25 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
                  presented_guide.breadcrumbs
   end
 
-  test "#main_topic_title is the title of the main topic" do
+  test "#category_title is the title of the category" do
     guide = presented_guide
-    assert_equal 'Agile', guide.main_topic_title
+    assert_equal 'Agile', guide.category_title
   end
 
-  test "#main_topic_title can be empty" do
+  test "#category_title is the title of the parent for a point" do
+    example = GovukContentSchemaTestHelpers::Examples.new.get(
+      'service_manual_guide',
+      'point_page'
+    )
+
+    presenter = ServiceManualGuidePresenter.new(JSON.parse(example))
+
+    assert presenter.category_title, "The Digital Service Standard"
+  end
+
+  test "#category_title can be empty" do
     guide = presented_guide("links" => {})
-    assert_nil guide.main_topic_title
+    assert_nil guide.category_title
   end
 
   test '#content_owners when stored in the links' do
