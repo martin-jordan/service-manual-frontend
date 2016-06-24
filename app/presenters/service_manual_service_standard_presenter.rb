@@ -1,6 +1,6 @@
 class ServiceManualServiceStandardPresenter < ContentItemPresenter
   def points
-    either_links["children"]
+    Array(content_item["details"]["points"])
   end
 
   def breadcrumbs
@@ -8,11 +8,5 @@ class ServiceManualServiceStandardPresenter < ContentItemPresenter
       { title: "Service manual", url: "/service-manual" },
       { title: title }
     ]
-  end
-
-private
-
-  def either_links
-    content_item["expanded_links"] || content_item["links"]
   end
 end

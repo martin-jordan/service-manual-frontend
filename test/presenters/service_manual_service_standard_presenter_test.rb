@@ -1,29 +1,16 @@
 require 'test_helper'
 
 class ContentItemPresenterTest < ActiveSupport::TestCase
-  test "#points gets children from expanded_links or links during the migration period " \
-    "where the they might exist in either" do
-    children = {
-      "children" => [
-        {
-          "title" => "1. Understand user needs"
-        }
-      ]
-    }
-    service_standard_payload = {
-      "expanded_links" => children,
-      "links" => children
-    }
-    points = ServiceManualServiceStandardPresenter.new(service_standard_payload).points
+  test "#points gets points from the details" do
+    example = GovukContentSchemaTestHelpers::Examples.new.get(
+      'service_manual_service_standard',
+      'service_manual_service_standard'
+    )
 
-    assert_includes points, "title" => "1. Understand user needs"
+    points = ServiceManualServiceStandardPresenter.new(JSON.parse(example)).points
 
-    service_standard_payload = {
-      "links" => children
-    }
-    points = ServiceManualServiceStandardPresenter.new(service_standard_payload).points
-
-    assert_includes points, "title" => "1. Understand user needs"
+    assert points.any? { |point_hash| point_hash["title"] == "1. Understand user needs" }
+    assert points.any? { |point_hash| point_hash["title"] == "2. Do ongoing user research" }
   end
 
   test "#breadcrumbs contains a link to the service manual root" do
