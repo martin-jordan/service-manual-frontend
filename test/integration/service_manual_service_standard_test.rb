@@ -26,6 +26,6 @@ class ServiceManualServiceStandardTest < ActionDispatch::IntegrationTest
   end
 
   def points
-    find_all('.point')
+    find_all('.service-standard-point')
   end
 end

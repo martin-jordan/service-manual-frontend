@@ -1,0 +1,20 @@
+.service-standard-point {
+  border-top: 1px solid $border-colour;
+  margin-top: 1.5em;
+  padding-top: 1.5em;
+
+  &__title {
+    @include bold-24;
+    margin-bottom: 0.5em;
+  }
+
+  &__details {
+    @include core-19;
+    margin-bottom: 0.5em;
+    margin-left: $gutter;
+  }
+
+  &__link {
+    margin-top: 0.5em;
+  }
+}

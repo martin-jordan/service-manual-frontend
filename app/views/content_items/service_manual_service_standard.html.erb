@@ -1,9 +1,42 @@
-<h1>Digital Service Standard</h1>
+<%= content_for :page_class, "service-manual" %>
+<%= content_for :title, "#{@content_item.title} - Digital Service Manual" %>
 
-<% @content_item.points.each.with_index do |point, point_index| %>
-  <div class="point">
-    <p><%= point["title"] %></p>
-    <p><%= point["summary"] %></p>
-    <p><%= link_to "Read more about point #{ point_index + 1 }.", point["base_path"] %></p>
-  </div>
+<% content_for :phase_message do %>
+  <%= render 'shared/service_manual_custom_phase_message', phase: @content_item.phase %>
 <% end %>
+
+<%= render 'govuk_component/breadcrumbs', breadcrumbs: @content_item.breadcrumbs %>
+
+<!-- Page title and contact -->
+<div class="grid-row">
+
+  <div class="column-two-thirds">
+    <%= render "govuk_component/title", title: @content_item.title %>
+
+    <p class="lede lede--with-bottom-margin">
+      <%= @content_item.content_item["details"]["introduction"] %>
+    </p>
+
+    <p class="service-standard__body">
+      <%= @content_item.content_item["details"]["body"] %>
+    </p>
+  </div>
+</div>
+
+<!-- Points -->
+<div class="grid-row">
+
+  <div class="column-two-thirds">
+    <% @content_item.points.each.with_index do |point, point_index| %>
+
+      <div class="service-standard-point">
+        <h2 class="service-standard-point__title"><%= point["title"] %></h2>
+
+        <div class="service-standard-point__details">
+          <p><%= point["summary"] %></p>
+          <p class="service-standard-point__link"><%= link_to "Read more about point #{ point_index + 1 }.", point["base_path"] %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
