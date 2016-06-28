@@ -28,13 +28,13 @@
 
   <div class="column-two-thirds">
     <% @content_item.points.each.with_index do |point, point_index| %>
-
-      <div class="service-standard-point">
+      <% point_position = point_index + 1 %>
+      <div class="service-standard-point" id="criterion-<%= point_position -%>">
         <h2 class="service-standard-point__title"><%= point["title"] %></h2>
 
         <div class="service-standard-point__details">
           <p><%= point["summary"] %></p>
-          <p class="service-standard-point__link"><%= link_to "Read more about point #{ point_index + 1 }", point["base_path"] %></p>
+          <p class="service-standard-point__link"><%= link_to "Read more about point #{ point_position }", point["base_path"] %></p>
         </div>
       </div>
     <% end %>
