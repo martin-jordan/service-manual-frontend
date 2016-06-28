@@ -32,13 +32,13 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     updated_at.strftime("%e %B %Y %H:%M")
   end
 
-  def main_topic_title
-    main_topic["title"] if main_topic.present?
+  def category_title
+    category["title"] if category.present?
   end
 
   def breadcrumbs
     crumbs = [{ title: "Service manual", url: "/service-manual" }]
-    crumbs << { title: main_topic["title"], url: main_topic["base_path"] } if main_topic
+    crumbs << { title: category["title"], url: category["base_path"] } if category
     crumbs << { title: content_item["title"] }
     crumbs
   end
@@ -57,7 +57,19 @@ private
     content_item.to_hash.fetch('links', {}).fetch('content_owners', [])
   end
 
-  def main_topic
-    @main_topic ||= Array(content_item["links"] && content_item["links"]["service_manual_topics"]).first
+  def category
+    topic || parent
+  end
+
+  def parent
+    @_topic ||= Array(links["parent"]).first
+  end
+
+  def topic
+    @_topic ||= Array(links["service_manual_topics"]).first
+  end
+
+  def links
+    @_links ||= content_item["links"] || {}
   end
 end
