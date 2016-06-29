@@ -1,7 +1,6 @@
 class ServiceManualServiceStandardPresenter < ContentItemPresenter
   def points
-    point_hashes = Array(content_item["details"]["points"])
-    point_hashes.sort_by { |point_hash| point_hash["title"] }
+    Point.load(points_attributes).sort
   end
 
   def breadcrumbs
@@ -9,5 +8,39 @@ class ServiceManualServiceStandardPresenter < ContentItemPresenter
       { title: "Service manual", url: "/service-manual" },
       { title: title }
     ]
+  end
+
+private
+
+  def points_attributes
+    @_points_attributes ||= details["points"] || []
+  end
+
+  def details
+    @_details ||= content_item["details"] || {}
+  end
+
+  class Point
+    include Comparable
+
+    attr_reader :title, :summary, :base_path
+
+    def self.load(points_attributes)
+      points_attributes.map { |point_attributes| new(point_attributes) }
+    end
+
+    def initialize(attributes)
+      @title = attributes["title"]
+      @summary = attributes["summary"]
+      @base_path = attributes["base_path"]
+    end
+
+    def <=>(other)
+      number <=> other.number
+    end
+
+    def number
+      @_number ||= Integer(title.scan(/\A(\d*)/)[0][0])
+    end
   end
 end
