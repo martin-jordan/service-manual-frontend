@@ -6,8 +6,8 @@ class ServiceManualGuidePresenter < ContentItemPresenter
 
   def initialize(content_item)
     super
-    @body = content_item["details"]["body"]
-    @header_links = Array(content_item["details"]["header_links"])
+    @body = details["body"]
+    @header_links = Array(details["header_links"])
       .map { |h| ActiveSupport::HashWithIndifferentAccess.new(h) }
   end
 
@@ -32,8 +32,8 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     crumbs
   end
 
-  def summary
-    content_item['details']['summary']
+  def show_description?
+    !!details['show_description']
   end
 
 private
@@ -60,5 +60,9 @@ private
 
   def links
     @_links ||= content_item["links"] || {}
+  end
+
+  def details
+    @_details ||= content_item["details"] || {}
   end
 end
