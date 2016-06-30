@@ -17,13 +17,6 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     end
   end
 
-  def related_discussion
-    if content_item["details"]["related_discussion"]
-      discussion_data = content_item["details"]["related_discussion"]
-      RelatedDiscussion.new(discussion_data['title'], discussion_data['href'])
-    end
-  end
-
   def last_published_time_in_words
     "#{time_ago_in_words(updated_at)} ago"
   end
