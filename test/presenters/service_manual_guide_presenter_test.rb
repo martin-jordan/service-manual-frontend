@@ -17,11 +17,6 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     assert_equal 'about 1 year ago', guide.last_published_time_in_words
   end
 
-  test '#last_published_time_timestamp outputs a nicely formatted timestamp' do
-    guide = presented_guide('updated_at' => '2014-10-26T10:27:34Z')
-    assert_equal '26 October 2014 10:27', guide.last_published_time_timestamp
-  end
-
   test 'breadcrumbs have a root and a topic link' do
     guide = presented_guide
     assert_equal [
