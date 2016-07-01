@@ -21,10 +21,6 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     "#{time_ago_in_words(updated_at)} ago"
   end
 
-  def last_published_time_timestamp
-    updated_at.strftime("%e %B %Y %H:%M")
-  end
-
   def category_title
     category["title"] if category.present?
   end
