@@ -21,10 +21,13 @@
   @include core-24;
 
   color: $secondary-text-colour;
+  padding-bottom: .167em;
 }
 
 .page-header__title {
   @include bold-48;
+
+  @include responsive-bottom-margin;
 }
 
 .page-header__summary {
