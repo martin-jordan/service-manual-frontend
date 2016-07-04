@@ -1,0 +1,38 @@
+// Example usage:
+
+// <div class="page-header">
+//   <p class="page-header__context">Context</p>
+//   <h1 class="page-header__title">Agile delivery</h1>
+//   <p class="page-header__summary">
+//     How to work in an agile way: principles, tools and governance.
+//   </p>
+//   <p class="page-header__description">
+//     Additional descriptive text can sit here
+//   </p>
+// </div>
+
+// Here we're using BEM which uses __ to denote an element within a block
+// scss-lint:disable SelectorFormat
+.page-header {
+  @include responsive-vertical-margins;
+}
+
+.page-header__context {
+  @include core-24;
+
+  color: $secondary-text-colour;
+}
+
+.page-header__title {
+  @include bold-48;
+}
+
+.page-header__summary {
+  @include core-24;
+
+  @include responsive-bottom-margin;
+}
+
+.page-header__description {
+  @include core-19;
+}
