@@ -11,17 +11,17 @@
 
 <div class="grid-row">
   <div class="column-two-thirds">
-    <%= render 'govuk_component/title', title: @content_item.title %>
+    <div class="page-header">
+      <h1 class="page-header__title"><%= @content_item.title %></h1>
+      <p class="page-header__summary">
+        <%= @content_item.description %>
+      </p>
+    </div>
   </div>
 </div>
 
 <div class="grid-row">
   <div class="column-two-thirds">
-
-    <p class="lede lede--with-bottom-margin">
-      <%= @content_item.description %>
-    </p>
-
     <% if @content_item.visually_collapsed? %>
       <div class="js-hidden" data-module="accordion-with-descriptions">
     <% else %>
