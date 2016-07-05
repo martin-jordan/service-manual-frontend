@@ -39,6 +39,10 @@ private
       number <=> other.number
     end
 
+    def title_without_number
+      @_title_without_number ||= title.sub(/\A(\d*)\.(\s*)/, '')
+    end
+
     def number
       @_number ||= Integer(title.scan(/\A(\d*)/)[0][0])
     end

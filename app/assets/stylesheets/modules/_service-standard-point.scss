@@ -1,4 +1,6 @@
 .service-standard-point {
+  $point-gutter: 40px;
+
   border-top: 1px solid $border-colour;
   margin-top: 1.5em;
   padding-top: 1.5em;
@@ -6,12 +8,19 @@
   &__title {
     @include bold-24;
     margin-bottom: 0.5em;
+    margin-left: $point-gutter;
+  }
+
+  &__number {
+    display: inline-block;
+    float: left;
+    margin-left: -$point-gutter;
   }
 
   &__details {
     @include core-19;
     margin-bottom: 0.5em;
-    margin-left: $gutter;
+    margin-left: $point-gutter;
   }
 
   &__link {

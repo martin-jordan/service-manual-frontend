@@ -29,8 +29,11 @@
   <div class="column-two-thirds">
     <% @content_item.points.each do |point| %>
 
-      <div class="service-standard-point"  id="criterion-<%= point.number -%>">
-        <h2 class="service-standard-point__title"><%= point.title %></h2>
+      <div class="service-standard-point" id="criterion-<%= point.number -%>">
+        <h2 class="service-standard-point__title">
+          <span class="service-standard-point__number"><%= point.number %>.</span>
+          <%= point.title_without_number %>
+        </h2>
 
         <div class="service-standard-point__details">
           <p><%= point.summary %></p>
