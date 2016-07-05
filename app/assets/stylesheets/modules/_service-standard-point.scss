@@ -1,5 +1,7 @@
 .service-standard-point {
-  $point-gutter: 40px;
+
+  $point-gutter: 30px;
+  $point-gutter-tablet: 45px;
 
   border-top: 1px solid $border-colour;
   margin-top: 1.5em;
@@ -9,18 +11,29 @@
     @include bold-24;
     margin-bottom: 0.5em;
     margin-left: $point-gutter;
+
+    @include media(tablet) {
+      margin-left: $point-gutter-tablet;
+    }
   }
 
   &__number {
-    display: inline-block;
     float: left;
     margin-left: -$point-gutter;
+
+    @include media(tablet) {
+      margin-left: -$point-gutter-tablet;
+    }
   }
 
   &__details {
     @include core-19;
     margin-bottom: 0.5em;
     margin-left: $point-gutter;
+
+    @include media(tablet) {
+      margin-left: $point-gutter-tablet;
+    }
   }
 
   &__link {
