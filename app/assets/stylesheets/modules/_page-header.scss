@@ -15,24 +15,28 @@
 // scss-lint:disable SelectorFormat
 .page-header {
   @include responsive-vertical-margins;
-}
 
-.page-header__context {
-  @include core-24;
+  &__context {
+    @include core-24;
 
-  color: $secondary-text-colour;
-}
+    color: $secondary-text-colour;
+    padding-bottom: .167em;
+  }
 
-.page-header__title {
-  @include bold-48;
-}
+  &__title {
+    @include bold-48;
 
-.page-header__summary {
-  @include core-24;
+    @include responsive-bottom-margin;
+  }
 
-  @include responsive-bottom-margin;
-}
+  &__summary {
+    @include core-24;
 
-.page-header__description {
-  @include core-19;
+    @include responsive-bottom-margin;
+  }
+
+  &__description {
+    @include core-19;
+  }
+
 }

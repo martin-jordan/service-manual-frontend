@@ -40,7 +40,7 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
   test "displays a summary if present" do
     setup_and_visit_example('service_manual_guide', 'point_page')
 
-    within('.lede') do
+    within('.page-header__summary') do
       assert page.has_content?('Research to develop a deep knowledge of who the service users are')
     end
   end

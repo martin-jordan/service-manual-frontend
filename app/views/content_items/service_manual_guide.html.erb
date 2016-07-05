@@ -11,13 +11,17 @@
 <div class="grid-row">
 
   <div class="column-two-thirds">
-    <%= render "govuk_component/title", title: @content_item.title, context: @content_item.category_title %>
-
+    <div class="page-header">
+      <p class="page-header__context"><%= @content_item.category_title %></p>
+      <h1 class="page-header__title">
+        <%= @content_item.title %>
+      </h1>
     <% if @content_item.summary.present? %>
-      <p class="lede lede--with-bottom-margin">
+      <p class="page-header__summary">
         <%= @content_item.summary %>
       </p>
     <% end %>
+    </div>
   </div>
 </div>
 
