@@ -36,7 +36,15 @@ Or to specify the location explicitly:
 
 Use [Wraith](http://bbc-news.github.io/wraith/) ("A responsive screenshot
 comparison tool") to generate a visual diff to compare rendering changes in this
-application. Wraith has some dependencies you'll [need to install](http://bbc-news.github.io/wraith/os-install.html).
+application.
+
+Wraith **does not work correctly from within the VM** because
+assets-origin.dev.gov.uk is not resolvable within the VM, and so none of the
+assets load. You should instead install wraith on your local machine and run
+it from there.
+
+Wraith has some dependencies you'll also
+[need to install](http://bbc-news.github.io/wraith/os-install.html).
 
 First, on `master` branch, run:
 ```
