@@ -50,4 +50,10 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
 
     refute page.has_css?('.lede')
   end
+
+  test "displays a link to give feedback" do
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
+
+    assert page.has_link?('Give feedback about this page')
+  end
 end
