@@ -55,4 +55,12 @@ class ServiceManualTopicTest < ActionDispatch::IntegrationTest
       assert page.has_css?(".subsection__button")
     end
   end
+
+  test "it does not use the accordion or section headings if the topic does not use sections" do
+    # 'not using sections' == having one section with no title or description
+    setup_and_visit_example('service_manual_topic', 'service_manual_topic_without_sections')
+
+    refute page.has_css?(".subsection__button")
+    refute page.has_css?(".subsection__header")
+  end
 end
