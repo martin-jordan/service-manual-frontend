@@ -12,11 +12,6 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     assert content_owner.href.present?
   end
 
-  test '#last_published_time_in_words outputs a human readable definition of time ago' do
-    guide = presented_guide('updated_at' => 1.year.ago.iso8601)
-    assert_equal 'about 1 year ago', guide.last_published_time_in_words
-  end
-
   test 'breadcrumbs have a root and a topic link' do
     guide = presented_guide
     assert_equal [

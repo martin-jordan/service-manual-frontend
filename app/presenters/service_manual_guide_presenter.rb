@@ -1,7 +1,6 @@
 class ServiceManualGuidePresenter < ContentItemPresenter
   ContentOwner = Struct.new(:title, :href)
 
-  include ActionView::Helpers::DateHelper
   attr_reader :body, :publish_time, :header_links
 
   def initialize(content_item)
@@ -15,10 +14,6 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     links_content_owners_attributes.map do |content_owner_attributes|
       ContentOwner.new(content_owner_attributes["title"], content_owner_attributes["base_path"])
     end
-  end
-
-  def last_published_time_in_words
-    "#{time_ago_in_words(updated_at)} ago"
   end
 
   def category_title
@@ -36,11 +31,11 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     !!details['show_description']
   end
 
-private
-
-  def updated_at
-    DateTime.parse(content_item["updated_at"])
+  def public_updated_at
+    content_item["public_updated_at"].to_time
   end
+
+private
 
   def links_content_owners_attributes
     content_item.to_hash.fetch('links', {}).fetch('content_owners', [])
