@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class ServiceManualGuideTest < ActionDispatch::IntegrationTest
+  test "shows the time it was published at" do
+    travel_to("2015-10-10") do
+      setup_and_visit_example('service_manual_guide', 'service_manual_guide')
+
+      within('.metadata') do
+        assert page.has_content?('about 16 hours ago')
+      end
+    end
+  end
+
   test "service manual guide shows content owners" do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 

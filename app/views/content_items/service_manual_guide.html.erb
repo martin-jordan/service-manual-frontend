@@ -50,7 +50,7 @@
         <% end %>
         <dt>Last updated:</dt>
         <dd>
-          <%= @content_item.last_published_time_in_words %>
+          <%= time_ago_in_words(@content_item.public_updated_at) %> ago
         </dd>
       </dl>
     </div>
