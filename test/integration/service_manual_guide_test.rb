@@ -66,4 +66,13 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
 
     assert page.has_link?('Give feedback about this page')
   end
+
+  test 'displays the most recent change history for a guide' do
+    setup_and_visit_example('service_manual_guide', 'with_change_history')
+
+    within('.change-history') do
+      assert page.has_content? 'This is our latest change'
+      assert page.has_content? 'This is the reason for our latest change'
+    end
+  end
 end

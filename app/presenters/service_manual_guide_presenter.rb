@@ -35,6 +35,15 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     content_item["public_updated_at"].to_time
   end
 
+  def latest_change
+    if details.has_key? "latest_change_note"
+      {
+        note: details["latest_change_note"],
+        reason_for_change: details["latest_change_reason_for_change"]
+      }
+    end
+  end
+
 private
 
   def links_content_owners_attributes

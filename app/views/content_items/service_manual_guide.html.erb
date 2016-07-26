@@ -78,5 +78,34 @@
       <%= render 'govuk_component/govspeak', content: @content_item.body.html_safe %>
     </div>
 
+    <div class="change-history">
+      <div class="change-history__metadata">
+        <dl>
+        <% if @content_item.content_owners.any? %>
+          <dt>Published by:</dt>
+          <% @content_item.content_owners.each do |content_owner| %>
+            <dd>
+              <%= link_to content_owner.title, content_owner.href %>
+            </dd>
+          <% end %>
+        <% end %>
+          <dt>Last update:</dt>
+          <dd>
+            <%= @content_item.public_updated_at.strftime("%e %B %Y") %>
+
+          <% if @content_item.latest_change.present? %>
+            <p class="change-history__summary">
+              <%= @content_item.latest_change[:note] %>
+            </p>
+
+            <p class="change-history__reason">
+              <%= @content_item.latest_change[:reason_for_change] %>
+            </p>
+          <% end %>
+          </dd>
+        </dl>
+      </div>
+    </div>
+
   </div>
 </div>
