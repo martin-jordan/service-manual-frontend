@@ -44,6 +44,13 @@ class ServiceManualGuidePresenter < ContentItemPresenter
     end
   end
 
+  def previous_changes
+    change_history.map do |change|
+      change["public_timestamp"] = change["public_timestamp"].to_time
+      change.symbolize_keys
+    end
+  end
+
 private
 
   def links_content_owners_attributes
@@ -68,5 +75,9 @@ private
 
   def details
     @_details ||= content_item["details"] || {}
+  end
+
+  def change_history
+    @_change_history ||= details.fetch("change_history", {})
   end
 end

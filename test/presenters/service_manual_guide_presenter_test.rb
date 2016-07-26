@@ -83,6 +83,23 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     }
   end
 
+  test '#previous_changes returns the change history for the guide' do
+    guide = presented_guide({}, 'with_change_history')
+
+    assert_equal guide.previous_changes, [
+      {
+        public_timestamp: "2015-10-08T08:13:12+00:00".to_time,
+        note: "This is the previous change",
+        reason_for_change: "This is the reason for our previous change"
+      },
+      {
+        public_timestamp: "2015-09-10T16:37:18+00:00".to_time,
+        note: "This is another change",
+        reason_for_change: "This is why we made this change\nand it has a second line of text"
+      }
+    ]
+  end
+
 private
 
   def presented_guide(overriden_attributes = {}, example = 'service_manual_guide')

@@ -105,6 +105,23 @@
           </dd>
         </dl>
       </div>
+      <ol class="change-history__past">
+        <% if @content_item.previous_changes.present? %>
+          <% @content_item.previous_changes.each do |previous_change| %>
+            <li><%= previous_change[:public_timestamp].strftime("%e %B %Y") %>
+            <p class="change-history__summary">
+              <%= previous_change[:note] %>
+            </p>
+
+            <p class="change-history__reason">
+              <%= previous_change[:reason_for_change] %>
+            </p>
+
+            </li>
+
+          <% end %>
+        <% end %>
+      </ol>
     </div>
 
   </div>
