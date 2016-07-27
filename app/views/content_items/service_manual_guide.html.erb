@@ -89,17 +89,17 @@
             </dd>
           <% end %>
         <% end %>
+        <% if @content_item.latest_change.present? %>
           <dt>Last update:</dt>
           <dd>
-            <%= @content_item.public_updated_at.strftime("%e %B %Y") %>
+            <%= @content_item.latest_change.public_timestamp.strftime("%e %B %Y") %>
 
-          <% if @content_item.latest_change.present? %>
             <p class="change-history__summary">
-              <%= @content_item.latest_change[:note] %>
+              <%= @content_item.latest_change.note %>
             </p>
 
             <p class="change-history__reason">
-              <%= @content_item.latest_change[:reason_for_change] %>
+              <%= @content_item.latest_change.reason_for_change %>
             </p>
           <% end %>
           </dd>
@@ -108,13 +108,13 @@
       <ol class="change-history__past">
         <% if @content_item.previous_changes.present? %>
           <% @content_item.previous_changes.each do |previous_change| %>
-            <li><%= previous_change[:public_timestamp].strftime("%e %B %Y") %>
+            <li><%= previous_change.public_timestamp.strftime("%e %B %Y") %>
             <p class="change-history__summary">
-              <%= previous_change[:note] %>
+              <%= previous_change.note %>
             </p>
 
             <p class="change-history__reason">
-              <%= previous_change[:reason_for_change] %>
+              <%= previous_change.reason_for_change %>
             </p>
 
             </li>

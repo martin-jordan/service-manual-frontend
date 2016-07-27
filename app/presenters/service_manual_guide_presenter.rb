@@ -1,5 +1,6 @@
 class ServiceManualGuidePresenter < ContentItemPresenter
   ContentOwner = Struct.new(:title, :href)
+  Change = Struct.new(:public_timestamp, :note, :reason_for_change)
 
   attr_reader :body, :publish_time, :header_links
 
@@ -37,17 +38,21 @@ class ServiceManualGuidePresenter < ContentItemPresenter
 
   def latest_change
     if details.has_key? "latest_change_note"
-      {
-        note: details["latest_change_note"],
-        reason_for_change: details["latest_change_reason_for_change"]
-      }
+      Change.new(
+        public_updated_at,
+        details["latest_change_note"],
+        details["latest_change_reason_for_change"]
+      )
     end
   end
 
   def previous_changes
     change_history.map do |change|
-      change["public_timestamp"] = change["public_timestamp"].to_time
-      change.symbolize_keys
+      Change.new(
+        change["public_timestamp"].to_time,
+        change["note"],
+        change["reason_for_change"]
+      )
     end
   end
 
