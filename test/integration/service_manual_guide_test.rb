@@ -80,11 +80,10 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
     setup_and_visit_example('service_manual_guide', 'with_change_history')
 
     within('.change-history__past') do
-      assert page.has_content? 'This is the previous change'
-      assert page.has_content? 'This is the reason for our previous change'
-
       assert page.has_content? 'This is another change'
       assert page.has_content? 'This is why we made this change and it has a second line of text'
+
+      assert page.has_content? 'Guidance created'
     end
   end
 end

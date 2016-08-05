@@ -91,14 +91,14 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
 
     expected_history = [
       ServiceManualGuidePresenter::Change.new(
-        "2015-10-08T08:13:12+00:00".to_time,
-        "This is the previous change",
-        "This is the reason for our previous change"
-      ),
-      ServiceManualGuidePresenter::Change.new(
-        "2015-09-10T16:37:18+00:00".to_time,
+        "2015-09-09T08:17:10+00:00".to_time,
         "This is another change",
         "This is why we made this change\nand it has a second line of text"
+      ),
+      ServiceManualGuidePresenter::Change.new(
+        "2015-09-01T08:17:10+00:00".to_time,
+        "Guidance created",
+        ""
       )
     ]
 

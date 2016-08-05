@@ -37,17 +37,18 @@ class ServiceManualGuidePresenter < ContentItemPresenter
   end
 
   def latest_change
-    if details.has_key? "latest_change_note"
+    change = change_history.first
+    if change.present?
       Change.new(
         public_updated_at,
-        details["latest_change_note"],
-        details["latest_change_reason_for_change"]
+        change["note"],
+        change["reason_for_change"]
       )
     end
   end
 
   def previous_changes
-    change_history.map do |change|
+    change_history.drop(1).map do |change|
       Change.new(
         change["public_timestamp"].to_time,
         change["note"],
