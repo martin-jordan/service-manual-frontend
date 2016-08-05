@@ -86,4 +86,11 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
       assert page.has_content? 'Guidance created'
     end
   end
+
+  test 'omits the previous history if there is only one change' do
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
+
+    refute page.has_content? 'Show all page updates'
+    refute page.has_css? '.change-history__past'
+  end
 end

@@ -102,29 +102,28 @@
             <p class="change-history__reason">
               <%= @content_item.latest_change.reason_for_change %>
             </p>
-          <% end %>
           </dd>
+          <% end %>
         </dl>
       </div>
+    <% if @content_item.previous_changes.present? %>
       <a href="#full-history" data-controls="full-history" data-expanded="false" role="button" aria-controls="full-history" aria-expanded="false">+ Show all page updates (<%= @content_item.previous_changes.length + 1 %>)</a>
       <ol id="full-history" class="change-history__past js-hidden" aria-live="polite" role="region">
-        <% if @content_item.previous_changes.present? %>
-          <% @content_item.previous_changes.each do |previous_change| %>
-            <li>
-              <% time = previous_change.public_timestamp %>
-              <time datetime="<%= time.iso8601 %>" class="timestamp"><%= time.strftime("%e %B %Y") %></time>
-              <p class="change-history__summary">
-                <%= previous_change.note %>
-              </p>
+      <% @content_item.previous_changes.each do |previous_change| %>
+        <li>
+          <% time = previous_change.public_timestamp %>
+          <time datetime="<%= time.iso8601 %>" class="timestamp"><%= time.strftime("%e %B %Y") %></time>
+          <p class="change-history__summary">
+            <%= previous_change.note %>
+          </p>
 
-              <p class="change-history__reason">
-                <%= previous_change.reason_for_change %>
-              </p>
-            </li>
-
-          <% end %>
-        <% end %>
+          <p class="change-history__reason">
+            <%= previous_change.reason_for_change %>
+          </p>
+        </li>
+      <% end %>
       </ol>
+    <% end %>
     </div>
 
   </div>
