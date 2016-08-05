@@ -78,8 +78,8 @@
       <%= render 'govuk_component/govspeak', content: @content_item.body.html_safe %>
     </div>
 
-    <div class="change-history">
-      <div class="change-history__metadata">
+    <div class="change-history" data-module="toggle">
+      <div class="change-history__latest-change">
         <dl>
         <% if @content_item.content_owners.any? %>
           <dt>Published by:</dt>
@@ -92,7 +92,8 @@
         <% if @content_item.latest_change.present? %>
           <dt>Last update:</dt>
           <dd>
-            <%= @content_item.latest_change.public_timestamp.strftime("%e %B %Y") %>
+            <% time = @content_item.latest_change.public_timestamp %>
+            <time datetime="<%= time.iso8601 %>" class="timestamp"><%= time.strftime("%e %B %Y") %></time>
 
             <p class="change-history__summary">
               <%= @content_item.latest_change.note %>
@@ -105,18 +106,20 @@
           </dd>
         </dl>
       </div>
-      <ol class="change-history__past">
+      <a href="#full-history" data-controls="full-history" data-expanded="false" role="button" aria-controls="full-history" aria-expanded="false">+ Show all page updates (<%= @content_item.previous_changes.length + 1 %>)</a>
+      <ol id="full-history" class="change-history__past js-hidden" aria-live="polite" role="region">
         <% if @content_item.previous_changes.present? %>
           <% @content_item.previous_changes.each do |previous_change| %>
-            <li><%= previous_change.public_timestamp.strftime("%e %B %Y") %>
-            <p class="change-history__summary">
-              <%= previous_change.note %>
-            </p>
+            <li>
+              <% time = previous_change.public_timestamp %>
+              <time datetime="<%= time.iso8601 %>" class="timestamp"><%= time.strftime("%e %B %Y") %></time>
+              <p class="change-history__summary">
+                <%= previous_change.note %>
+              </p>
 
-            <p class="change-history__reason">
-              <%= previous_change.reason_for_change %>
-            </p>
-
+              <p class="change-history__reason">
+                <%= previous_change.reason_for_change %>
+              </p>
             </li>
 
           <% end %>
