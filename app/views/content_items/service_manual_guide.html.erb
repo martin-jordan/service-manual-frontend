@@ -93,7 +93,7 @@
           <dt>Last update:</dt>
           <dd>
             <% time = @content_item.latest_change.public_timestamp %>
-            <time datetime="<%= time.iso8601 %>" class="timestamp"><%= time.strftime("%e %B %Y") %></time>
+            <time datetime="<%= time.iso8601 %>" class="timestamp"><%= l time, format: :short_ordinal %></time>
 
             <p class="change-history__summary">
               <%= @content_item.latest_change.note %>
@@ -112,7 +112,7 @@
       <% @content_item.previous_changes.each do |previous_change| %>
         <li>
           <% time = previous_change.public_timestamp %>
-          <time datetime="<%= time.iso8601 %>" class="timestamp"><%= time.strftime("%e %B %Y") %></time>
+          <time datetime="<%= time.iso8601 %>" class="timestamp"><%= l time, format: :short_ordinal %></time>
           <p class="change-history__summary">
             <%= previous_change.note %>
           </p>
