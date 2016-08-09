@@ -2,11 +2,7 @@ require 'test_helper'
 
 class GovernmentNavigationTest < ActionDispatch::IntegrationTest
   test "includes government navigation" do
-    example_body = get_content_example_by_format_and_name('service_manual_guide', 'service_manual_guide')
-    base_path = JSON.parse(example_body).fetch("base_path")
-    content_store_has_item(base_path, example_body)
-
-    visit base_path
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
     assert page.has_css?(shared_component_selector("government_navigation"))
   end
