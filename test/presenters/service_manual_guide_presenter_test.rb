@@ -75,20 +75,16 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
   end
 
   test '#latest_change returns the details for the most recent change' do
-    guide = presented_guide({}, 'with_change_history')
-
     expected_history = ServiceManualGuidePresenter::Change.new(
       "2015-10-09T08:17:10+00:00".to_time,
       "This is our latest change",
       "This is the reason for our latest change"
     )
 
-    assert_equal expected_history, guide.latest_change
+    assert_equal expected_history, presented_guide.latest_change
   end
 
   test '#previous_changes returns the change history for the guide' do
-    guide = presented_guide({}, 'with_change_history')
-
     expected_history = [
       ServiceManualGuidePresenter::Change.new(
         "2015-09-09T08:17:10+00:00".to_time,
@@ -102,7 +98,7 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
       )
     ]
 
-    assert_equal expected_history, guide.previous_changes
+    assert_equal expected_history, presented_guide.previous_changes
   end
 
 private

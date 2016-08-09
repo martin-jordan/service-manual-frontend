@@ -68,7 +68,7 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
   end
 
   test 'displays the published date of the most recent change' do
-    setup_and_visit_example('service_manual_guide', 'with_change_history')
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
     within('.change-history') do
       assert page.has_content? 'Last update: 9 October 2015'
@@ -76,7 +76,7 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
   end
 
   test 'displays the most recent change history for a guide' do
-    setup_and_visit_example('service_manual_guide', 'with_change_history')
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
     within('.change-history') do
       assert page.has_content? 'This is our latest change'
@@ -85,7 +85,7 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
   end
 
   test 'displays the change history for a guide' do
-    setup_and_visit_example('service_manual_guide', 'with_change_history')
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
     within('.change-history__past') do
       assert page.has_content? 'This is another change'
@@ -96,7 +96,16 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
   end
 
   test 'omits the previous history if there is only one change' do
-    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide',
+      "details" => {
+        "change_history" => [
+          {
+            "public_timestamp"  => "2015-09-01T08:17:10+00:00",
+            "note"  => "Guidance created",
+            "reason_for_change" => ""
+          }
+        ]
+      })
 
     refute page.has_content? 'Show all page updates'
     refute page.has_css? '.change-history__past'
