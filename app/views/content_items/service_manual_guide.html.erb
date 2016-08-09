@@ -92,16 +92,7 @@
         <% if @content_item.latest_change.present? %>
           <dt>Last update:</dt>
           <dd>
-            <% time = @content_item.latest_change.public_timestamp %>
-            <time datetime="<%= time.iso8601 %>" class="timestamp"><%= l time, format: :short_ordinal %></time>
-
-            <p class="change-history__summary">
-              <%= @content_item.latest_change.note %>
-            </p>
-
-            <div class="change-history__reason">
-              <%= simple_format(@content_item.latest_change.reason_for_change) %>
-            </div>
+            <%= render partial: 'shared/change_history', locals: {change: @content_item.latest_change} %>
           </dd>
           <% end %>
         </dl>
@@ -111,15 +102,7 @@
       <ol id="full-history" class="change-history__past js-hidden" aria-live="polite" role="region">
       <% @content_item.previous_changes.each do |previous_change| %>
         <li>
-          <% time = previous_change.public_timestamp %>
-          <time datetime="<%= time.iso8601 %>" class="timestamp"><%= l time, format: :short_ordinal %></time>
-          <p class="change-history__summary">
-            <%= previous_change.note %>
-          </p>
-
-          <div class="change-history__reason">
-            <%= simple_format(previous_change.reason_for_change) %>
-          </div>
+          <%= render partial: 'shared/change_history', locals: {change: previous_change} %>
         </li>
       <% end %>
       </ol>
