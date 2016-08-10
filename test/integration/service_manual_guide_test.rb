@@ -91,7 +91,7 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
       assert page.has_content? 'This is another change'
       assert page.has_content? 'This is why we made this change and it has a second line of text'
 
-      assert page.has_content? 'Guidance created'
+      assert page.has_content? 'Guidance first published'
     end
   end
 
@@ -101,7 +101,7 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
         "change_history" => [
           {
             "public_timestamp"  => "2015-09-01T08:17:10+00:00",
-            "note"  => "Guidance created",
+            "note"  => "Guidance first published",
             "reason_for_change" => ""
           }
         ]

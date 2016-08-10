@@ -93,7 +93,7 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
       ),
       ServiceManualGuidePresenter::Change.new(
         "2015-09-01T08:17:10+00:00".to_time,
-        "Guidance created",
+        "Guidance first published",
         ""
       )
     ]
