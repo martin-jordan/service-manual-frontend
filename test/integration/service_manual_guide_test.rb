@@ -66,4 +66,59 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
 
     assert page.has_link?('Give feedback about this page')
   end
+
+  test 'displays the published date of the most recent change' do
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
+
+    within('.change-history') do
+      assert page.has_content? 'Last update: 9 October 2015'
+    end
+  end
+
+  test 'displays the most recent change history for a guide' do
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
+
+    within('.change-history') do
+      assert page.has_content? 'This is our latest change'
+      assert page.has_content? 'This is the reason for our latest change'
+    end
+  end
+
+  test 'displays the change history for a guide' do
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide')
+
+    within('.change-history__past') do
+      assert page.has_content? 'This is another change'
+      assert page.has_content? 'This is why we made this change and it has a second line of text'
+
+      assert page.has_content? 'Guidance first published'
+    end
+  end
+
+  test 'omits the previous history if there is only one change' do
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide',
+      "details" => {
+        "change_history" => [
+          {
+            "public_timestamp"  => "2015-09-01T08:17:10+00:00",
+            "note"  => "Guidance first published",
+            "reason_for_change" => ""
+          }
+        ]
+      })
+
+    refute page.has_content? 'Show all page updates'
+    refute page.has_css? '.change-history__past'
+  end
+
+  test 'omits the latest change and previous change if the guide has no history' do
+    setup_and_visit_example('service_manual_guide', 'service_manual_guide',
+      "details" => {
+        "change_history" => []
+      })
+
+    refute page.has_content? 'Last update:'
+    refute page.has_content? 'Show all page updates'
+    refute page.has_css? '.change-history__past'
+  end
 end

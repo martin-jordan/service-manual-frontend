@@ -74,11 +74,38 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     refute ServiceManualGuidePresenter.new({}).show_description?
   end
 
+  test '#latest_change returns the details for the most recent change' do
+    expected_history = ServiceManualGuidePresenter::Change.new(
+      "2015-10-09T08:17:10+00:00".to_time,
+      "This is our latest change",
+      "This is the reason for our latest change"
+    )
+
+    assert_equal expected_history, presented_guide.latest_change
+  end
+
+  test '#previous_changes returns the change history for the guide' do
+    expected_history = [
+      ServiceManualGuidePresenter::Change.new(
+        "2015-09-09T08:17:10+00:00".to_time,
+        "This is another change",
+        "This is why we made this change\nand it has a second line of text"
+      ),
+      ServiceManualGuidePresenter::Change.new(
+        "2015-09-01T08:17:10+00:00".to_time,
+        "Guidance first published",
+        ""
+      )
+    ]
+
+    assert_equal expected_history, presented_guide.previous_changes
+  end
+
 private
 
-  def presented_guide(overriden_attributes = {})
+  def presented_guide(overriden_attributes = {}, example = 'service_manual_guide')
     ServiceManualGuidePresenter.new(
-      JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', 'service_manual_guide')).merge(overriden_attributes)
+      JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', example)).merge(overriden_attributes)
     )
   end
 end

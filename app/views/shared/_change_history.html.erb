@@ -1,0 +1,9 @@
+<% time = change.public_timestamp %>
+<time datetime="<%= time.iso8601 %>" class="timestamp"><%= l time, format: :short_ordinal %></time>
+<p class="change-history__summary">
+  <%= change.note %>
+</p>
+
+<div class="change-history__reason">
+  <%= simple_format(change.reason_for_change) %>
+</div>

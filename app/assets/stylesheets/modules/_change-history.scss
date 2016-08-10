@@ -1,0 +1,34 @@
+.change-history {
+  margin-top: 30px;
+  width: 66%;
+
+  &__latest-change {
+
+    dt {
+      @include core-19;
+    }
+
+    dd {
+      @include bold-24;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__summary,
+  &__reason {
+    @include core-16;
+    color: $grey-1;
+  }
+
+  &__past {
+
+    time {
+      @include bold-19;
+    }
+
+    li {
+      list-style: none;
+      margin-bottom: 10px;
+    }
+  }
+}

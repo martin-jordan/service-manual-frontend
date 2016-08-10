@@ -7,10 +7,12 @@
 @import "typography";
 
 // Mixins
+@import "mixins/helpers";
 @import "mixins/margins";
 
 // Modules
 @import "modules/community-contact";
+@import "modules/change-history";
 @import "modules/govspeak-wrapper";
 @import "modules/main-service-manual";
 @import "modules/metadata";
@@ -18,5 +20,6 @@
 @import "modules/page-contents";
 @import "modules/page-header";
 @import "modules/related-content";
-@import "modules/subsections";
 @import "modules/service-standard-point";
+@import "modules/subsections";
+@import "modules/typography";

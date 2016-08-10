@@ -50,15 +50,17 @@ class ActionDispatch::IntegrationTest
     end
   end
 
-  def setup_and_visit_example(format, name)
-    example = get_content_example_by_format_and_name(format, name)
-    base_path = JSON.parse(example).fetch('base_path')
+  def setup_and_visit_example(format, name, overrides = {})
+    example = get_content_example_by_format_and_name(format, name, overrides)
+    base_path = example.fetch('base_path')
 
     content_store_has_item(base_path, example)
     visit base_path
   end
 
-  def get_content_example_by_format_and_name(format, name)
-    GovukContentSchemaTestHelpers::Examples.new.get(format, name)
+  def get_content_example_by_format_and_name(format, name, overrides = {})
+    JSON.parse(
+      GovukContentSchemaTestHelpers::Examples.new.get(format, name)
+    ).deep_merge(overrides.stringify_keys)
   end
 end
