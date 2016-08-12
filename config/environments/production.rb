@@ -19,9 +19,9 @@ Rails.application.configure do
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
   # config.action_dispatch.rack_cache = true
 
-  # Disable Rails's static asset server (Apache or nginx will already do this).
+  # Disable Rails's static file server (Apache or nginx will already do this).
   # `RAILS_SERVE_STATIC_ASSETS` is an heroku-specific environment variable
-  config.serve_static_assets = %w(true yes).include?(String(ENV["RAILS_SERVE_STATIC_ASSETS"]).downcase)
+  config.serve_static_files = %w(true yes).include?(String(ENV["RAILS_SERVE_STATIC_ASSETS"]).downcase)
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
