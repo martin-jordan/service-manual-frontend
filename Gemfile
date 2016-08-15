@@ -6,7 +6,7 @@ gem 'airbrake', '4.0'
 gem 'govuk_frontend_toolkit', '4.10.0'
 gem 'logstasher', '0.6.1'
 gem 'plek', '1.11'
-gem 'rails', '4.1.14.1'
+gem 'rails', '4.2.7.1'
 gem 'sass-rails', '~> 5.0.4'
 gem 'slimmer', '9.1.0'
 gem 'uglifier', '>= 1.3.0'
@@ -30,6 +30,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test do
