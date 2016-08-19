@@ -40,6 +40,13 @@ class ServiceManualTopicTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "it includes a link to subscribe for email alerts" do
+    setup_and_visit_example('service_manual_topic', 'service_manual_topic')
+
+    assert page.has_link?("email",
+      href: "http://www.dev.gov.uk/service-manual/test-expanded-topic/email-signup")
+  end
+
   test "it does not insert the accordion buttons if the topic isn't visually collapsed" do
     using_javascript_driver do
       setup_and_visit_example('service_manual_topic', 'service_manual_topic')

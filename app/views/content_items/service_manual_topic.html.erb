@@ -50,25 +50,38 @@
   </div>
 
   <div class="column-third">
+    <aside class="related">
     <% if @content_item.content_owners.any? %>
-      <aside class="related">
-        <h2 class="related__title" id="related-communities">
+      <div class="related-item">
+        <h2 class="related-item__title" id="related-communities">
           <%= service_manual_topic_related_communities_title(@content_item.content_owners) -%>
         </h2>
-        <p class="related__description">
+        <p class="related-item__description">
           Find out what the cross-government community does and how to get involved.
         </p>
         <nav role="navigation" aria-labelledby="related-communities" class="related-communities">
-          <ul class="related__list">
+          <ul class="related-item__list">
             <% @content_item.content_owners.each do |content_owner| %>
-              <li class="related__list-item">
+              <li class="related-item__list-item">
                 <%= link_to content_owner.title, content_owner.href %>
               </li>
             <% end %>
           </ul>
         </nav>
-      </aside>
+      </div>
     <% end %>
+
+    <% if @content_item.email_alert_signup_link.present? %>
+      <div class="related-item">
+        <h2 class="related-item__title" id="related-subscriptions">
+          Get notifications
+        </h2>
+        <p class="related-item__description">When any guidance within this topic is updated
+          <%= link_to "email", @content_item.email_alert_signup_link, class: 'email-link' %>
+        </p>
+      </div>
+    <% end %>
+    </aside>
   </div>
 
 </div>

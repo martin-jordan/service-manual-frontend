@@ -2,7 +2,9 @@
   @include media(tablet) {
     border-top: 1px solid $border-colour;
   }
+}
 
+.related-item {
   padding-top: 1em;
 
   &__title {
