@@ -74,6 +74,17 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     refute ServiceManualGuidePresenter.new({}).show_description?
   end
 
+  test "#public_updated_at returns a time" do
+    assert_kind_of Time, presented_guide.public_updated_at
+  end
+
+  test "#public_updated_at returns nil if not available" do
+    example = govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
+    example.delete('public_updated_at')
+
+    assert_nil ServiceManualGuidePresenter.new(example).public_updated_at
+  end
+
   test '#latest_change returns the details for the most recent change' do
     expected_history = ServiceManualGuidePresenter::Change.new(
       "2015-10-09T08:17:10+00:00".to_time,
