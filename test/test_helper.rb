@@ -2,14 +2,16 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'webmock/minitest'
-require 'support/govuk_content_schema_examples'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'slimmer/test'
 require 'slimmer/test_helpers/shared_templates'
 
+Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |file| require file }
+
 class ActiveSupport::TestCase
   include GovukContentSchemaExamples
+  include DraftStackExamples
 end
 
 # Note: This is so that slimmer is skipped, preventing network requests for

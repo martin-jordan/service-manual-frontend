@@ -79,8 +79,9 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
   end
 
   test "#public_updated_at returns nil if not available" do
-    example = govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
-    example.delete('public_updated_at')
+    example = simulate_example_as_first_edition_on_draft_stack(
+      govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
+    )
     guide = ServiceManualGuidePresenter.new(example)
 
     assert_nil guide.public_updated_at
@@ -95,9 +96,13 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
 
   test "#visible_updated_at returns the updated_at time if the public_updated_at hasn't yet been set" do
     timestamp = '2015-10-10T09:00:00+00:00'
-    example = govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
-    example.delete('public_updated_at')
-    example["updated_at"] = timestamp
+    example = simulate_example_as_first_edition_on_draft_stack(
+      govuk_content_schema_example(
+        'service_manual_guide',
+        'service_manual_guide',
+        'updated_at' => timestamp
+      )
+    )
     guide = ServiceManualGuidePresenter.new(example)
 
     assert_equal guide.visible_updated_at, timestamp.to_time
@@ -114,17 +119,21 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
   end
 
   test "#latest_change timestamp is the updated_at time if public_updated_at hasn't been set" do
+    timestamp = '2015-10-07T09:00:00+00:00'
+    example = simulate_example_as_first_edition_on_draft_stack(
+      govuk_content_schema_example(
+        'service_manual_guide',
+        'service_manual_guide',
+        'updated_at' => timestamp
+      )
+    )
+    guide = ServiceManualGuidePresenter.new(example)
+
     expected_history = ServiceManualGuidePresenter::Change.new(
-      "2015-10-07T09:00:00+00:00".to_time,
+      timestamp.to_time,
       "This is our latest change",
       "This is the reason for our latest change"
     )
-
-    timestamp = '2015-10-07T09:00:00+00:00'
-    example = govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
-    example.delete('public_updated_at')
-    example["updated_at"] = timestamp
-    guide = ServiceManualGuidePresenter.new(example)
 
     assert_equal expected_history, guide.latest_change
   end
