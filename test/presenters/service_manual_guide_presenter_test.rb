@@ -81,8 +81,26 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
   test "#public_updated_at returns nil if not available" do
     example = govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
     example.delete('public_updated_at')
+    guide = ServiceManualGuidePresenter.new(example)
 
-    assert_nil ServiceManualGuidePresenter.new(example).public_updated_at
+    assert_nil guide.public_updated_at
+  end
+
+  test "#visible_updated_at returns the public_updated_at" do
+    timestamp = '2015-10-10T09:00:00+00:00'
+    guide = presented_guide('public_updated_at' => timestamp)
+
+    assert_equal guide.visible_updated_at, timestamp.to_time
+  end
+
+  test "#visible_updated_at returns the updated_at time if the public_updated_at hasn't yet been set" do
+    timestamp = '2015-10-10T09:00:00+00:00'
+    example = govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
+    example.delete('public_updated_at')
+    example["updated_at"] = timestamp
+    guide = ServiceManualGuidePresenter.new(example)
+
+    assert_equal guide.visible_updated_at, timestamp.to_time
   end
 
   test '#latest_change returns the details for the most recent change' do
