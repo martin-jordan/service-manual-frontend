@@ -113,6 +113,22 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     assert_equal expected_history, presented_guide.latest_change
   end
 
+  test "#latest_change timestamp is the updated_at time if public_updated_at hasn't been set" do
+    expected_history = ServiceManualGuidePresenter::Change.new(
+      "2015-10-07T09:00:00+00:00".to_time,
+      "This is our latest change",
+      "This is the reason for our latest change"
+    )
+
+    timestamp = '2015-10-07T09:00:00+00:00'
+    example = govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
+    example.delete('public_updated_at')
+    example["updated_at"] = timestamp
+    guide = ServiceManualGuidePresenter.new(example)
+
+    assert_equal expected_history, guide.latest_change
+  end
+
   test '#previous_changes returns the change history for the guide' do
     expected_history = [
       ServiceManualGuidePresenter::Change.new(
