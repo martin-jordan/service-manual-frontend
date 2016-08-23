@@ -30,9 +30,10 @@ module GovukContentSchemaExamples
     document
   end
 
-  def govuk_content_schema_example(schema_name, example_name)
-    string = GovukContentSchemaTestHelpers::Examples.new.get(schema_name, example_name)
-    JSON.parse(string)
+  def govuk_content_schema_example(schema_name, example_name, overrides = {})
+    JSON.parse(
+      GovukContentSchemaTestHelpers::Examples.new.get(schema_name, example_name)
+    ).deep_merge(overrides.stringify_keys)
   end
 
   module ClassMethods

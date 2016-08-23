@@ -6,7 +6,7 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
     last_saved_at = "2015-10-10T08:55:00+00:00"
 
     travel_to(now) do
-      example = get_content_example_by_format_and_name(
+      example = govuk_content_schema_example(
         'service_manual_guide',
         'service_manual_guide',
         'updated_at' => last_saved_at
