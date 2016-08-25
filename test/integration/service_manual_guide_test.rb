@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ServiceManualGuideTest < ActionDispatch::IntegrationTest
-  test "shows the time it was saved and hasn't been published yet" do
+  test "shows the time it was saved if it hasn't been published yet" do
     now = "2015-10-10T09:00:00+00:00"
     last_saved_at = "2015-10-10T08:55:00+00:00"
 
@@ -23,7 +23,7 @@ class ServiceManualGuideTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "shows the time it was published at" do
+  test "shows the time it was published if it has been published" do
     travel_to("2015-10-10") do
       setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
