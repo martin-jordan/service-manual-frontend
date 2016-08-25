@@ -1,7 +1,29 @@
 require 'test_helper'
 
 class ServiceManualGuideTest < ActionDispatch::IntegrationTest
-  test "shows the time it was published at" do
+  test "shows the time it was saved if it hasn't been published yet" do
+    now = "2015-10-10T09:00:00+00:00"
+    last_saved_at = "2015-10-10T08:55:00+00:00"
+
+    travel_to(now) do
+      example = simulate_example_as_first_edition_on_draft_stack(
+        govuk_content_schema_example(
+          'service_manual_guide',
+          'service_manual_guide',
+          'updated_at' => last_saved_at
+        )
+      )
+      base_path = example.fetch('base_path')
+      content_store_has_item(base_path, example)
+      visit base_path
+
+      within('.metadata') do
+        assert page.has_content?('5 minutes ago')
+      end
+    end
+  end
+
+  test "shows the time it was published if it has been published" do
     travel_to("2015-10-10") do
       setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 

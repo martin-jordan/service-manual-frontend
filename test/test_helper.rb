@@ -2,14 +2,16 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'webmock/minitest'
-require 'support/govuk_content_schema_examples'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'slimmer/test'
 require 'slimmer/test_helpers/shared_templates'
 
+Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |file| require file }
+
 class ActiveSupport::TestCase
   include GovukContentSchemaExamples
+  include DraftStackExamples
 end
 
 # Note: This is so that slimmer is skipped, preventing network requests for
@@ -51,16 +53,10 @@ class ActionDispatch::IntegrationTest
   end
 
   def setup_and_visit_example(format, name, overrides = {})
-    example = get_content_example_by_format_and_name(format, name, overrides)
+    example = govuk_content_schema_example(format, name, overrides)
     base_path = example.fetch('base_path')
 
     content_store_has_item(base_path, example)
     visit base_path
-  end
-
-  def get_content_example_by_format_and_name(format, name, overrides = {})
-    JSON.parse(
-      GovukContentSchemaTestHelpers::Examples.new.get(format, name)
-    ).deep_merge(overrides.stringify_keys)
   end
 end

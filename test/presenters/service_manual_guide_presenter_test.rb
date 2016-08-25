@@ -74,6 +74,40 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     refute ServiceManualGuidePresenter.new({}).show_description?
   end
 
+  test "#public_updated_at returns a time" do
+    assert_kind_of Time, presented_guide.public_updated_at
+  end
+
+  test "#public_updated_at returns nil if not available" do
+    example = simulate_example_as_first_edition_on_draft_stack(
+      govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
+    )
+    guide = ServiceManualGuidePresenter.new(example)
+
+    assert_nil guide.public_updated_at
+  end
+
+  test "#visible_updated_at returns the public_updated_at" do
+    timestamp = '2015-10-10T09:00:00+00:00'
+    guide = presented_guide('public_updated_at' => timestamp)
+
+    assert_equal guide.visible_updated_at, timestamp.to_time
+  end
+
+  test "#visible_updated_at returns the updated_at time if the public_updated_at hasn't yet been set" do
+    timestamp = '2015-10-10T09:00:00+00:00'
+    example = simulate_example_as_first_edition_on_draft_stack(
+      govuk_content_schema_example(
+        'service_manual_guide',
+        'service_manual_guide',
+        'updated_at' => timestamp
+      )
+    )
+    guide = ServiceManualGuidePresenter.new(example)
+
+    assert_equal guide.visible_updated_at, timestamp.to_time
+  end
+
   test '#latest_change returns the details for the most recent change' do
     expected_history = ServiceManualGuidePresenter::Change.new(
       "2015-10-09T08:17:10+00:00".to_time,
@@ -82,6 +116,26 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     )
 
     assert_equal expected_history, presented_guide.latest_change
+  end
+
+  test "#latest_change timestamp is the updated_at time if public_updated_at hasn't been set" do
+    timestamp = '2015-10-07T09:00:00+00:00'
+    example = simulate_example_as_first_edition_on_draft_stack(
+      govuk_content_schema_example(
+        'service_manual_guide',
+        'service_manual_guide',
+        'updated_at' => timestamp
+      )
+    )
+    guide = ServiceManualGuidePresenter.new(example)
+
+    expected_history = ServiceManualGuidePresenter::Change.new(
+      timestamp.to_time,
+      "This is our latest change",
+      "This is the reason for our latest change"
+    )
+
+    assert_equal expected_history, guide.latest_change
   end
 
   test '#previous_changes returns the change history for the guide' do
