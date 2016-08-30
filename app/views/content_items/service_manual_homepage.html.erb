@@ -8,6 +8,15 @@
       <p class="hero__description">
         Helping government teams create and run great digital services that meet the <%= link_to 'Digital Service Standard', '/service-manual/service-standard' %>.
       </p>
+
+      <div class="search">
+        <form action="/search" method="get" role="search">
+          <label for="search" class="search__label">Search the service manual</label>
+          <input class="search__input js-search-focus" name="q" id="search" type="search" title="Search the service manual" />
+          <input type="hidden" name="filter_manual" value="/service-manual">
+          <input class="search__submit" type="submit" value="Search">
+        </form>
+      </div>
     </div>
 
     <div class="column-one-third">
