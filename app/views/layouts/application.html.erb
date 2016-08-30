@@ -25,9 +25,12 @@
     </main>
 
     <div class="improve-this-page">
+      <span class="improve-this-page__is-useful-question">Is this page useful?</span>
       <%= link_to "Yes", contact_govuk_path %>
       <%= link_to "No", contact_govuk_path %>
-      <%= link_to "Is there anything wrong with this page?", contact_govuk_path %>
+      <div class="improve-this-page__anything-wrong">
+        <%= link_to "Is there anything wrong with this page?", contact_govuk_path %>
+      </div>
     </div>
   </div>
 
