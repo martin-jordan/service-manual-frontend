@@ -23,6 +23,12 @@
       <%= render_phase_label @content_item, content_for(:phase_message) %>
       <%= yield %>
     </main>
+
+    <div class="improve-this-page">
+      <%= link_to "Yes", contact_govuk_path %>
+      <%= link_to "No", contact_govuk_path %>
+      <%= link_to "Is there anything wrong with this page?", contact_govuk_path %>
+    </div>
   </div>
 
 </body>
