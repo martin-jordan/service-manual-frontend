@@ -24,12 +24,42 @@
       <%= yield %>
     </main>
 
-    <div class="improve-this-page">
-      <span class="improve-this-page__is-useful-question">Is this page useful?</span>
-      <%= link_to "Yes", contact_govuk_path %>
-      <%= link_to "No", contact_govuk_path %>
-      <div class="improve-this-page__anything-wrong">
-        <%= link_to "Is there anything wrong with this page?", contact_govuk_path %>
+    <div class="improve-this-page" data-module="improve-this-page">
+      <div class="js-prompt">
+        <span class="improve-this-page__is-useful-question">Is this page useful?</span>
+        <%= link_to "Yes", contact_govuk_path, class: 'js-page-is-useful' %>
+        <%= link_to "No", contact_govuk_path, class: 'js-offer-feedback' %>
+        <div class="improve-this-page__anything-wrong">
+          <%= link_to "Is there anything wrong with this page?", contact_govuk_path, class: 'js-offer-feedback' %>
+        </div>
+      </div>
+      <div class="js-feedback-form js-hidden">
+        <div class="grid-row">
+          <div class="column-two-thirds">
+            <div class="js-errors"></div>
+            <form>
+              <input type="hidden" name="path" value="<%= request.original_url -%>">
+              <div class="improve-this-page__section">
+                <label>How should we improve this page?</label>
+                <textarea name="description" rows="5"></textarea>
+              </div>
+              <p>Include your name and email address if you'd like us to get back to you.</p>
+              <div class="improve-this-page__section">
+                <label>Name</label>
+                <span>(optional)</span>
+                <input type="text" name="name">
+              </div>
+              <div class="improve-this-page__section">
+                <label>Email</label>
+                <span>(optional)</span>
+                <input type="text" name="email">
+              </div>
+              <div>
+                <input class="improve-this-page__submit" type="submit" value="Submit">
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>

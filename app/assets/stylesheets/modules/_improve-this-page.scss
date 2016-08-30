@@ -8,11 +8,40 @@
     color: $white;
   }
 
+  label {
+    @include bold-16;
+  }
+
+  input[type="text"],
+  textarea {
+    @include box-sizing(border-box);
+    display: block;
+    width: 100%;
+  }
+
   &__is-useful-question {
     @include bold-16;
   }
 
   &__anything-wrong {
     float: right;
+  }
+
+  &__submit {
+    @include button($white);
+
+    color: $govuk-blue;
+  }
+
+  &__section {
+    margin-bottom: 1em;
+  }
+
+  &__error {
+    background-color: $error-colour;
+  }
+
+  &__error:first-letter {
+    text-transform: capitalize;
   }
 }

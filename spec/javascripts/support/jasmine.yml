@@ -19,6 +19,7 @@ css_dir: "app/assets/stylesheets"
 src_files:
   - "../../../spec/javascripts/vendor/jquery-1.11.3.min.js"
   - "../../../spec/javascripts/vendor/jasmine-jquery.js"
+  - "../../../spec/javascripts/vendor/mock-ajax.js"
   - "application.{js.coffee,js,coffee}"
 
 # list of file expressions to include as css files
