@@ -59,14 +59,14 @@ describe('An accordion with descriptions module', function () {
 
   // Add a subsection controls div, with a class of .js-subsection controls
   it("has a child element with a class of subsection-controls", function () {
-    expect($element).toContain('.js-subsection-controls');
+    expect($element).toContainElement('.js-subsection-controls');
   });
 
   // Add an 'Open all' button
 
   // Insert a button inside .js-subsection-controls
   it("has a child element which is a button", function () {
-    expect($element).toContain('.js-subsection-controls button');
+    expect($element).toContainElement('.js-subsection-controls button');
   });
 
   // Set the correct text 'Open all' and aria attributes (aria-expanded, aria-controls) for the button
@@ -114,7 +114,7 @@ describe('An accordion with descriptions module', function () {
   it("has a header with a child element which has a class of .subsection-icon", function () {
     var $subsectionHeader = $element.find('.subsection__header');
 
-    expect($subsectionHeader).toContain('.subsection__icon');
+    expect($subsectionHeader).toContainElement('.subsection__icon');
   });
 
   describe('When the open/close all button is clicked', function () {
