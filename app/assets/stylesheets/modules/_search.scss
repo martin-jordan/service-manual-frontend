@@ -1,100 +1,59 @@
-// Header search is the search box on the front page
 .search {
   @extend %contain-floats;
-  position: relative;
-  background: #fff;
 
   &__label {
-    float: left;
-    @include core-19($line-height: (28/19), $line-height-640: (28/16));
-    height: 40px;
-    text-indent: 15px;
-    overflow: hidden;
-    display: block;
-    margin-right: 10px;
-    color: $secondary-text-colour;
-
-    .js-enabled & {
-      float: none;
-      position: absolute;
-      left: 0;
-      top: 1px;
-      z-index: 1;
-      width: 100%;
-      margin-right: 0;
-      line-height: 40px;
-    }
+    color: $white;
   }
 
   &__input[type="search"] {
     @include box-sizing(border-box);
     @include core-19($line-height: (28/19), $line-height-640: (28/16));
-    position: relative;
-    min-width: 0;
+
     display: block;
+    position: relative;
+    float: left;
+
+    height: 40px;
+    width: calc(100% - 40px);
+    min-width: 0;
+    padding: 6px;
+    
     margin: 0;
     border: 0;
-    height: 40px;
-    padding: 6px;
-    background: transparent;
-    @include ie-lte(7){
-      height: 28px;
-    }
+    
+    background: $white;
+
     @include appearance(none);
-    z-index: 3;
-
-    &.focus,
-    &:focus {
-      background: #fff;
-    }
-
-    @include ie-lte(7) {
-      padding-left: 0;
-    }
-    .js-enabled & {
-      width: 86%;
-      @include calc(width, "100% - 37px");
-    }
   }
 
   &__submit {
-    position: absolute;
-    z-index: 4;
-    right: 0;
-    top: 0;
+    float: left;
+
     width: 40px;
     height: 40px;
 
     border: 1px solid $black;
     border-width: 0 0 0 1px;
 
-    @include ie-lte(7){
-      border-width: 1px;
-    }
-    border-left-color: #222;
-
-    @include border-radius(0);
-
     overflow: hidden;
     text-indent: -5000px;
     cursor: pointer;
 
     color: $white;
-    background: #0b0c0c url(https://assets.digital.cabinet-office.gov.uk/frontend/homepage/search-button-62a2c0513eea29af4d7d10836901c77a.png) no-repeat 2px 50%;
+    background: #0b0c0c image-url("search-button.png") no-repeat 2px 50%;
 
     @include device-pixel-ratio() {
       background-size: 52.5px 35px;
       background-position: 115% 50%;
     }
 
-    @include ie-lte(7) {
-      background-image: none;
-      width: auto;
+    &:focus {
+      z-index: 10;
+      position: relative;
     }
 
     &:hover {
       background-color: lighten($black, 5%);
     }
   }
-  &.js-visible { display: block; }
 }
