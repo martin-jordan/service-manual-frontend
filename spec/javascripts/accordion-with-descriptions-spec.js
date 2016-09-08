@@ -6,12 +6,12 @@ describe('An accordion with descriptions module', function () {
   var html = '\
     <div class="subsections js-hidden" data-module="accordion-with-descriptions">\
       <div class="subsection-wrapper">\
-        <div class="subsection">\
+        <div class="subsection js-subsection">\
           <div class="subsection__header">\
             <h2 class="subsection__title" id="topic-section-one">Topic Section One</h2>\
             <p class="subsection__description">Subsection description in here</p>\
           </div>\
-          <div class="subsection__content" id="subsection_content_0">\
+          <div class="subsection__content js-subsection-content" id="subsection_content_0">\
             <ul class="subsection__list">\
               <li class="subsection__list-item">\
                 <a href="">Subsection list item in here</a>\
@@ -19,12 +19,12 @@ describe('An accordion with descriptions module', function () {
             </ul>\
           </div>\
         </div>\
-        <div class="subsection">\
+        <div class="subsection js-subsection">\
           <div class="subsection__header">\
             <h2 class="subsection__title" id="topic-section-two">Topic Section Two</h2>\
             <p class="subsection__description">Subsection description in here</p>\
           </div>\
-          <div class="subsection__content" id="subsection_content_1">\
+          <div class="subsection__content js-subsection-content" id="subsection_content_1">\
             <ul class="subsection__list">\
               <li class="subsection__list-item">\
                 <a href="">Subsection list item in here</a>\
@@ -35,7 +35,7 @@ describe('An accordion with descriptions module', function () {
       </div>\
     </div>';
 
-  beforeEach(function() {
+  beforeEach(function () {
     accordion = new GOVUK.Modules.AccordionWithDescriptions();
     $element = $(html);
   });
@@ -44,129 +44,109 @@ describe('An accordion with descriptions module', function () {
     $(document).off();
   });
 
-  // Setup
-
-  // Add & remove classes to show the JS has worked
-
-  // Add a class .js-accordion-with-descriptions
-  it("has a class of js-accordion-with-descriptions", function () {
+  it("has a class of js-accordion-with-descriptions to indicate the js has loaded", function () {
     accordion.start($element);
+
     expect($element).toHaveClass("js-accordion-with-descriptions");
   });
 
-  // Remove the class .js-hidden
-  it("does not have a class of js-hidden", function () {
+  it("is not hidden", function () {
     accordion.start($element);
+
     expect($element).not.toHaveClass("js-hidden");
   });
 
-  // Add a subsection controls div, with a class of .js-subsection controls
-  it("has a child element with a class of subsection-controls", function () {
+  it("has an open/close all button", function () {
     accordion.start($element);
-    expect($element).toContainElement('.js-subsection-controls');
-  });
 
-  // Add an 'Open all' button
-
-  // Insert a button inside .js-subsection-controls
-  it("has a child element which is a button", function () {
-    accordion.start($element);
-    expect($element).toContainElement('.js-subsection-controls button');
-  });
-
-  // Set the correct text 'Open all' and aria attributes (aria-expanded, aria-controls) for the button
-  it("has an open/close all button with text inside which is equal to Open all", function () {
-    accordion.start($element);
     var $openCloseAllButton = $element.find('.js-subsection-controls button');
 
+    expect($openCloseAllButton).toExist();
     expect($openCloseAllButton).toHaveText("Open all");
-  });
-
-  // Set the correct text and aria attributes (aria-expanded, aria-controls) for the button
-
-  it("has an open/close all button with an aria-expanded attribute and it is false (as all subsections are initially closed)", function () {
-    accordion.start($element);
-    var $button = $element.find('.js-subsection-controls button');
-
-    expect($button).toHaveAttr("aria-expanded", "false");
-  });
-
-  it("has an open/close all button, with a value for the aria-controls attribute that includes all of the subsection_content_IDs", function () {
-    accordion.start($element);
-    var $openCloseAllButton = $element.find('.js-subsection-controls button');
-
+    // It has an aria-expanded false attribute as all subsections are closed
+    expect($openCloseAllButton).toHaveAttr("aria-expanded", "false");
+    // It has an aria-controls attribute that includes all the subsection_content IDs
     expect($openCloseAllButton).toHaveAttr('aria-controls','subsection_content_0 subsection_content_1 ');
   });
 
-  // Setup the open/close functionality for each section
-
-  // Insert a button into each subsection heading
-  // Set the correct text and aria attributes (aria-expanded, aria-controls) for the button
-  it("has a section with a heading with a class of .subsection__title and a child element which is a button", function () {
+  it("has no subsections which have an open state", function () {
     accordion.start($element);
-    var $subsectionButton = $element.find('.subsection__title button:first');
+
+    var openSubsections = $element.find('.subsection--is-open').length;
+
+    expect(openSubsections).toEqual(0);
+  });
+
+  it("inserts a button into each subsection to show/hide content", function () {
+    accordion.start($element);
+
+    var $subsectionButton = $element.find('.subsection__title button');
 
     expect($subsectionButton).toHaveClass('subsection__button');
+    // It has an aria-expanded false attribute as it is closed
     expect($subsectionButton).toHaveAttr('aria-expanded','false');
+    // It has an aria-controls attribute to store the subsection_content ID
     expect($subsectionButton).toHaveAttr('aria-controls','subsection_content_0');
   });
 
-  // Ensure the wrapper for the list of links is initially hidden
-  it("has two subsection-content items (one for each section) which are initially hidden", function () {
+  it("ensures all subsection content is hidden", function () {
     accordion.start($element);
-    var $subsectionContent = $element.find('.subsection__content');
 
-    expect($subsectionContent).toHaveLength(2);
-    expect($subsectionContent).toHaveClass('js-hidden');
+    $.each($element.find('.subsection__content'), function(index, content) {
+      expect(content).toHaveClass('js-hidden');
+    });
   });
 
-  // Ensure that the subsection-icon div has been inserted
-  it("has a header with a child element which has a class of .subsection-icon", function () {
+  it("adds an open/close icon to each subsection", function () {
     accordion.start($element);
+
     var $subsectionHeader = $element.find('.subsection__header');
 
     expect($subsectionHeader).toContainElement('.subsection__icon');
   });
 
-  describe('When the open/close all button is clicked', function () {
-    beforeEach(function () {
+  describe('When the "Open all" button is clicked', function () {
+
+    it('adds a .subsection--is-open class to each subsection to hide the icon', function () {
       accordion.start($element);
+      clickOpenAll();
+
+      expect($element.find('.subsection--is-open').length).toEqual(2);
     });
 
-    // Before the open/close all button is clicked
-    it("has no subsections which have an open state, the button text should be 'Open all'", function () {
-      var $openCloseAllButton = $element.find('.js-subsection-controls button');
-      var openSubsections = $element.find('.subsection--is-open').length;
+    it('adds an aria-expanded attribute to each subsection button', function () {
+      accordion.start($element);
+      clickOpenAll();
 
-      // When all sections are closed, make sure there are no --is-open classes
-      expect(openSubsections).toEqual(0);
-      expect($openCloseAllButton).toContainText("Open all");
+      expect($element.find('.js-subsection-button[aria-expanded="true"]').length).toEqual(2);
     });
 
-    // Check that the total number of is-open classes matches the number of sections (so all are opened)
-    it("has two subsections which have an open state (this is equal to the total number of sections), the button text should be Close all", function () {
-      var $openCloseAllButton = $element.find('.js-subsection-controls button');
-      var openSubsections = $element.find('.subsection--is-open').length;
+    it('removes the .js-hidden class from each subsection content to hide the list of links', function () {
+      accordion.start($element);
+      clickOpenAll();
 
-      $openCloseAllButton.click();
-
-      var openSubsections = $element.find('.subsection--is-open').length;
-      expect(openSubsections).toEqual(2);
-      expect($openCloseAllButton).toContainText("Close all");
-
-      var totalSubsections = $element.find('.subsection__content').length;
-      expect(totalSubsections).toEqual(openSubsections);
+      expect($element.find('.js-subsection-content.js-hidden').length).toEqual(0);
     });
+
+    it('changes the Open/Close all button text to "Close all"', function () {
+      accordion.start($element);
+      clickOpenAll();
+
+      expect($element.find('.js-subsection-controls button')).toContainText("Close all");
+    });
+
+    function clickOpenAll() {
+      $element.find('.js-subsection-controls button').click();
+    }
 
   });
 
   describe('When a section is open', function () {
-    beforeEach(function () {
-      accordion.start($element);
-    });
 
     // When a section is open (testing: toggleSection, openSection)
     it("does not have a class of js-hidden", function () {
+      accordion.start($element);
+
       var $subsectionButton = $element.find('.subsection__title button:first');
       var $subsectionContent = $element.find('.subsection__content:first');
       $subsectionButton.click();
@@ -175,12 +155,16 @@ describe('An accordion with descriptions module', function () {
 
     // When a section is open (testing: toggleState, setExpandedState)
     it("has a an aria-expanded attribute and the value is true", function () {
+      accordion.start($element);
+
       var $subsectionButton = $element.find('.subsection__title button:first');
       $subsectionButton.click();
       expect($subsectionButton).toHaveAttr('aria-expanded','true');
     });
 
     it("has its state saved in session storage", function () {
+      accordion.start($element);
+
       var GOVUKServiceManualTopic = "GOVUK_service_manual_agile_delivery";
 
       var $subsectionButton = $element.find('.subsection__title button');
@@ -197,12 +181,11 @@ describe('An accordion with descriptions module', function () {
   });
 
   describe('When a section is closed', function () {
-    beforeEach(function () {
-      accordion.start($element);
-    });
 
     // When a section is closed (testing: toggleSection, closeSection)
     it("has a class of js-hidden", function () {
+      accordion.start($element);
+
       var $subsectionButton = $element.find('.subsection__title button:first');
       var $subsectionContent = $element.find('.subsection__content:first');
       $subsectionButton.click();
@@ -213,6 +196,8 @@ describe('An accordion with descriptions module', function () {
 
     // When a section is closed (testing: toggleState, setExpandedState)
     it("has a an aria-expanded attribute and the value is false", function () {
+      accordion.start($element);
+
       var $subsectionButton = $element.find('.subsection__title button:first');
       var $subsectionContent = $element.find('.subsection__content');
       $subsectionButton.click();
@@ -222,6 +207,8 @@ describe('An accordion with descriptions module', function () {
     });
 
     it("has its state removed in session storage", function () {
+      accordion.start($element);
+
       var GOVUKServiceManualTopic = "GOVUK_service_manual_agile_delivery";
 
       var $closedSubsections = $element.find('.subsection');
@@ -238,10 +225,11 @@ describe('An accordion with descriptions module', function () {
       spyOn(GOVUK, 'getCurrentLocation').and.returnValue({
         hash: '#topic-section-one'
       });
-      accordion.start($element);
     });
 
     it("opens the linked to topic section", function () {
+      accordion.start($element);
+
       var $subsectionContent = $element.find('#topic-section-one')
         .parents('.subsection').find('.subsection__content');
 
@@ -249,10 +237,13 @@ describe('An accordion with descriptions module', function () {
     });
 
     it("leaves other sections closed", function () {
+      accordion.start($element);
+
       var $subsectionContent = $element.find('#topic-section-two')
         .parents('.subsection').find('.subsection__content');
 
       expect($subsectionContent).toHaveClass('js-hidden');
     });
   });
+
 });
