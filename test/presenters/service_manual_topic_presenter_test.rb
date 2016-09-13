@@ -62,7 +62,7 @@ class TopicPresenterServiceManualTest < ActiveSupport::TestCase
   end
 
   test '#email_alert_signup returns a link to the email alert signup' do
-    assert_equal "http://www.dev.gov.uk/service-manual/test-expanded-topic/email-signup",
+    assert_equal "/service-manual/test-expanded-topic/email-signup",
       presented_topic.email_alert_signup_link
   end
 

@@ -32,7 +32,7 @@ class ServiceManualTopicPresenter
 
   def email_alert_signup_link
     signups = content_item['links'].fetch('email_alert_signup', [])
-    signups.first['web_url'] if signups.any?
+    signups.first['base_path'] if signups.any?
   end
 
   def phase

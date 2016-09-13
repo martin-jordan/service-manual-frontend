@@ -44,7 +44,7 @@ class ServiceManualTopicTest < ActionDispatch::IntegrationTest
     setup_and_visit_example('service_manual_topic', 'service_manual_topic')
 
     assert page.has_link?("email",
-      href: "http://www.dev.gov.uk/service-manual/test-expanded-topic/email-signup")
+      href: "/service-manual/test-expanded-topic/email-signup")
   end
 
   test "it does not insert the accordion buttons if the topic isn't visually collapsed" do
