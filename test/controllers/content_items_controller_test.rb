@@ -75,6 +75,15 @@ class ContentItemsControllerTest < ActionController::TestCase
     assert_equal content_item['title'], assigns[:content_item].title
   end
 
+  test "sets a header to disable 'report a problem'" do
+    content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
+
+    get :show, path: path_for(content_item)
+
+    assert_equal response.headers['X-Slimmer-Report-a-Problem'], 'false',
+      'the header is not set correctly'
+  end
+
   def path_for(content_item)
     content_item['base_path'].sub(/^\//, '')
   end
