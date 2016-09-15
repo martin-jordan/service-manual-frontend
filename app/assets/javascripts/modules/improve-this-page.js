@@ -16,22 +16,22 @@
   function View ($element) {
     var that = this;
 
-    this.pageIsUsefulButton = $element.find('.js-page-is-useful');
-    this.offerFeedbackButton = $element.find('.js-offer-feedback');
-    this.feedbackForm = $element.find('.js-feedback-form');
-    this.submitFeedbackButton = that.feedbackForm.find('[type=submit]');
-    this.prompt = $element.find('.js-prompt');
+    this.$pageIsUsefulButton = $element.find('.js-page-is-useful');
+    this.$offerFeedbackButton = $element.find('.js-offer-feedback');
+    this.$feedbackForm = $element.find('.js-feedback-form');
+    this.$submitFeedbackButton = that.$feedbackForm.find('[type=submit]');
+    this.$prompt = $element.find('.js-prompt');
 
     this.onPageIsUsefulButtonClicked = function (callback) {
-      that.pageIsUsefulButton.click(preventingDefault(callback));
+      that.$pageIsUsefulButton.click(preventingDefault(callback));
     }
 
     this.onOfferFeedback = function (callback) {
-      that.offerFeedbackButton.click(preventingDefault(callback));
+      that.$offerFeedbackButton.click(preventingDefault(callback));
     }
 
     this.onSubmitFeedbackButtonClicked = function (callback) {
-      that.submitFeedbackButton.click(preventingDefault(callback));
+      that.$submitFeedbackButton.click(preventingDefault(callback));
     }
 
     this.replaceWithSuccess = function () {
@@ -43,54 +43,54 @@
     }
 
     this.showFeedbackForm = function () {
-      that.prompt.addClass('js-hidden');
-      that.feedbackForm.removeClass('js-hidden');
+      that.$prompt.addClass('js-hidden');
+      that.$feedbackForm.removeClass('js-hidden');
     }
 
-    this.feedbackFormData = function () {
-      return that.feedbackForm.find('input, textarea').serialize();
+    this.$feedbackFormData = function () {
+      return that.$feedbackForm.find('input, textarea').serialize();
     }
 
-    this.feedbackFormTrackEventParams = function () {
+    this.$feedbackFormTrackEventParams = function () {
       return {
-        category: that.feedbackForm.data('track-category'),
-        action: that.feedbackForm.data('track-action')
+        category: that.$feedbackForm.data('track-category'),
+        action: that.$feedbackForm.data('track-action')
       }
     }
 
     this.pageIsUsefulTrackEventParams = function () {
       return {
-        category: that.pageIsUsefulButton.data('track-category'),
-        action: that.pageIsUsefulButton.data('track-action')
+        category: that.$pageIsUsefulButton.data('track-category'),
+        action: that.$pageIsUsefulButton.data('track-action')
       }
     }
 
     this.renderErrors = function (errors) {
-      that.feedbackForm.find('.js-error').remove();
+      that.$feedbackForm.find('.js-error').remove();
 
       $.each(errors, function (attrib, messages) {
         $.each(messages, function (index, message) {
-          var errorNode = $('<div class="improve-this-page__error js-error">' + attrib + ' ' + message + '.</div>');
-          var field = that.feedbackForm.find('[name="'+ attrib + '"]');
+          var $errorNode = $('<div class="improve-this-page__error js-error">' + attrib + ' ' + message + '.</div>');
+          var $field = that.$feedbackForm.find('[name="'+ attrib + '"]');
 
           // If a field with the same name as the error attribute then display
           // the error inline with the field. If a matching field doesn't
           // exist then display it above the form.
-          if (field.length) {
-            field.before(errorNode);
+          if ($field.length) {
+            $field.before($errorNode);
           } else {
-            that.feedbackForm.find('.js-errors').append(errorNode);
+            that.$feedbackForm.find('.js-errors').append($errorNode);
           }
         });
       });
     }
 
     this.disableSubmitFeedbackButton = function () {
-      that.submitFeedbackButton.prop('disabled', true);
+      that.$submitFeedbackButton.prop('disabled', true);
     }
 
     this.enableSubmitFeedbackButton = function () {
-      that.submitFeedbackButton.removeAttr('disabled');
+      that.$submitFeedbackButton.removeAttr('disabled');
     }
 
     function preventingDefault(callback) {
@@ -135,11 +135,11 @@
       $.ajax({
         type: "POST",
         url: "/contact/govuk/page_improvements",
-        data: view.feedbackFormData(),
+        data: view.$feedbackFormData(),
         beforeSend: view.disableSubmitFeedbackButton
       }).done(function () {
         if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
-          var eventParams = view.feedbackFormTrackEventParams();
+          var eventParams = view.$feedbackFormTrackEventParams();
           GOVUK.analytics.trackEvent(eventParams.category, eventParams.action);
         }
 
