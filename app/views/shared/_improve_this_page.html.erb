@@ -1,11 +1,15 @@
 <div class="improve-this-page" data-module="improve-this-page">
   <div class="js-prompt">
-    <span class="improve-this-page__is-useful-question">Is this page useful?</span>
-    <%= link_to "Yes", contact_govuk_path, class: 'js-page-is-useful' %>
-    <%= link_to "No", contact_govuk_path, class: 'js-offer-feedback' %>
-    <div class="improve-this-page__anything-wrong">
-      <%= link_to "Is there anything wrong with this page?", contact_govuk_path, class: 'js-offer-feedback' %>
-    </div>
+    <h3 class="improve-this-page__is-useful-question">Is this page useful?</h3>
+    <%= link_to contact_govuk_path, { class: 'button js-page-is-useful', role: 'button' } do %>
+      Yes <span class="visually-hidden"> this page is useful</span>
+    <% end %>
+    <%= link_to contact_govuk_path, { class: 'button js-offer-feedback', role: 'button' } do %>
+      No <span class="visually-hidden"> this page is not useful</span>
+    <% end %>
+    <%= link_to contact_govuk_path, { class: 'button js-offer-feedback improve-this-page__anything-wrong', role: 'button' } do %>
+      Is there anything wrong with this page? <span class="visually-hidden"> this page is not useful</span>
+    <% end %>
   </div>
   <div class="js-feedback-form js-hidden">
     <div class="grid-row">

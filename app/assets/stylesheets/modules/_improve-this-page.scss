@@ -21,6 +21,8 @@
 
   &__is-useful-question {
     @include bold-16;
+
+    display: inline;
   }
 
   &__anything-wrong {
