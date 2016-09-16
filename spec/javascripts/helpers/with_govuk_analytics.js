@@ -1,4 +1,4 @@
-// Temporarily overrides GOVUK.analytics and either returns it
+// Temporarily overrides GOVUK.analytics and returns it
 // to it's original state
 function withGovukAnalytics (analytics, callback) {
   var original = GOVUK.analytics;
