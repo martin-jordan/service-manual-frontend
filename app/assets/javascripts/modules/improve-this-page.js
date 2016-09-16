@@ -23,15 +23,15 @@
     this.$prompt = $element.find('.js-prompt');
 
     this.onPageIsUsefulButtonClicked = function (callback) {
-      that.$pageIsUsefulButton.click(preventingDefault(callback));
+      that.$pageIsUsefulButton.on('click', preventingDefault(callback));
     }
 
     this.onOfferFeedback = function (callback) {
-      that.$offerFeedbackButton.click(preventingDefault(callback));
+      that.$offerFeedbackButton.on('click', preventingDefault(callback));
     }
 
     this.onSubmitFeedbackButtonClicked = function (callback) {
-      that.$submitFeedbackButton.click(preventingDefault(callback));
+      that.$submitFeedbackButton.on('click', preventingDefault(callback));
     }
 
     this.replaceWithSuccess = function () {
