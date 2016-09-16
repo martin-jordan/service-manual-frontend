@@ -29,6 +29,10 @@
     float: right;
   }
 
+  &__hint {
+    @include core-16;
+  }
+
   &__submit {
     @include button($white);
 
