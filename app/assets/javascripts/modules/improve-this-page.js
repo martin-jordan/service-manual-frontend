@@ -70,7 +70,10 @@
 
       $.each(errors, function (attrib, messages) {
         $.each(messages, function (index, message) {
-          var $errorNode = $('<div class="improve-this-page__error js-error">' + attrib + ' ' + message + '.</div>');
+          var $errorNode = $('<div/>)', {
+            'class': 'improve-this-page__error js-error',
+            'text': attrib + ' ' + message + '.'
+          });
           var $field = that.$feedbackForm.find('[name="'+ attrib + '"]');
 
           // If a field with the same name as the error attribute then display
