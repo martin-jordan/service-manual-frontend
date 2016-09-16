@@ -13,6 +13,7 @@ describe("Improve this page", function () {
         '<div class="js-errors"></div>' +
         '<form>' +
           '<input type="hidden" name="path" value="/path/to/page"></input>' +
+          '<input type="hidden" name="user_agent" value="Safari"></input>' +
           '<div>' +
             '<label>How should we improve this page?</label>' +
             '<input name="description"></input>' +
@@ -117,6 +118,7 @@ describe("Improve this page", function () {
         description: ["The background should be green."],
         name: ["Henry"],
         email: ["henry@example.com"],
+        user_agent: ["Safari"]
       });
     });
 

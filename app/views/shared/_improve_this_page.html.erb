@@ -17,6 +17,7 @@
         <div class="js-errors"></div>
         <form>
           <input type="hidden" name="path" value="<%= request.original_url -%>">
+          <input type="hidden" name="user_agent" value="<%= request.user_agent -%>">
           <div class="improve-this-page__section">
             <label for="improve-this-page_description">How should we improve this page? <span class="visually-hidden">required</span></label>
             <textarea name="description" rows="5" required id="improve-this-page_description"></textarea>
