@@ -18,8 +18,9 @@
 
     this.$pageIsUsefulButton = $element.find('.js-page-is-useful');
     this.$offerFeedbackButton = $element.find('.js-offer-feedback');
-    this.$feedbackForm = $element.find('.js-feedback-form');
-    this.$submitFeedbackButton = that.$feedbackForm.find('[type=submit]');
+    this.$feedbackFormContainer = $element.find('.js-feedback-form');
+    this.$feedbackForm = that.$feedbackFormContainer.find('form');
+    this.$feedbackFormSubmitButton = that.$feedbackFormContainer.find('[type=submit]');
     this.$prompt = $element.find('.js-prompt');
 
     this.onPageIsUsefulButtonClicked = function (callback) {
@@ -30,8 +31,8 @@
       that.$offerFeedbackButton.on('click', preventingDefault(callback));
     }
 
-    this.onSubmitFeedbackButtonClicked = function (callback) {
-      that.$submitFeedbackButton.on('click', preventingDefault(callback));
+    this.onSubmitFeedbackForm = function (callback) {
+      that.$feedbackForm.on('submit', preventingDefault(callback));
     }
 
     this.replaceWithSuccess = function () {
@@ -44,17 +45,17 @@
 
     this.showFeedbackForm = function () {
       that.$prompt.addClass('js-hidden');
-      that.$feedbackForm.removeClass('js-hidden');
+      that.$feedbackFormContainer.removeClass('js-hidden');
     }
 
-    this.$feedbackFormData = function () {
-      return that.$feedbackForm.find('input, textarea').serialize();
+    this.$feedbackFormContainerData = function () {
+      return that.$feedbackFormContainer.find('input, textarea').serialize();
     }
 
-    this.$feedbackFormTrackEventParams = function () {
+    this.$feedbackFormContainerTrackEventParams = function () {
       return {
-        category: that.$feedbackForm.data('track-category'),
-        action: that.$feedbackForm.data('track-action')
+        category: that.$feedbackFormContainer.data('track-category'),
+        action: that.$feedbackFormContainer.data('track-action')
       }
     }
 
@@ -66,7 +67,7 @@
     }
 
     this.renderErrors = function (errors) {
-      that.$feedbackForm.find('.js-error').remove();
+      that.$feedbackFormContainer.find('.js-error').remove();
 
       $.each(errors, function (attrib, messages) {
         $.each(messages, function (index, message) {
@@ -74,7 +75,7 @@
             'class': 'improve-this-page__error js-error',
             'text': attrib + ' ' + message + '.'
           });
-          var $field = that.$feedbackForm.find('[name="'+ attrib + '"]');
+          var $field = that.$feedbackFormContainer.find('[name="'+ attrib + '"]');
 
           // If there is a field with the same name as the error attribute
           // then display the error inline with the field. If a matching field
@@ -82,18 +83,18 @@
           if ($field.length) {
             $field.before($errorNode);
           } else {
-            that.$feedbackForm.find('.js-errors').append($errorNode);
+            that.$feedbackFormContainer.find('.js-errors').append($errorNode);
           }
         });
       });
     }
 
     this.disableSubmitFeedbackButton = function () {
-      that.$submitFeedbackButton.prop('disabled', true);
+      that.$feedbackFormSubmitButton.prop('disabled', true);
     }
 
     this.enableSubmitFeedbackButton = function () {
-      that.$submitFeedbackButton.removeAttr('disabled');
+      that.$feedbackFormSubmitButton.removeAttr('disabled');
     }
 
     function preventingDefault(callback) {
@@ -122,7 +123,7 @@
     }
 
     this.bindSubmitFeedbackButton = function () {
-      view.onSubmitFeedbackButtonClicked(that.handleSubmitFeedback);
+      view.onSubmitFeedbackForm(that.handleSubmitFeedback);
     }
 
     this.handlePageIsUseful = function () {
@@ -138,11 +139,11 @@
       $.ajax({
         type: "POST",
         url: "/contact/govuk/page_improvements",
-        data: view.$feedbackFormData(),
+        data: view.$feedbackFormContainerData(),
         beforeSend: view.disableSubmitFeedbackButton
       }).done(function () {
         if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
-          var eventParams = view.$feedbackFormTrackEventParams();
+          var eventParams = view.$feedbackFormContainerTrackEventParams();
           GOVUK.analytics.trackEvent(eventParams.category, eventParams.action);
         }
 
