@@ -76,9 +76,9 @@
           });
           var $field = that.$feedbackForm.find('[name="'+ attrib + '"]');
 
-          // If a field with the same name as the error attribute then display
-          // the error inline with the field. If a matching field doesn't
-          // exist then display it above the form.
+          // If there is a field with the same name as the error attribute
+          // then display the error inline with the field. If a matching field
+          // doesn't exist then display it above the form.
           if ($field.length) {
             $field.before($errorNode);
           } else {
