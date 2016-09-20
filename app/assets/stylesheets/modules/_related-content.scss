@@ -2,7 +2,9 @@
   @include media(tablet) {
     border-top: 1px solid $border-colour;
   }
+}
 
+.related-item {
   padding-top: 1em;
 
   &__title {
@@ -21,5 +23,12 @@
 
   &__list-item {
     margin-bottom: 0.5em;
+  }
+
+  &__email-link {
+    padding-left: 30px;
+    font-weight: bold;
+    background: image-url('mail-icon-x2.png') 5px 40% no-repeat;
+    background-size: 20px 14px;
   }
 }
