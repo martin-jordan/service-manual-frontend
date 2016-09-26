@@ -8,10 +8,6 @@
     color: $white;
   }
 
-  label {
-    @include bold-16;
-  }
-
   input[type="text"],
   textarea {
     @include box-sizing(border-box);
@@ -29,8 +25,8 @@
     float: right;
   }
 
-  &__hint {
-    @include core-16;
+  &__label {
+    @include bold-16;
   }
 
   &__submit {
