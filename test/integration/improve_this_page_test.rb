@@ -32,6 +32,9 @@ class ImproveThisPageTest < ActionDispatch::IntegrationTest
     end
   end
 
+  # Because the CSS for .js-hidden is hosted outside of this app, we test for the presence
+  # of the class rather than rely on PhantomJS to know whether the element is visible
+  # or not.
   def feedback_form_is_hidden
     page.find('.js-feedback-form')[:class].include?('js-hidden')
   end
