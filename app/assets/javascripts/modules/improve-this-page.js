@@ -71,7 +71,7 @@
 
       $.each(errors, function (attrib, messages) {
         $.each(messages, function (index, message) {
-          var $errorNode = $('<div/>)', {
+          var $errorNode = $('<div/>', {
             'class': 'improve-this-page__error js-error',
             'text': attrib + ' ' + message + '.'
           });
