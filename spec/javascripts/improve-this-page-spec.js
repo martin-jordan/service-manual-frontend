@@ -12,7 +12,7 @@ describe("Improve this page", function () {
       '<div class="js-feedback-form js-hidden" data-track-category="improve-this-page" data-track-action="give-feedback">' +
         '<div class="js-errors"></div>' +
         '<form>' +
-          '<input type="hidden" name="path" value="/path/to/page"></input>' +
+          '<input type="hidden" name="url" value="http://example.com/path/to/page"></input>' +
           '<input type="hidden" name="user_agent" value="Safari"></input>' +
           '<div>' +
             '<label>How should we improve this page?</label>' +
@@ -114,7 +114,7 @@ describe("Improve this page", function () {
       expect(request.url).toBe('/contact/govuk/page_improvements');
       expect(request.method).toBe('POST');
       expect(request.data()).toEqual({
-        path: ["/path/to/page"],
+        url: ["http://example.com/path/to/page"],
         description: ["The background should be green."],
         name: ["Henry"],
         email: ["henry@example.com"],
