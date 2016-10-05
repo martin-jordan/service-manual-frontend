@@ -14,9 +14,6 @@
   <% end %>
 </head>
 <body>
-  <% unless content_for(:simple_header) %>
-    <%= render partial: 'govuk_component/government_navigation' %>
-  <% end %>
 
   <div id="wrapper" class="<%= wrapper_class %>">
     <main role="main" id="content" class="<%= yield(:page_class) %>" lang="<%= I18n.locale %>">
@@ -24,6 +21,5 @@
       <%= yield %>
     </main>
   </div>
-
 </body>
 </html>
