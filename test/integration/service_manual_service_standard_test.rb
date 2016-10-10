@@ -49,6 +49,13 @@ class ServiceManualServiceStandardTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "it includes a link to subscribe for email alerts" do
+    setup_and_visit_example('service_manual_service_standard', 'service_manual_service_standard')
+
+    assert page.has_link?("email",
+      href: "/service-manual/service-standard/email-signup")
+  end
+
   def points
     find_all('.service-standard-point')
   end

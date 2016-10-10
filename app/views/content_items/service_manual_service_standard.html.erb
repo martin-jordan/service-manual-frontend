@@ -43,4 +43,19 @@
       </div>
     <% end %>
   </div>
+
+  <div class="column-third">
+    <aside class="related">
+    <% if @content_item.email_alert_signup_link.present? %>
+      <div class="related-item">
+        <h2 class="related-item__title" id="related-subscriptions">
+          Get notifications
+        </h2>
+        <p class="related-item__description">When any points in the Digital Service Standard are updated
+          <%= link_to "email", @content_item.email_alert_signup_link, class: 'related-item__email-link' %>
+        </p>
+      </div>
+    <% end %>
+    </aside>
+  </div>
 </div>

@@ -10,6 +10,11 @@ class ServiceManualServiceStandardPresenter < ContentItemPresenter
     ]
   end
 
+  def email_alert_signup_link
+    signups = content_item['links'].fetch('email_alert_signup', [])
+    signups.first['base_path'] if signups.any?
+  end
+
 private
 
   def points_attributes

@@ -2,12 +2,7 @@ require 'test_helper'
 
 class ContentItemPresenterTest < ActiveSupport::TestCase
   test "#points gets points from the details" do
-    example = GovukContentSchemaTestHelpers::Examples.new.get(
-      'service_manual_service_standard',
-      'service_manual_service_standard'
-    )
-
-    points = ServiceManualServiceStandardPresenter.new(JSON.parse(example)).points
+    points = presented_standard.points
 
     assert points.any? { |point_hash| point_hash.title == "1. Understand user needs" }
     assert points.any? { |point_hash| point_hash.title == "2. Do ongoing user research" }
@@ -64,5 +59,29 @@ class ContentItemPresenterTest < ActiveSupport::TestCase
         { title: "Service manual", url: "/service-manual" },
         { title: "Digital Service Standard" },
       ]
+  end
+
+  test '#email_alert_signup returns a link to the email alert signup' do
+    assert_equal "/service-manual/service-standard/email-signup",
+      presented_standard.email_alert_signup_link
+  end
+
+  test '#email_alert_signup does not error if no signup exists' do
+    assert_equal nil,
+      presented_standard(links: { email_alert_signup: [] }).email_alert_signup_link
+  end
+
+private
+
+  def presented_standard(overriden_attributes = {})
+    example = GovukContentSchemaTestHelpers::Examples.new.get(
+      'service_manual_service_standard',
+      'service_manual_service_standard'
+    )
+
+    example_with_overrides = JSON.parse(example)
+      .merge(overriden_attributes.with_indifferent_access)
+
+    ServiceManualServiceStandardPresenter.new(example_with_overrides)
   end
 end
