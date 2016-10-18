@@ -19,6 +19,7 @@ class ContentItemsController < ApplicationController
       search_parameters: {
         "filter_manual" => "/service-manual"
       }.to_json,
+      report_a_problem: "false"
     )
 
     if load_content_item

@@ -6,4 +6,8 @@ module ApplicationHelper
   def wrapper_class
     "direction-#{page_text_direction}" if page_text_direction
   end
+
+  def contact_govuk_path
+    "/contact/govuk"
+  end
 end

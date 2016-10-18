@@ -5,6 +5,7 @@
 @import "measurements";
 @import "shims";
 @import "typography";
+@import "design-patterns/buttons";
 
 // Mixins
 @import "mixins/helpers";
@@ -17,6 +18,7 @@
 @import "modules/main-service-manual";
 @import "modules/metadata";
 @import "modules/notice";
+@import "modules/improve-this-page";
 @import "modules/page-contents";
 @import "modules/page-header";
 @import "modules/related-content";

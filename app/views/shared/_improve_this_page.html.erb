@@ -1,0 +1,47 @@
+<div class="improve-this-page" data-module="improve-this-page">
+  <div class="js-prompt">
+    <h3 class="improve-this-page__is-useful-question">Is this page useful?</h3>
+    <%= link_to contact_govuk_path, { class: 'button improve-this-page__page-is-useful-button js-page-is-useful', role: 'button' } do %>
+      Yes <span class="visually-hidden"> this page is useful</span>
+    <% end %>
+    <%= link_to contact_govuk_path, { class: 'button js-offer-feedback', role: 'button' } do %>
+      No <span class="visually-hidden"> this page is not useful</span>
+    <% end %>
+    <%= link_to contact_govuk_path, { class: 'button js-offer-feedback improve-this-page__anything-wrong', role: 'button' } do %>
+      Is there anything wrong with this page? <span class="visually-hidden"> this page is not useful</span>
+    <% end %>
+  </div>
+  <div class="js-feedback-form js-hidden">
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <div class="js-errors"></div>
+        <form>
+          <input type="hidden" name="url" value="<%= request.original_url -%>">
+          <input type="hidden" name="user_agent" value="<%= request.user_agent -%>">
+          <div class="improve-this-page__section">
+            <label>
+              <span class="improve-this-page__label">How should we improve this page?</span><span class="visually-hidden">required</span>
+              <textarea name="description" rows="5" required></textarea>
+            </label>
+          </div>
+          <p>Include your name and email address if you'd like us to get back to you.</p>
+          <div class="improve-this-page__section">
+            <label>
+              <span class="improve-this-page__label">Name</span> (optional)
+              <input type="text" name="name">
+            </label>
+          </div>
+          <div class="improve-this-page__section">
+            <label>
+              <span class="improve-this-page__label">Email</span> (optional)
+              <input type="text" name="email">
+            </label>
+          </div>
+          <div>
+            <input class="improve-this-page__submit" type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

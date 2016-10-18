@@ -1,0 +1,54 @@
+.improve-this-page {
+  padding: 10px;
+  padding-bottom: 0;
+  background-color: $govuk-blue;
+  color: $white;
+
+  a:link,
+  a:visited {
+    color: $white;
+  }
+
+  input[type="text"],
+  textarea {
+    @include box-sizing(border-box);
+    display: block;
+    width: 100%;
+  }
+
+  &__is-useful-question {
+    @include bold-16;
+
+    display: inline;
+  }
+
+  &__page-is-useful-button {
+    margin-right: 0.2em;
+  }
+
+  &__anything-wrong {
+    float: right;
+  }
+
+  &__label {
+    @include bold-16;
+  }
+
+  &__submit {
+    @include button($white);
+
+    color: $govuk-blue;
+  }
+
+  &__section {
+    margin-bottom: 1em;
+  }
+
+  &__error {
+    background-color: $error-colour;
+  }
+
+  &__error:first-letter {
+    text-transform: capitalize;
+  }
+}
