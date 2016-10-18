@@ -15,14 +15,20 @@ describe("Improve this page", function () {
           '<input type="hidden" name="url" value="http://example.com/path/to/page"></input>' +
           '<input type="hidden" name="user_agent" value="Safari"></input>' +
           '<div>' +
-            '<label>How should we improve this page?</label>' +
-            '<input name="description"></input>' +
+            '<label>' +
+              '<input name="description"></input>' +
+              'How should we improve this page?' +
+            '</label>' +
           '</div>' +
           '<div>' +
-            '<input name="name"></input>' +
+            '<label>' +
+              '<input name="name"></input>' +
+            '</label>' +
           '</div>' +
           '<div>' +
-            '<input name="email"></input>' +
+            '<label>' +
+              '<input name="email"></input>' +
+            '</label>' +
           '</div>' +
           '<input type="submit">Submit</input>' +
         '</form>' +
