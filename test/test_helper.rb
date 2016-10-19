@@ -12,6 +12,11 @@ Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |file| require file }
 class ActiveSupport::TestCase
   include GovukContentSchemaExamples
   include DraftStackExamples
+  include Slimmer::TestHelpers::SharedTemplates
+
+  def setup
+    stub_shared_component_locales
+  end
 end
 
 # Note: This is so that slimmer is skipped, preventing network requests for
@@ -38,6 +43,10 @@ class ActionDispatch::IntegrationTest
   # run a lot of services that might give us a false positive.
   driver_requests = %r{/__identify__$}
   WebMock.disable_net_connect! allow: driver_requests
+
+  def setup
+    stub_shared_component_locales
+  end
 
   def using_javascript_driver(&block)
     begin

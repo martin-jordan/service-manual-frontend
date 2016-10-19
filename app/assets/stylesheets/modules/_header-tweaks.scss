@@ -1,0 +1,42 @@
+// We have both a title and a search box in our header. This is unusual. To make
+// this work, we need to slightly tweak the header's CSS from our app.
+.header-title {
+  float: left;
+  color: $white;
+  @include bold-24;
+
+  // When the title appears on its own line (the search box is hidden and only a
+  // search toggle is visible) it needs some padding
+  @media screen and (max-width: 379px) {
+    margin: 5px 15px 0;
+  }
+
+  // When it appears next to the crown, align the heading with the baseline of
+  // the GOV.UK logo...
+  // ...at 16px
+  @media screen and (min-width: 380px) {
+    margin-top: 14px;
+  }
+
+  // ...and at 24px
+  @include media(tablet) {
+    margin-top: 8px;
+  }
+}
+
+// We have to use the ID #global-header because we're overriding a rule in
+// static which has it as part of its selector, and we need to be as specific.
+// scss-lint:disable IdSelector
+#global-header .header-wrapper .header-global .site-search {
+  // On mobile, force the search box onto a 'new line'.
+  @include media(mobile) {
+    width: 100%;
+    float: right;
+    margin: 5px 0;
+  }
+
+  // Slightly reduce the width of the search box to allow room for the title.
+  @include media(tablet) {
+    width: 40%;
+  }
+}

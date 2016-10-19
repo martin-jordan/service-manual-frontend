@@ -14,9 +14,9 @@
   <% end %>
 </head>
 <body>
-  <% unless content_for(:simple_header) %>
-    <%= render partial: 'govuk_component/government_navigation' %>
-  <% end %>
+  <div class="slimmer-inside-header">
+      <h1 class="header-title">Service Manual</h1>
+  </div>
 
   <div id="wrapper" class="<%= wrapper_class %>">
     <main role="main" id="content" class="<%= yield(:page_class) %>" lang="<%= I18n.locale %>">
@@ -26,6 +26,5 @@
 
     <%= render '/shared/improve_this_page' %>
   </div>
-
 </body>
 </html>
