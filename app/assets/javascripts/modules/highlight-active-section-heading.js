@@ -108,7 +108,13 @@
         var $theID = $(theID)
         var $theNextID = $(theNextID)
 
-        var headingPosition = self.getHeadingPosition($theID).top
+        var headingPosition = self.getHeadingPosition($theID)
+
+        if (!headingPosition) {
+          return
+        }
+
+        headingPosition = headingPosition.top
         headingPosition = headingPosition - 53 // fix the offset from top of page
 
         if (theNextID) {
