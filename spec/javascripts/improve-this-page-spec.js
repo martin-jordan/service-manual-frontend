@@ -4,9 +4,9 @@ describe("Improve this page", function () {
       '<div class="js-prompt">' +
         '<span class="improve-this-page__is-useful-question">Is this page useful?</span>' +
         '<a href="/contact/govuk" class="js-page-is-useful" data-track-category="improve-this-page" data-track-action="page-is-useful">Yes</a>' +
-        '<a href="/contact/govuk" class="js-offer-feedback">No</a>' +
+        '<a href="/contact/govuk" class="js-page-is-not-useful" data-track-category="improve-this-page" data-track-action="page-is-not-useful">No</a>' +
         '<div class="improve-this-page__anything-wrong">' +
-          '<a href="/contact/govuk" class="js-offer-feedback">Is there anything wrong with this page?</a>' +
+          '<a href="/contact/govuk" class="js-something-is-wrong" data-track-category="improve-this-page" data-track-action="something-is-wrong">Is there anything wrong with this page?</a>' +
         '</div>' +
       '</div>' +
       '<div class="js-feedback-form js-hidden" data-track-category="improve-this-page" data-track-action="give-feedback">' +
@@ -66,17 +66,65 @@ describe("Improve this page", function () {
     });
   });
 
-  describe("Offering to give feedback", function () {
+  describe("Saying the page was not useful", function () {
     it("shows the feedback form and hides the prompt", function () {
       loadImproveThisPage();
 
       expect($('.improve-this-page .js-prompt')).not.toHaveClass('js-hidden');
       expect($('.improve-this-page .js-feedback-form')).toHaveClass('js-hidden');
 
-      $('a.js-offer-feedback').click();
+      $('a.js-page-is-not-useful').click();
 
       expect($('.improve-this-page .js-prompt')).toHaveClass('js-hidden');
       expect($('.improve-this-page .js-feedback-form')).not.toHaveClass('js-hidden');
+    });
+
+    it("triggers a Google Analytics event", function () {
+      var analytics = {
+        trackEvent: function() {}
+      };
+
+      withGovukAnalytics(analytics, function () {
+        spyOn(GOVUK.analytics, 'trackEvent');
+
+        loadImproveThisPage();
+
+        $('a.js-page-is-not-useful').click();
+
+        expect(GOVUK.analytics.trackEvent).
+          toHaveBeenCalledWith('improve-this-page', 'page-is-not-useful');
+      });
+    });
+  });
+
+  describe("Saying there is something wrong with the page", function () {
+    it("shows the feedback form and hides the prompt", function () {
+      loadImproveThisPage();
+
+      expect($('.improve-this-page .js-prompt')).not.toHaveClass('js-hidden');
+      expect($('.improve-this-page .js-feedback-form')).toHaveClass('js-hidden');
+
+      $('a.js-something-is-wrong').click();
+
+      expect($('.improve-this-page .js-prompt')).toHaveClass('js-hidden');
+      expect($('.improve-this-page .js-feedback-form')).not.toHaveClass('js-hidden');
+    });
+
+    it("triggers a Google Analytics event", function () {
+      var analytics = {
+        trackEvent: function() {}
+      };
+
+      withGovukAnalytics(analytics, function () {
+        spyOn(GOVUK.analytics, 'trackEvent');
+
+        loadImproveThisPage();
+
+        $('a.js-something-is-wrong').click();
+
+        expect(GOVUK.analytics.trackEvent).
+          toHaveBeenCalledWith('improve-this-page', 'something-is-wrong');
+      });
     });
   });
 

@@ -17,7 +17,8 @@
     var that = this;
 
     this.$pageIsUsefulButton = $element.find('.js-page-is-useful');
-    this.$offerFeedbackButton = $element.find('.js-offer-feedback');
+    this.$pageIsNotUsefulButton = $element.find('.js-page-is-not-useful');
+    this.$somethingIsWrongButton = $element.find('.js-something-is-wrong');
     this.$feedbackFormContainer = $element.find('.js-feedback-form');
     this.$feedbackForm = that.$feedbackFormContainer.find('form');
     this.$feedbackFormSubmitButton = that.$feedbackFormContainer.find('[type=submit]');
@@ -27,8 +28,12 @@
       that.$pageIsUsefulButton.on('click', preventingDefault(callback));
     }
 
-    this.onOfferFeedback = function (callback) {
-      that.$offerFeedbackButton.on('click', preventingDefault(callback));
+    this.onPageIsNotUsefulButtonClicked = function (callback) {
+      that.$pageIsNotUsefulButton.on('click', preventingDefault(callback));
+    }
+
+    this.onSomethingIsWrongButtonClicked = function (callback) {
+      that.$somethingIsWrongButton.on('click', preventingDefault(callback));
     }
 
     this.onSubmitFeedbackForm = function (callback) {
@@ -48,21 +53,30 @@
       that.$feedbackFormContainer.removeClass('js-hidden');
     }
 
-    this.$feedbackFormContainerData = function () {
+    this.feedbackFormContainerData = function () {
       return that.$feedbackFormContainer.find('input, textarea').serialize();
     }
 
-    this.$feedbackFormContainerTrackEventParams = function () {
-      return {
-        category: that.$feedbackFormContainer.data('track-category'),
-        action: that.$feedbackFormContainer.data('track-action')
-      }
+    this.feedbackFormContainerTrackEventParams = function () {
+      return that.getTrackEventParams(that.$feedbackFormContainer);
     }
 
     this.pageIsUsefulTrackEventParams = function () {
+      return that.getTrackEventParams(that.$pageIsUsefulButton);
+    }
+
+    this.pageIsNotUsefulTrackEventParams = function () {
+      return that.getTrackEventParams(that.$pageIsNotUsefulButton);
+    }
+
+    this.somethingIsWrongTrackEventParams = function () {
+      return that.getTrackEventParams(that.$somethingIsWrongButton);
+    }
+
+    this.getTrackEventParams = function ($node) {
       return {
-        category: that.$pageIsUsefulButton.data('track-category'),
-        action: that.$pageIsUsefulButton.data('track-action')
+        category: $node.data('track-category'),
+        action: $node.data('track-action')
       }
     }
 
@@ -110,42 +124,53 @@
 
     this.init = function () {
       that.bindPageIsUsefulButton();
-      that.bindOfferFeedbackButton();
+      that.bindPageIsNotUsefulButton();
+      that.bindSomethingIsWrongButton();
       that.bindSubmitFeedbackButton();
     }
 
     this.bindPageIsUsefulButton = function () {
-      view.onPageIsUsefulButtonClicked(that.handlePageIsUseful);
+      var handler = function () {
+        that.trackEvent(view.pageIsUsefulTrackEventParams());
+
+        view.replaceWithSuccess();
+      }
+
+      view.onPageIsUsefulButtonClicked(handler);
     }
 
-    this.bindOfferFeedbackButton = function () {
-      view.onOfferFeedback(view.showFeedbackForm);
+    this.bindPageIsNotUsefulButton = function () {
+      var handler = function () {
+        that.trackEvent(view.pageIsNotUsefulTrackEventParams());
+
+        view.showFeedbackForm();
+      }
+
+      view.onPageIsNotUsefulButtonClicked(handler);
+    }
+
+    this.bindSomethingIsWrongButton = function () {
+      var handler = function () {
+        that.trackEvent(view.somethingIsWrongTrackEventParams());
+
+        view.showFeedbackForm();
+      }
+
+      view.onSomethingIsWrongButtonClicked(handler);
     }
 
     this.bindSubmitFeedbackButton = function () {
       view.onSubmitFeedbackForm(that.handleSubmitFeedback);
     }
 
-    this.handlePageIsUseful = function () {
-      if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
-        var eventParams = view.pageIsUsefulTrackEventParams();
-        GOVUK.analytics.trackEvent(eventParams.category, eventParams.action);
-      }
-
-      view.replaceWithSuccess();
-    }
-
     this.handleSubmitFeedback = function () {
       $.ajax({
         type: "POST",
         url: "/contact/govuk/page_improvements",
-        data: view.$feedbackFormContainerData(),
+        data: view.feedbackFormContainerData(),
         beforeSend: view.disableSubmitFeedbackButton
       }).done(function () {
-        if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
-          var eventParams = view.$feedbackFormContainerTrackEventParams();
-          GOVUK.analytics.trackEvent(eventParams.category, eventParams.action);
-        }
+        that.trackEvent(view.feedbackFormContainerTrackEventParams());
 
         view.replaceWithSuccess();
       }).fail(function (xhr) {
@@ -157,6 +182,12 @@
           view.replaceWithGenericError();
         }
       });
+    }
+
+    this.trackEvent = function(trackEventParams) {
+      if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
+        GOVUK.analytics.trackEvent(trackEventParams.category, trackEventParams.action);
+      }
     }
   };
 
