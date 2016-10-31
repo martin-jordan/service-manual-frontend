@@ -8,10 +8,18 @@
         } do %>
       Yes <span class="visually-hidden"> this page is useful</span>
     <% end %>
-    <%= link_to contact_govuk_path, { class: 'button js-offer-feedback', role: 'button' } do %>
+    <%= link_to contact_govuk_path, {
+          class: 'button js-page-is-not-useful',
+          role: 'button',
+          data: { 'track-category' => 'manualFeedbackForm', 'track-action' => 'ffNoClick' },
+        } do %>
       No <span class="visually-hidden"> this page is not useful</span>
     <% end %>
-    <%= link_to contact_govuk_path, { class: 'button js-offer-feedback improve-this-page__anything-wrong', role: 'button' } do %>
+    <%= link_to contact_govuk_path, {
+          class: 'button js-something-is-wrong improve-this-page__anything-wrong',
+          role: 'button',
+          data: { 'track-category' => 'manualFeedbackForm', 'track-action' => 'ffWrongClick' },
+        } do %>
       Is there anything wrong with this page? <span class="visually-hidden"> this page is not useful</span>
     <% end %>
   </div>
