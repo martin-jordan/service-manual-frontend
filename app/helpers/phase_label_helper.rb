@@ -6,4 +6,10 @@ module PhaseLabelHelper
       render partial: "govuk_component/#{presented_object.phase}_label", locals: locals
     end
   end
+
+  def surveymonkey_url
+    url = "https://www.surveymonkey.co.uk/r/servicemanualsurvey"
+    url += "?c=#{request.path}" if request.path.present?
+    url
+  end
 end
