@@ -36,6 +36,6 @@ class ImproveThisPageTest < ActionDispatch::IntegrationTest
   # of the class rather than rely on PhantomJS to know whether the element is visible
   # or not.
   def feedback_form_is_hidden
-    page.find('.js-feedback-form')[:class].include?('js-hidden')
+    page.has_css?(%{.js-feedback-form[class*="js-hidden"]})
   end
 end
