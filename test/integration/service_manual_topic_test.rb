@@ -47,6 +47,14 @@ class ServiceManualTopicTest < ActionDispatch::IntegrationTest
       href: "/service-manual/test-expanded-topic/email-signup")
   end
 
+  test "it includes anchors for headings" do
+    using_javascript_driver do
+      setup_and_visit_example('service_manual_topic', 'service_manual_topic_collapsed')
+
+      assert page.has_css?("h2#group-1")
+    end
+  end
+
   test "it does not insert the accordion buttons if the topic isn't visually collapsed" do
     using_javascript_driver do
       setup_and_visit_example('service_manual_topic', 'service_manual_topic')
