@@ -2,7 +2,6 @@ require 'test_helper'
 require 'slimmer/test_helpers/shared_templates'
 
 class ContentItemsControllerTest < ActionController::TestCase
-  include GdsApi::TestHelpers::ContentStore
   include Slimmer::TestHelpers::SharedTemplates
 
   test "routing handles translated content paths" do
@@ -60,7 +59,7 @@ class ContentItemsControllerTest < ActionController::TestCase
 
   test "returns 403 for access-limited item" do
     path = 'government/case-studies/super-sekrit-document'
-    url = CONTENT_STORE_ENDPOINT + "/content/" + path
+    url = content_store_endpoint + "/content/" + path
     stub_request(:get, url).to_return(status: 403, headers: {})
 
     get :show, path: path

@@ -34,8 +34,13 @@ class ContentItemsController < ApplicationController
 private
 
   def load_content_item
-    content_item = content_store.content_item(content_item_path)
-    @content_item = present(content_item) if content_item
+    begin
+      @content_item = present(
+        content_store.content_item(content_item_path)
+      )
+    rescue GdsApi::HTTPNotFound
+      nil
+    end
   end
 
   def present(content_item)

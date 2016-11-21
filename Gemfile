@@ -17,7 +17,7 @@ gem 'rails_translation_manager', '~> 0.0.2'
 if ENV['API_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '27.0.0'
+  gem 'gds-api-adapters', '~> 37.5'
 end
 
 group :development, :test do
