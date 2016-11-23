@@ -1,15 +1,6 @@
 // The main application stylesheet
 
-// govuk_frontend_toolkit
-@import "colours";
-@import "measurements";
-@import "shims";
-@import "typography";
-@import "design-patterns/buttons";
-
-// Mixins
-@import "mixins/helpers";
-@import "mixins/margins";
+@import "common";
 
 // Modules
 @import "modules/community-contact";
