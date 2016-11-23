@@ -25,6 +25,7 @@
 
       closeOpenSections();
       checkSessionStorage();
+      openLinkedSection();
 
       bindToggleForSubsections();
       bindToggleOpenCloseAllButton();
@@ -36,7 +37,6 @@
       function replaceSpacesWithUnderscores(str) {
         return str.replace(/\s+/g,"_");
       }
-
 
       function serviceManualTopicPrefix() {
         var topic = getserviceManualTopic();
@@ -79,6 +79,27 @@
       function closeOpenSections() {
         var $subsectionContent = $element.find('.subsection__content');
         closeSection($subsectionContent);
+      }
+
+      function openLinkedSection() {
+        var anchor = getActiveAnchor(),
+            section;
+
+        if (!anchor.length) {
+          return;
+        }
+
+        section = $element.find(anchor)
+          .parents('.subsection')
+          .find('.subsection__content');
+
+        if (section.length) {
+          openSection(section);
+        }
+      }
+
+      function getActiveAnchor() {
+        return GOVUK.getCurrentLocation().hash;
       }
 
       function checkSessionStorage() {
