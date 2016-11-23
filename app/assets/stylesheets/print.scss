@@ -1,3 +1,10 @@
-.improve-this-page {
-  display: none;
-}
+// Print-specific styling
+
+$is-print: true;
+
+@import "common";
+
+// Modules
+// We're including a subset of all the modules listed in `application.scss` here
+// as not all of them have proper print styling set up.
+@import "modules/improve-this-page";

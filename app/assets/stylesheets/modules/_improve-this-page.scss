@@ -51,4 +51,8 @@
   &__error:first-letter {
     text-transform: capitalize;
   }
+
+  @include print {
+    display: none;
+  }
 }
