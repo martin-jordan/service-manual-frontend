@@ -179,6 +179,10 @@
             $openOrCloseAllButton.text("Open all");
             $openOrCloseAllButton.attr("aria-expanded", "false");
             action = 'close';
+
+            track('pageElementInteraction', 'accordionAllClosed', {
+              label: 'Close All'
+            });
           }
 
           $element.find('.js-subsection').each(function() {

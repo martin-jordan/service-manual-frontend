@@ -109,28 +109,28 @@ describe('An accordion with descriptions module', function () {
 
     it('adds a .subsection--is-open class to each subsection to hide the icon', function () {
       accordion.start($element);
-      clickOpenAll();
+      clickOpenCloseAll();
 
       expect($element.find('.subsection--is-open').length).toEqual(2);
     });
 
     it('adds an aria-expanded attribute to each subsection button', function () {
       accordion.start($element);
-      clickOpenAll();
+      clickOpenCloseAll();
 
       expect($element.find('.js-subsection-button[aria-expanded="true"]').length).toEqual(2);
     });
 
     it('removes the .js-hidden class from each subsection content to hide the list of links', function () {
       accordion.start($element);
-      clickOpenAll();
+      clickOpenCloseAll();
 
       expect($element.find('.js-subsection-content.js-hidden').length).toEqual(0);
     });
 
     it('changes the Open/Close all button text to "Close all"', function () {
       accordion.start($element);
-      clickOpenAll();
+      clickOpenCloseAll();
 
       expect($element.find('.js-subsection-controls button')).toContainText("Close all");
     });
@@ -140,17 +140,28 @@ describe('An accordion with descriptions module', function () {
       spyOn(GOVUK.analytics, 'trackEvent');
 
       accordion.start($element);
-      clickOpenAll();
+      clickOpenCloseAll();
 
       expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionAllOpened', {
         label: 'Open All'
       });
     });
 
-    function clickOpenAll() {
-      $element.find('.js-subsection-controls button').click();
-    }
+  });
 
+  describe('When the "Close all" button is clicked', function () {
+    it("triggers a google analytics custom event", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      clickOpenCloseAll();
+      clickOpenCloseAll();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionAllClosed', {
+        label: 'Close All'
+      });
+    });
   });
 
   describe('When a section is open', function () {
@@ -258,4 +269,7 @@ describe('An accordion with descriptions module', function () {
     });
   });
 
+  function clickOpenCloseAll() {
+    $element.find('.js-subsection-controls button').click();
+  }
 });
