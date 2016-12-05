@@ -226,6 +226,19 @@ describe('An accordion with descriptions module', function () {
         label: 'Topic Section One - Plus Click'
       });
     });
+
+    it("triggers a google analytics custom event when clicking in space in the header", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionHeader = $element.find('.subsection__header');
+      $subsectionHeader.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionOpened', {
+        label: 'Topic Section One - Click Elsewhere'
+      });
+    });
   });
 
   describe('Closing a section', function () {
@@ -291,6 +304,20 @@ describe('An accordion with descriptions module', function () {
 
       expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionClosed', {
         label: 'Topic Section One - Minus Click'
+      });
+    });
+
+    it("triggers a google analytics custom event when clicking in space in the header", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionHeader = $element.find('.subsection__header');
+      $subsectionHeader.click();
+      $subsectionHeader.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionClosed', {
+        label: 'Topic Section One - Click Elsewhere'
       });
     });
 

@@ -153,12 +153,15 @@
 
           var trackingAction = isSubsectionClosed($subsection) ? 'accordionClosed' : 'accordionOpened';
           var $target = $(event.target);
+
           if ($target.hasClass('subsection__icon')) {
             var trackingIconType = isSubsectionClosed($subsection) ? 'Minus' : 'Plus';
 
             var trackingLabel = $subsectionButton.text() + ' - ' + trackingIconType + ' Click';
-          } else {
+          } else if ($target.hasClass('js-subsection-button')) {
             var trackingLabel = $subsectionButton.text() + ' - Heading Click';
+          } else {
+            var trackingLabel = $subsectionButton.text() + ' - Click Elsewhere';
           }
 
           track('pageElementInteraction', trackingAction, { label: trackingLabel });
