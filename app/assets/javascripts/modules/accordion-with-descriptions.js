@@ -11,7 +11,6 @@
       // Prevent FOUC, remove class hiding content
       $element.removeClass('js-hidden');
 
-      var $subsectionButtons = $element.find('.subsection__button');
       var $subsectionHeaders = $element.find('.subsection__header');
       var totalSubsections = $element.find('.subsection__content').length;
 
@@ -144,16 +143,6 @@
           toggleSection($(this).next());
           toggleIcon($(this));
           toggleState($(this).find('.subsection__button'));
-          setOpenCloseAllText();
-          setSessionStorage();
-          removeSessionStorage();
-          return false;
-        });
-
-        $subsectionButtons.on('click', function(e) {
-          toggleSection($(this).parent().parent().next());
-          toggleIcon($(this).parent().parent());
-          toggleState($(this));
           setOpenCloseAllText();
           setSessionStorage();
           removeSessionStorage();
