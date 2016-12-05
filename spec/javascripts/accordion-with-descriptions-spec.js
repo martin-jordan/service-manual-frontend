@@ -135,6 +135,18 @@ describe('An accordion with descriptions module', function () {
       expect($element.find('.js-subsection-controls button')).toContainText("Close all");
     });
 
+    it("triggers a google analytics custom event", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      clickOpenAll();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionAllOpened', {
+        label: 'Open All'
+      });
+    });
+
     function clickOpenAll() {
       $element.find('.js-subsection-controls button').click();
     }

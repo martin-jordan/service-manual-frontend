@@ -171,6 +171,10 @@
             $openOrCloseAllButton.text("Close all");
             $openOrCloseAllButton.attr("aria-expanded", "true");
             action = 'open';
+
+            track('pageElementInteraction', 'accordionAllOpened', {
+              label: 'Open All'
+            });
           } else {
             $openOrCloseAllButton.text("Open all");
             $openOrCloseAllButton.attr("aria-expanded", "false");
@@ -258,6 +262,12 @@
 
       function setExpandedState($node, state) {
         $node.attr("aria-expanded", state);
+      }
+
+      function track() {
+        if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
+          GOVUK.analytics.trackEvent.apply(null, arguments);
+        }
       }
 
     }
