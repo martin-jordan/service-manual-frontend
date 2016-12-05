@@ -138,8 +138,9 @@
       }
 
       function bindToggleForSubsections() {
-        $element.find('.subsection__header').on('click', function() {
-          var $subsection = $(this).parent('.js-subsection');
+        $element.find('.subsection__header').on('click', function(event) {
+          var $subsectionHeader = $(this);
+          var $subsection = $subsectionHeader.parent('.js-subsection');
           var $subsectionContent = $subsection.find('.js-subsection-content');
           var $subsectionButton = $subsection.find('.js-subsection-button');
 
@@ -151,9 +152,16 @@
           removeSessionStorage();
 
           var trackingAction = isSubsectionClosed($subsection) ? 'accordionClosed' : 'accordionOpened';
-          track('pageElementInteraction', trackingAction, {
-            label: $subsectionButton.text() + ' - Heading Click'
-          });
+          var $target = $(event.target);
+          if ($target.hasClass('subsection__icon')) {
+            var trackingIconType = isSubsectionClosed($subsection) ? 'Minus' : 'Plus';
+
+            var trackingLabel = $subsectionButton.text() + ' - ' + trackingIconType + ' Click';
+          } else {
+            var trackingLabel = $subsectionButton.text() + ' - Heading Click';
+          }
+
+          track('pageElementInteraction', trackingAction, { label: trackingLabel });
 
           return false;
         });

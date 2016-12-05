@@ -164,7 +164,7 @@ describe('An accordion with descriptions module', function () {
     });
   });
 
-  describe('Clicking a section title to open it', function () {
+  describe('Opening a section', function () {
 
     // When a section is open (testing: toggleSection, openSection)
     it("does not have a class of js-hidden", function () {
@@ -201,7 +201,7 @@ describe('An accordion with descriptions module', function () {
       expect(storedItem).toEqual('Opened');
     });
 
-    it("triggers a google analytics custom event", function () {
+    it("triggers a google analytics custom event when clicking on the title", function () {
       GOVUK.analytics = {trackEvent: function() {}};
       spyOn(GOVUK.analytics, 'trackEvent');
 
@@ -214,9 +214,21 @@ describe('An accordion with descriptions module', function () {
       });
     });
 
+    it("triggers a google analytics custom event when clicking on the icon", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionIcon = $element.find('.subsection__icon');
+      $subsectionIcon.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionOpened', {
+        label: 'Topic Section One - Plus Click'
+      });
+    });
   });
 
-  describe('Clicking a section title to close it', function () {
+  describe('Closing a section', function () {
 
     // When a section is closed (testing: toggleSection, closeSection)
     it("has a class of js-hidden", function () {
@@ -254,7 +266,7 @@ describe('An accordion with descriptions module', function () {
       expect(removedItem).not.toExist();
     });
 
-    it("triggers a google analytics custom event", function () {
+    it("triggers a google analytics custom event when clicking on the title", function () {
       GOVUK.analytics = {trackEvent: function() {}};
       spyOn(GOVUK.analytics, 'trackEvent');
 
@@ -265,6 +277,20 @@ describe('An accordion with descriptions module', function () {
 
       expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionClosed', {
         label: 'Topic Section One - Heading Click'
+      });
+    });
+
+    it("triggers a google analytics custom event when clicking on the icon", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionIcon = $element.find('.subsection__icon');
+      $subsectionIcon.click();
+      $subsectionIcon.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionClosed', {
+        label: 'Topic Section One - Minus Click'
       });
     });
 
