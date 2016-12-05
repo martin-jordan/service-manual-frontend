@@ -11,8 +11,8 @@
       // Prevent FOUC, remove class hiding content
       $element.removeClass('js-hidden');
 
-      var $subsectionButton = $element.find('.subsection__button');
-      var $subsectionHeader = $element.find('.subsection__header');
+      var $subsectionButtons = $element.find('.subsection__button');
+      var $subsectionHeaders = $element.find('.subsection__header');
       var totalSubsections = $element.find('.subsection__content').length;
 
       var $openOrCloseAllButton;
@@ -55,12 +55,12 @@
 
         // Wrap each title in a button, with aria controls matching the ID of the subsection
         $subsectionTitle.each(function(index) {
-          $(this).wrapInner( '<button class="subsection__button" aria-expanded="false" aria-controls="subsection_content_' + index +'"></a>' );
+          $(this).wrapInner( '<button class="subsection__button js-subsection-button" aria-expanded="false" aria-controls="subsection_content_' + index +'"></a>' );
         });
       }
 
       function addIconsToSubsections() {
-        $subsectionHeader.append( '<span class="subsection__icon"></span>' );
+        $subsectionHeaders.append( '<span class="subsection__icon"></span>' );
       }
 
       function addAriaControlsAttrForOpenCloseAllButton() {
@@ -140,7 +140,7 @@
 
       function bindToggleForSubsections() {
         // Add toggle functionality individual sections
-        $subsectionHeader.on('click', function(e) {
+        $subsectionHeaders.on('click', function(e) {
           toggleSection($(this).next());
           toggleIcon($(this));
           toggleState($(this).find('.subsection__button'));
@@ -150,7 +150,7 @@
           return false;
         });
 
-        $subsectionButton.on('click', function(e) {
+        $subsectionButtons.on('click', function(e) {
           toggleSection($(this).parent().parent().next());
           toggleIcon($(this).parent().parent());
           toggleState($(this));
@@ -177,23 +177,21 @@
             action = 'close';
           }
 
-          // Set aria-expanded for each button
-          $subsectionButton.each(function( index ) {
-            if (action == 'open') {
-              setExpandedState($(this), "true");
-            } else {
-              setExpandedState($(this), "false");
-            }
-          });
+          $element.find('.js-subsection').each(function() {
+            var $subsection = $(this);
+            var $button = $subsection.find('.js-subsection-button');
+            var $subsectionContent = $subsection.find('.js-subsection-content');
 
-          // show/hide content
-          $subsectionHeader.each(function( index ) {
             if (action == 'open') {
-              openSection($(this).next());
-              showOpenIcon($(this));
+              $button.attr("aria-expanded", "true");
+              $subsectionContent.removeClass('js-hidden');
+              $subsection.removeClass('subsection');
+              $subsection.addClass('subsection--is-open');
             } else {
-              closeSection($(this).next());
-              showCloseIcon($(this));
+              $button.attr("aria-expanded", "false");
+              $subsectionContent.addClass('js-hidden');
+              $subsection.addClass('subsection');
+              $subsection.removeClass('subsection--is-open');
             }
           });
 
@@ -256,16 +254,6 @@
 
       function closeSection($node) {
         $node.addClass('js-hidden');
-      }
-
-      function showOpenIcon($node) {
-        $node.parent().removeClass('subsection');
-        $node.parent().addClass('subsection--is-open');
-      }
-
-      function showCloseIcon($node) {
-        $node.parent().removeClass('subsection--is-open');
-        $node.parent().addClass('subsection');
       }
 
       function setExpandedState($node, state) {
