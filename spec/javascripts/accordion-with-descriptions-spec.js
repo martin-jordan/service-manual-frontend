@@ -105,7 +105,7 @@ describe('An accordion with descriptions module', function () {
     expect($subsectionHeader).toContainElement('.subsection__icon');
   });
 
-  describe('When the "Open all" button is clicked', function () {
+  describe('Clicking the "Open all" button', function () {
 
     it('adds a .subsection--is-open class to each subsection to hide the icon', function () {
       accordion.start($element);
@@ -149,7 +149,7 @@ describe('An accordion with descriptions module', function () {
 
   });
 
-  describe('When the "Close all" button is clicked', function () {
+  describe('Clicking the "Close all" button', function () {
     it("triggers a google analytics custom event", function () {
       GOVUK.analytics = {trackEvent: function() {}};
       spyOn(GOVUK.analytics, 'trackEvent');
@@ -164,7 +164,7 @@ describe('An accordion with descriptions module', function () {
     });
   });
 
-  describe('When a section is open', function () {
+  describe('Clicking a section title to open it', function () {
 
     // When a section is open (testing: toggleSection, openSection)
     it("does not have a class of js-hidden", function () {
@@ -201,9 +201,22 @@ describe('An accordion with descriptions module', function () {
       expect(storedItem).toEqual('Opened');
     });
 
+    it("triggers a google analytics custom event", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionButton = $element.find('.subsection__title button:first');
+      $subsectionButton.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionOpened', {
+        label: 'Topic Section One - Heading Click'
+      });
+    });
+
   });
 
-  describe('When a section is closed', function () {
+  describe('Clicking a section title to close it', function () {
 
     // When a section is closed (testing: toggleSection, closeSection)
     it("has a class of js-hidden", function () {
@@ -239,6 +252,20 @@ describe('An accordion with descriptions module', function () {
       sessionStorage.removeItem(GOVUKServiceManualTopic+subsectionClosedContentId , 'Opened');
       var removedItem = sessionStorage.getItem(GOVUKServiceManualTopic+subsectionClosedContentId);
       expect(removedItem).not.toExist();
+    });
+
+    it("triggers a google analytics custom event", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionButton = $element.find('.subsection__title button:first');
+      $subsectionButton.click();
+      $subsectionButton.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionClosed', {
+        label: 'Topic Section One - Heading Click'
+      });
     });
 
   });

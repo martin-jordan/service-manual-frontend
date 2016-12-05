@@ -138,14 +138,23 @@
       }
 
       function bindToggleForSubsections() {
-        // Add toggle functionality individual sections
-        $subsectionHeaders.on('click', function(e) {
-          toggleSection($(this).next());
-          toggleIcon($(this));
-          toggleState($(this).find('.subsection__button'));
+        $element.find('.subsection__header').on('click', function() {
+          var $subsection = $(this).parent('.js-subsection');
+          var $subsectionContent = $subsection.find('.js-subsection-content');
+          var $subsectionButton = $subsection.find('.js-subsection-button');
+
+          toggleSubsection($subsection);
+          toggleIcon($subsection);
+          toggleState($subsectionButton);
           setOpenCloseAllText();
           setSessionStorage();
           removeSessionStorage();
+
+          var trackingAction = isSubsectionClosed($subsection) ? 'accordionClosed' : 'accordionOpened';
+          track('pageElementInteraction', trackingAction, {
+            label: $subsectionButton.text() + ' - Heading Click'
+          });
+
           return false;
         });
       }
@@ -202,10 +211,12 @@
         });
       }
 
-      function openStoredSections($section) {
-        toggleSection($section);
-        toggleIcon($section);
-        toggleState($section.parent().find('.subsection__button'));
+      function openStoredSections($sectionContent) {
+        var $subsection = $sectionContent.parent('.js-subsection');
+
+        toggleSubsection($subsection);
+        toggleIcon($sectionContent);
+        toggleState($sectionContent.parent().find('.subsection__button'));
         setOpenCloseAllText();
       }
 
@@ -219,11 +230,19 @@
         }
       }
 
-      function toggleSection($node) {
-        if ($($node).hasClass('js-hidden')) {
-          openSection($node);
+      function isSubsectionClosed($subsection) {
+        var $subsectionContent = $subsection.find('.js-subsection-content');
+
+        return $subsectionContent.hasClass('js-hidden');
+      }
+
+      function toggleSubsection($subsection) {
+        var $subsectionContent = $subsection.find('.js-subsection-content');
+
+        if (isSubsectionClosed($subsection)) {
+          openSection($subsectionContent);
         } else {
-          closeSection($node);
+          closeSection($subsectionContent);
         }
       }
 
