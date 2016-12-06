@@ -246,9 +246,9 @@
         return $subsectionContent.hasClass('js-hidden');
       }
 
-      function track() {
+      function track(category, action, options) {
         if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
-          GOVUK.analytics.trackEvent.apply(null, arguments);
+          GOVUK.analytics.trackEvent(category, action, options);
         }
       }
 
