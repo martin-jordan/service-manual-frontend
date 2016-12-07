@@ -143,28 +143,14 @@
           var $subsectionHeader = $(this);
           var $subsection = $subsectionHeader.parent('.js-subsection');
           var subsectionView = new SubsectionView($subsection);
-          var $subsectionContent = $subsection.find('.js-subsection-content');
-          var $subsectionButton = $subsection.find('.js-subsection-button');
 
           subsectionView.toggle();
           setOpenCloseAllText();
           setSessionStorage();
           removeSessionStorage();
 
-          var trackingAction = isSubsectionClosed($subsection) ? 'accordionClosed' : 'accordionOpened';
-          var $target = $(event.target);
-
-          if ($target.hasClass('subsection__icon')) {
-            var trackingIconType = isSubsectionClosed($subsection) ? 'Minus' : 'Plus';
-
-            var trackingLabel = $subsectionButton.text() + ' - ' + trackingIconType + ' Click';
-          } else if ($target.hasClass('js-subsection-button')) {
-            var trackingLabel = $subsectionButton.text() + ' - Heading Click';
-          } else {
-            var trackingLabel = $subsectionButton.text() + ' - Click Elsewhere';
-          }
-
-          track('pageElementInteraction', trackingAction, { label: trackingLabel });
+          var subsectionToggleClick = new SubsectionToggleClick(subsectionView, event);
+          subsectionToggleClick.track();
 
           return false;
         });
@@ -246,12 +232,6 @@
         return $subsectionContent.hasClass('js-hidden');
       }
 
-      function track(category, action, options) {
-        if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
-          GOVUK.analytics.trackEvent(category, action, options);
-        }
-      }
-
     }
 
     function SubsectionView ($subsectionElement) {
@@ -262,6 +242,8 @@
       // The 'Button' is a button element that is wrapped around the title for
       // accessibility reasons
       this.$subsectionButton = $subsectionElement.find('.js-subsection-button');
+
+      this.title = that.$subsectionButton.text();
 
       this.toggle = function () {
         if (that.isClosed()) {
@@ -293,6 +275,53 @@
 
       this.isClosed = function () {
         return that.$subsectionContent.hasClass('js-hidden');
+      }
+    }
+
+    // A contructor for an object that represents a click event on a subsection which
+    // handles the complexity of sending different tracking labels to Google Analytics
+    // depending on which part of the subsection the user clicked.
+    function SubsectionToggleClick (subsectionView, event) {
+      var that = this;
+
+      this.$target = $(event.target);
+
+      this.track = function () {
+        track('pageElementInteraction', that._trackingAction(), { label: that._trackingLabel() });
+      }
+
+      this._trackingAction = function () {
+        return (subsectionView.isClosed() ? 'accordionClosed' : 'accordionOpened');
+      }
+
+      this._trackingLabel = function () {
+        if (that._clickedOnIcon()) {
+          return subsectionView.title + ' - ' + that._iconType() + ' Click';
+        } else if (that._clickedOnHeading()) {
+          return subsectionView.title + ' - Heading Click';
+        } else {
+          return subsectionView.title + ' - Click Elsewhere';
+        }
+      }
+
+      this._clickedOnIcon = function () {
+        return that.$target.hasClass('subsection__icon');
+      }
+
+      this._clickedOnHeading = function () {
+        return that.$target.hasClass('js-subsection-button');
+      }
+
+      this._iconType = function () {
+        return (subsectionView.isClosed() ? 'Minus' : 'Plus');
+      }
+    }
+
+    // A helper that sends an custom event request to Google Analytics if
+    // the GOVUK module is setup
+    function track(category, action, options) {
+      if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
+        GOVUK.analytics.trackEvent(category, action, options);
       }
     }
   };
