@@ -1,4 +1,7 @@
 <%= content_for :title, "Service Manual" %>
+<% content_for :phase_message do %>
+  <%= render 'shared/service_manual_custom_phase_message_homepage', phase: @content_item.phase %>
+<% end %>
 
 <header class="hero">
   <div class="grid-row">

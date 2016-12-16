@@ -11,6 +11,10 @@ class ServiceManualHomepagePresenter < ContentItemPresenter
     unsorted_topics.sort_by { |topic| topic["title"] }
   end
 
+  def phase
+    "beta"
+  end
+
 private
 
   def unsorted_topics
