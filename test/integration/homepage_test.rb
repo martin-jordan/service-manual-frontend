@@ -14,10 +14,10 @@ class HomepageTest < ActionDispatch::IntegrationTest
     setup_and_visit_example('service_manual_homepage', 'service_manual_homepage')
 
     assert page.has_content?(
-      "Contact the service manual team with any comments or questions."
+      "Contact the Service Manual team with any comments or questions."
     )
 
-    assert page.has_link? 'service manual team', href: '/contact/govuk'
+    assert page.has_link? 'Service Manual team', href: '/contact/govuk'
   end
 
   test 'the homepage includes the titles and descriptions of associated topics' do
