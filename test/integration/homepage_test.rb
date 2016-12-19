@@ -17,7 +17,7 @@ class HomepageTest < ActionDispatch::IntegrationTest
       "Contact the Service Manual team with any comments or questions."
     )
 
-    assert page.has_link? 'Service Manual team', href: '/contact/govuk'
+    assert page.has_link? 'Contact the Service Manual team', href: '/contact/govuk'
   end
 
   test 'the homepage includes the titles and descriptions of associated topics' do
