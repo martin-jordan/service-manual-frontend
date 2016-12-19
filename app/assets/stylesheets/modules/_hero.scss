@@ -33,11 +33,10 @@
   a:visited {
     font-weight: bold;
     color: $white;
-    text-decoration: none;
   }
 
-  a:active,
-  a:hover {
-    text-decoration: underline;
+  a:hover,
+  a:active {
+    color: $light-blue-25;
   }
 }
