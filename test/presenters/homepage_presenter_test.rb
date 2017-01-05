@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ServiceManualHomepagePresenterTest < ActiveSupport::TestCase
+class HomepagePresenterTest < ActiveSupport::TestCase
   test '#topics returns the children in the links, ordered alphabetically' do
     homepage = presented_homepage(
       'links' => {
@@ -25,7 +25,7 @@ class ServiceManualHomepagePresenterTest < ActiveSupport::TestCase
 private
 
   def presented_homepage(overriden_attributes = {})
-    ServiceManualHomepagePresenter.new(
+    HomepagePresenter.new(
       JSON.parse(
         GovukContentSchemaTestHelpers::Examples.new.get('service_manual_homepage', 'service_manual_homepage')
       ).merge(overriden_attributes)

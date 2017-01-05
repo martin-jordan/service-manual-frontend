@@ -1,4 +1,4 @@
-class ServiceManualHomepagePresenter < ContentItemPresenter
+class HomepagePresenter < ContentItemPresenter
   def breadcrumbs
     []
   end

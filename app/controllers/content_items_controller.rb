@@ -37,7 +37,8 @@ private
   end
 
   def present(content_item)
-    presenter_name = content_item['format'].classify + 'Presenter'
+    class_name = content_item['format'].sub(/^service_manual_/, '').classify
+    presenter_name = class_name + 'Presenter'
     presenter_class = Object.const_get(presenter_name)
     presenter_class.new(content_item)
   rescue NameError

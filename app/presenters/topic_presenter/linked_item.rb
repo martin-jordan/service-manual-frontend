@@ -1,4 +1,4 @@
-class ServiceManualTopicPresenter::LinkedItem
+class TopicPresenter::LinkedItem
   attr_reader :content_id
 
   def initialize(content_id, linked_items)
