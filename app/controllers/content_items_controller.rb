@@ -46,7 +46,7 @@ private
   end
 
   def content_item_template
-    @content_item.format
+    @content_item.format.sub(/^service_manual_/, '')
   end
 
   def set_expiry
