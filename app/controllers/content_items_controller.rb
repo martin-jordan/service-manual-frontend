@@ -68,7 +68,7 @@ private
   end
 
   def configure_header_search
-    if @content_item.present? && @content_item.is_homepage?
+    if @content_item.present? && !@content_item.include_search_in_header?
       remove_header_search
     else
       scope_header_search_to_service_manual
