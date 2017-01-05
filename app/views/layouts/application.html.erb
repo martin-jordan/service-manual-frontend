@@ -17,7 +17,7 @@
 </head>
 <body>
   <div class="slimmer-inside-header">
-      <h1 class="header-title">Service Manual</h1>
+      <h1 class="header-title"><%= content_for(:header_title) || "Service Manual" %></h1>
   </div>
 
   <div id="wrapper" class="<%= wrapper_class %>">
