@@ -19,6 +19,10 @@ class ContentItemPresenter
     true
   end
 
+  def use_new_style_feedback_form?
+    true
+  end
+
 private
 
   def display_time(timestamp)
