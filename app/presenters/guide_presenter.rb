@@ -81,14 +81,6 @@ private
     @_topic ||= Array(links["service_manual_topics"]).first
   end
 
-  def links
-    @_links ||= content_item["links"] || {}
-  end
-
-  def details
-    @_details ||= content_item["details"] || {}
-  end
-
   def change_history
     @_change_history ||= details.fetch("change_history", {})
   end

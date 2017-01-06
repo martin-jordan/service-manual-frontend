@@ -12,3 +12,21 @@
     </div>
   </div>
 </header>
+
+<% @content_item.collections.each do |collection| %>
+<div class="collection">
+  <h2 class="collection__title"><%= collection["title"] %></h2>
+  <p class="collection__description"><%= collection["description"] %></p>
+
+  <% collection["links"].each_slice(2) do |row_of_links| %>
+    <div class="grid-row">
+      <% row_of_links.each do | link | %>
+        <div class="column-half">
+          <h3 class="collection__link"><%= link_to link["title"], link["url"] %></h3>
+          <p class="collection__link-description"><%= link["description"] %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<% end %>

@@ -8,11 +8,18 @@ class ContentItemPresenter
     @format = content_item["format"]
     @locale = content_item["locale"] || "en"
     @phase = content_item["phase"]
-    @links = content_item["links"] || {}
   end
 
   def available_translations
     sorted_locales(links["available_translations"])
+  end
+
+  def links
+    @_links ||= content_item["links"] || {}
+  end
+
+  def details
+    @_details ||= content_item["details"] || {}
   end
 
   def include_search_in_header?
