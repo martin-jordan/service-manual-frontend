@@ -11,12 +11,12 @@
 
   &__title {
     @include core-48;
-    margin-bottom: $gutter-half;
+    margin-bottom: $gutter;
     font-weight: bold;
   }
 
   &__description {
-    @include core-19;
+    @include core-24;
   }
 
   &__feedback-link {
