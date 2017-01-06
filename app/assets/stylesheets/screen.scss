@@ -4,13 +4,13 @@
 
 // CSS that could be better, mostly overriding Slimmer...
 @import "hacks/full-width";
+@import "hacks/header-tweaks";
 
 // Modules
 @import "modules/change-history";
 @import "modules/collection";
 @import "modules/community-contact";
 @import "modules/govspeak-wrapper";
-@import "modules/header-tweaks";
 @import "modules/hero";
 @import "modules/improve-this-page";
 @import "modules/link-unit";
