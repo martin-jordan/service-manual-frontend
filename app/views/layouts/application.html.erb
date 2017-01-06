@@ -15,14 +15,16 @@
     <meta name="description" content="<%= content_for(:meta_description) %>" />
   <% end %>
 </head>
-<body>
+<body<% if content_for?(:body_classes) %> class="<%= content_for(:body_classes) %>"<% end %>>
   <div class="slimmer-inside-header">
       <h1 class="header-title"><%= content_for(:header_title) || "Service Manual" %></h1>
   </div>
 
   <div id="wrapper" class="<%= wrapper_class %>">
     <main role="main" id="content" lang="<%= I18n.locale %>">
-      <%= render_phase_label @content_item, content_for(:phase_message) %>
+      <div class="full-page-width-wrapper">
+        <%= render_phase_label @content_item, content_for(:phase_message) %>
+      </div>
       <%= yield %>
     </main>
 

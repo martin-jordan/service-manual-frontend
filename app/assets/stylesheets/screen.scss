@@ -2,6 +2,9 @@
 
 @import "common";
 
+// CSS that could be better, mostly overriding Slimmer...
+@import "hacks/full-width";
+
 // Modules
 @import "modules/change-history";
 @import "modules/collection";

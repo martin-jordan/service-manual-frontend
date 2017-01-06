@@ -1,60 +1,67 @@
-<%= content_for :title, "Service Manual" %>
-<% content_for :phase_message do %>
-  <%= render 'shared/custom_phase_message_homepage', phase: @content_item.phase %>
-<% end %>
+<%
+  content_for :title, "Service Manual"
+  content_for :phase_message do
+    render 'shared/custom_phase_message_homepage', phase: @content_item.phase
+  end
+  content_for :body_classes, 'full-width'
+%>
 
 <header class="hero">
-  <div class="grid-row">
-    <div class="column-two-thirds">
-      <h1 class="hero__title">Service Manual</h1>
+  <div class="hero__content">
+    <div class="grid-row">
+      <div class="column-two-thirds">
+        <h1 class="hero__title">Service Manual</h1>
 
-      <p class="hero__description">
-        Helping government teams create and run great digital services that meet the <%= link_to 'Digital Service Standard', '/service-manual/service-standard' %>.
-      </p>
+        <p class="hero__description">
+          Helping government teams create and run great digital services that meet the <%= link_to 'Digital Service Standard', '/service-manual/service-standard' %>.
+        </p>
 
-      <div class="search">
-        <form action="/search" method="get" role="search">
-          <label for="search" class="search__label">Search the Service Manual</label>
-          <div class="search__input">
-            <input class="js-search-focus" name="q" id="search" type="search" title="Search the service manual" />
-          </div>
-          <input type="hidden" name="filter_manual" value="/service-manual">
-          <input class="search__submit" type="submit" value="Search">
-        </form>
+        <div class="hero__search search">
+          <form action="/search" method="get" role="search">
+            <label for="search" class="search__label">Search the Service Manual</label>
+            <div class="search__input">
+              <input class="js-search-focus" name="q" id="search" type="search" title="Search the service manual" />
+            </div>
+            <input type="hidden" name="filter_manual" value="/service-manual">
+            <input class="search__submit" type="submit" value="Search">
+          </form>
+        </div>
       </div>
-    </div>
 
-    <div class="column-one-third">
-      <p class="hero__feedback-link"><%= link_to 'Contact the Service Manual team', '/contact/govuk' %> with any comments or questions.</p>
+      <div class="column-one-third">
+        <p class="hero__feedback-link"><%= link_to 'Contact the Service Manual team', '/contact/govuk' %> with any comments or questions.</p>
+      </div>
     </div>
   </div>
 </header>
 
-<% @content_item.topics.each_slice(3) do |row_of_topics| %>
-  <div class="grid-row">
-  <% row_of_topics.each do |topic| %>
-    <div class="column-one-third">
-      <div class="link-unit">
-        <h2 class="link-unit__title"><%= link_to topic["title"], topic["base_path"] %></h2>
-        <p class="link-unit__description"><%= topic["description"] %></p>
-      </div>
+<div class="full-page-width-wrapper">
+  <% @content_item.topics.each_slice(3) do |row_of_topics| %>
+    <div class="grid-row">
+      <% row_of_topics.each do |topic| %>
+        <div class="column-one-third">
+          <div class="link-unit">
+            <h2 class="link-unit__title"><%= link_to topic["title"], topic["base_path"] %></h2>
+            <p class="link-unit__description"><%= topic["description"] %></p>
+          </div>
+        </div>
+      <% end %>
     </div>
   <% end %>
-  </div>
-<% end %>
 
-<div class="grid-row">
-  <div class="column-half">
-    <div class="panel">
-      <h2 class="panel__title">The Digital Service Standard</h2>
-      <p class="panel__description">The <%= link_to 'Digital Service Standard', '/service-manual/service-standard' %> provides the principles of building a good digital service. This manual explains what teams can do to build great digital services that will meet the standard.</p>
+  <div class="grid-row">
+    <div class="column-half">
+      <div class="panel">
+        <h2 class="panel__title">The Digital Service Standard</h2>
+        <p class="panel__description">The <%= link_to 'Digital Service Standard', '/service-manual/service-standard' %> provides the principles of building a good digital service. This manual explains what teams can do to build great digital services that will meet the standard.</p>
+      </div>
     </div>
-  </div>
 
-  <div class="column-half">
-    <div class="panel">
-      <h2 class="panel__title">Communities of practice</h2>
-      <p class="panel__description">You can view the <%= link_to 'communities of practice', '/service-manual/communities' %> to find more learning resources, see who has written the guidance in the manual and connect with digital people like you from across government.</p>
+    <div class="column-half">
+      <div class="panel">
+        <h2 class="panel__title">Communities of practice</h2>
+        <p class="panel__description">You can view the <%= link_to 'communities of practice', '/service-manual/communities' %> to find more learning resources, see who has written the guidance in the manual and connect with digital people like you from across government.</p>
+      </div>
     </div>
   </div>
 </div>
