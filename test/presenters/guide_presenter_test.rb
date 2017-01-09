@@ -3,7 +3,7 @@ require 'test_helper'
 class GuidePresenterTest < ActiveSupport::TestCase
   test 'presents the basic details required to display a Service Manual Guide' do
     assert_equal "Agile Delivery", presented_guide.title
-    assert_equal "service_manual_guide", presented_guide.format
+    assert_equal "guide", presented_guide.format
     assert presented_guide.body.size > 10
     assert presented_guide.header_links.size >= 1
 

@@ -5,7 +5,6 @@ class ContentItemPresenter
     @content_item = content_item
     @title = content_item["title"]
     @description = content_item["description"]
-    @format = content_item["format"]
     @locale = content_item["locale"] || "en"
     @phase = content_item["phase"]
   end
@@ -28,6 +27,10 @@ class ContentItemPresenter
 
   def use_new_style_feedback_form?
     true
+  end
+
+  def format
+    content_item["format"].sub(/^service_manual_/, '')
   end
 
 private
