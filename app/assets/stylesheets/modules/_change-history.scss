@@ -14,8 +14,7 @@
     }
   }
 
-  &__summary,
-  &__reason {
+  &__summary {
     @include core-16;
     color: $grey-1;
   }
