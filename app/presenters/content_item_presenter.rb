@@ -15,8 +15,12 @@ class ContentItemPresenter
     sorted_locales(links["available_translations"])
   end
 
-  def is_homepage?
-    false
+  def include_search_in_header?
+    true
+  end
+
+  def use_new_style_feedback_form?
+    true
   end
 
 private

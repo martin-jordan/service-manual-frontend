@@ -3,20 +3,17 @@ require 'slimmer/headers'
 
 class ContentItemsController < ApplicationController
   include Slimmer::Headers
+  include Slimmer::Template
   rescue_from GdsApi::HTTPForbidden, with: :error_403
 
   def show
-    # The Slimmer middleware is responsible for intercepting the response and
-    # wrapping it with the GOV.UK header and footer. We want to use our own
-    # 'report a problem' pattern, so opt out of the bundled one.
-    set_slimmer_headers(
-      report_a_problem: "false"
-    )
+    slimmer_template :without_footer_links
 
     if load_content_item
       set_expiry
       set_locale
       configure_header_search
+      configure_feedback_form
       render content_item_template
     else
       configure_header_search
@@ -68,10 +65,21 @@ private
   end
 
   def configure_header_search
-    if @content_item.present? && @content_item.is_homepage?
+    if @content_item.present? && !@content_item.include_search_in_header?
       remove_header_search
     else
       scope_header_search_to_service_manual
+    end
+  end
+
+  def configure_feedback_form
+    # The Slimmer middleware is responsible for intercepting the response and
+    # wrapping it with the GOV.UK header and footer. We want to use our own
+    # 'report a problem' pattern, so opt out of the bundled one.
+    if @content_item.present? && @content_item.use_new_style_feedback_form?
+      set_slimmer_headers(
+        report_a_problem: "false"
+      )
     end
   end
 

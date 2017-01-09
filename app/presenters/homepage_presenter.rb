@@ -3,8 +3,8 @@ class HomepagePresenter < ContentItemPresenter
     []
   end
 
-  def is_homepage?
-    true
+  def include_search_in_header?
+    false
   end
 
   def topics
