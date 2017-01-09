@@ -13,4 +13,74 @@ class ServiceToolkitTest < ActionDispatch::IntegrationTest
     refute page.has_css?('.improve-this-page'),
       'Improve this page component should not be present on the page'
   end
+
+  test 'the service toolkit displays the introductory hero' do
+    setup_and_visit_example('service_manual_service_toolkit', 'service_manual_service_toolkit')
+
+    assert page.has_content? <<-TEXT
+      Design and build government services
+      All you need to design, build and run services that meet government standards.
+    TEXT
+  end
+
+  test 'the homepage includes both collections' do
+    setup_and_visit_example('service_manual_service_toolkit', 'service_manual_service_toolkit')
+
+    assert_equal 2, collections.length, "Expected to find 2 collections"
+  end
+
+  test 'the homepage includes the titles for both collections' do
+    setup_and_visit_example('service_manual_service_toolkit', 'service_manual_service_toolkit')
+
+    within(the_first_collection) do
+      assert page.has_content? "Standards"
+    end
+
+    within(the_second_collection) do
+      assert page.has_content? "Buying"
+    end
+  end
+
+  test 'the homepage includes the descriptions for both collections' do
+    setup_and_visit_example('service_manual_service_toolkit', 'service_manual_service_toolkit')
+
+    within(the_first_collection) do
+      assert page.has_content? "Meet the standards for government services"
+    end
+
+    within(the_second_collection) do
+      assert page.has_content? "Extra skills, people and technology to help build your service"
+    end
+  end
+
+  test 'the homepage includes the links from both collections' do
+    setup_and_visit_example('service_manual_service_toolkit', 'service_manual_service_toolkit')
+
+    within(the_first_collection) do
+      assert page.has_link? "The Digital Service Standard",
+        href: 'https://www.gov.uk/service-manual/service-standard'
+
+      assert page.has_link? "Service Manual",
+        href: 'https://www.gov.uk/service-manual'
+    end
+
+    within(the_second_collection) do
+      assert page.has_link? "Digital Marketplace",
+        href: 'https://www.gov.uk/digital-marketplace'
+    end
+  end
+
+private
+
+  def collections
+    find_all('.collection')
+  end
+
+  def the_first_collection
+    collections[0]
+  end
+
+  def the_second_collection
+    collections[1]
+  end
 end
