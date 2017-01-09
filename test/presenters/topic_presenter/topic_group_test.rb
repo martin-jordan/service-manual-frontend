@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class ServiceManualTopicPresenter::TopicGroupTest < ActiveSupport::TestCase
+class TopicPresenter::TopicGroupTest < ActiveSupport::TestCase
   def described_class
-    ServiceManualTopicPresenter::TopicGroup
+    TopicPresenter::TopicGroup
   end
 
   def group_data

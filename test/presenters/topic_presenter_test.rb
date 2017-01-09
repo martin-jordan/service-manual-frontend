@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TopicPresenterServiceManualTest < ActiveSupport::TestCase
+class TopicPresenterTest < ActiveSupport::TestCase
   test 'presents the basic details required to display a Service Manual Topic' do
     topic = presented_topic(title: "Agile", description: "Agile Test Description")
     assert_equal "Agile", topic.title
@@ -76,7 +76,7 @@ private
 
   def presented_topic(overriden_attributes = {})
     parsed = JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_topic', 'service_manual_topic'))
-    ServiceManualTopicPresenter.new(
+    TopicPresenter.new(
       parsed.merge(overriden_attributes.with_indifferent_access)
     )
   end

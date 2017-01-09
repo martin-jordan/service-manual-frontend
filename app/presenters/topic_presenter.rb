@@ -1,4 +1,4 @@
-class ServiceManualTopicPresenter < ContentItemPresenter
+class TopicPresenter < ContentItemPresenter
   ContentOwner = Struct.new(:title, :href)
 
   def initialize(content_item)
@@ -13,7 +13,7 @@ class ServiceManualTopicPresenter < ContentItemPresenter
   def groups
     linked_items = content_item['links']['linked_items']
     topic_groups = Array(content_item['details']['groups']).map do |group_data|
-      ServiceManualTopicPresenter::TopicGroup.new(group_data, linked_items)
+      TopicPresenter::TopicGroup.new(group_data, linked_items)
     end
     topic_groups.select(&:present?)
   end

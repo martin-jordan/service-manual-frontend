@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
+class GuidePresenterTest < ActiveSupport::TestCase
   test 'presents the basic details required to display a Service Manual Guide' do
     assert_equal "Agile Delivery", presented_guide.title
     assert_equal "service_manual_guide", presented_guide.format
@@ -42,7 +42,7 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
       'point_page'
     )
 
-    presenter = ServiceManualGuidePresenter.new(JSON.parse(example))
+    presenter = GuidePresenter.new(JSON.parse(example))
 
     assert presenter.category_title, "The Digital Service Standard"
   end
@@ -63,7 +63,7 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     )
 
     expected = [
-      ServiceManualGuidePresenter::ContentOwner.new(
+      GuidePresenter::ContentOwner.new(
         "Agile delivery community",
         "/service-manual/communities/agile-delivery-community")
     ]
@@ -71,7 +71,7 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
   end
 
   test "#show_description? is false if not set" do
-    refute ServiceManualGuidePresenter.new({}).show_description?
+    refute GuidePresenter.new({}).show_description?
   end
 
   test "#public_updated_at returns a time" do
@@ -82,7 +82,7 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
     example = simulate_example_as_first_edition_on_draft_stack(
       govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
     )
-    guide = ServiceManualGuidePresenter.new(example)
+    guide = GuidePresenter.new(example)
 
     assert_nil guide.public_updated_at
   end
@@ -103,13 +103,13 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
         'updated_at' => timestamp
       )
     )
-    guide = ServiceManualGuidePresenter.new(example)
+    guide = GuidePresenter.new(example)
 
     assert_equal guide.visible_updated_at, timestamp.to_time
   end
 
   test '#latest_change returns the details for the most recent change' do
-    expected_history = ServiceManualGuidePresenter::Change.new(
+    expected_history = GuidePresenter::Change.new(
       "2015-10-09T08:17:10+00:00".to_time,
       "This is our latest change",
       "This is the reason for our latest change"
@@ -127,9 +127,9 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
         'updated_at' => timestamp
       )
     )
-    guide = ServiceManualGuidePresenter.new(example)
+    guide = GuidePresenter.new(example)
 
-    expected_history = ServiceManualGuidePresenter::Change.new(
+    expected_history = GuidePresenter::Change.new(
       timestamp.to_time,
       "This is our latest change",
       "This is the reason for our latest change"
@@ -140,12 +140,12 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
 
   test '#previous_changes returns the change history for the guide' do
     expected_history = [
-      ServiceManualGuidePresenter::Change.new(
+      GuidePresenter::Change.new(
         "2015-09-09T08:17:10+00:00".to_time,
         "This is another change",
         "This is why we made this change\nand it has a second line of text"
       ),
-      ServiceManualGuidePresenter::Change.new(
+      GuidePresenter::Change.new(
         "2015-09-01T08:17:10+00:00".to_time,
         "Guidance first published",
         ""
@@ -158,7 +158,7 @@ class ServiceManualGuidePresenterTest < ActiveSupport::TestCase
 private
 
   def presented_guide(overriden_attributes = {}, example = 'service_manual_guide')
-    ServiceManualGuidePresenter.new(
+    GuidePresenter.new(
       JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', example)).merge(overriden_attributes)
     )
   end

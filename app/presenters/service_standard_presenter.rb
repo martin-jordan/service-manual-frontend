@@ -1,4 +1,4 @@
-class ServiceManualServiceStandardPresenter < ContentItemPresenter
+class ServiceStandardPresenter < ContentItemPresenter
   def points
     Point.load(points_attributes).sort
   end

@@ -1,4 +1,4 @@
-class ServiceManualGuidePresenter < ContentItemPresenter
+class GuidePresenter < ContentItemPresenter
   ContentOwner = Struct.new(:title, :href)
   Change = Struct.new(:public_timestamp, :note, :reason_for_change)
 

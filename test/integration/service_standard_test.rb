@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ServiceManualServiceStandardTest < ActionDispatch::IntegrationTest
+class ServiceStandardTest < ActionDispatch::IntegrationTest
   test "service standard page has a title, summary and intro" do
     setup_and_visit_example('service_manual_service_standard', 'service_manual_service_standard')
 

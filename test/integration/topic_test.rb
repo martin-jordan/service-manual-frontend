@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ServiceManualTopicTest < ActionDispatch::IntegrationTest
+class TopicTest < ActionDispatch::IntegrationTest
   setup do
     @topic_example = JSON.parse(
       GovukContentSchemaTestHelpers::Examples.new.get(

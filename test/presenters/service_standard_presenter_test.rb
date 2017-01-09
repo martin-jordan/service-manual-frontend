@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ContentItemPresenterTest < ActiveSupport::TestCase
+class ServiceStandardPresenterTest < ActiveSupport::TestCase
   test "#points gets points from the details" do
     points = presented_standard.points
 
@@ -28,7 +28,7 @@ class ContentItemPresenterTest < ActiveSupport::TestCase
     }
 
     points_titles =
-      ServiceManualServiceStandardPresenter.new(content_item_hash).points.map(&:title)
+      ServiceStandardPresenter.new(content_item_hash).points.map(&:title)
 
     assert_equal points_titles, [
       "1. Title",
@@ -46,7 +46,7 @@ class ContentItemPresenterTest < ActiveSupport::TestCase
   end
 
   test "#points is empty if there aren't any points in the content item" do
-    assert ServiceManualServiceStandardPresenter.new({}).points.empty?
+    assert ServiceStandardPresenter.new({}).points.empty?
   end
 
   test "#breadcrumbs contains a link to the service manual root" do
@@ -54,7 +54,7 @@ class ContentItemPresenterTest < ActiveSupport::TestCase
       "title" => "Digital Service Standard"
     }
 
-    assert ServiceManualServiceStandardPresenter.new(content_item_hash).breadcrumbs,
+    assert ServiceStandardPresenter.new(content_item_hash).breadcrumbs,
       [
         { title: "Service manual", url: "/service-manual" },
         { title: "Digital Service Standard" },
@@ -82,6 +82,6 @@ private
     example_with_overrides = JSON.parse(example)
       .merge(overriden_attributes.with_indifferent_access)
 
-    ServiceManualServiceStandardPresenter.new(example_with_overrides)
+    ServiceStandardPresenter.new(example_with_overrides)
   end
 end
