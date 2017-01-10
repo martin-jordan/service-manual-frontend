@@ -1,6 +1,6 @@
 class GuidePresenter < ContentItemPresenter
   ContentOwner = Struct.new(:title, :href)
-  Change = Struct.new(:public_timestamp, :note, :reason_for_change)
+  Change = Struct.new(:public_timestamp, :note)
 
   attr_reader :body, :publish_time, :header_links
 
@@ -47,8 +47,7 @@ class GuidePresenter < ContentItemPresenter
     if change.present?
       Change.new(
         visible_updated_at,
-        change["note"],
-        change["reason_for_change"]
+        change["note"]
       )
     end
   end
@@ -57,8 +56,7 @@ class GuidePresenter < ContentItemPresenter
     change_history.drop(1).map do |change|
       Change.new(
         change["public_timestamp"].to_time,
-        change["note"],
-        change["reason_for_change"]
+        change["note"]
       )
     end
   end

@@ -111,8 +111,7 @@ class GuidePresenterTest < ActiveSupport::TestCase
   test '#latest_change returns the details for the most recent change' do
     expected_history = GuidePresenter::Change.new(
       "2015-10-09T08:17:10+00:00".to_time,
-      "This is our latest change",
-      "This is the reason for our latest change"
+      "This is our latest change"
     )
 
     assert_equal expected_history, presented_guide.latest_change
@@ -131,8 +130,7 @@ class GuidePresenterTest < ActiveSupport::TestCase
 
     expected_history = GuidePresenter::Change.new(
       timestamp.to_time,
-      "This is our latest change",
-      "This is the reason for our latest change"
+      "This is our latest change"
     )
 
     assert_equal expected_history, guide.latest_change
@@ -142,13 +140,11 @@ class GuidePresenterTest < ActiveSupport::TestCase
     expected_history = [
       GuidePresenter::Change.new(
         "2015-09-09T08:17:10+00:00".to_time,
-        "This is another change",
-        "This is why we made this change\nand it has a second line of text"
+        "This is another change"
       ),
       GuidePresenter::Change.new(
         "2015-09-01T08:17:10+00:00".to_time,
-        "Guidance first published",
-        ""
+        "Guidance first published"
       )
     ]
 

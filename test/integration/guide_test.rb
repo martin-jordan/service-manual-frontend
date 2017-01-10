@@ -102,7 +102,6 @@ class GuideTest < ActionDispatch::IntegrationTest
 
     within('.change-history') do
       assert page.has_content? 'This is our latest change'
-      assert page.has_content? 'This is the reason for our latest change'
     end
   end
 
@@ -111,8 +110,6 @@ class GuideTest < ActionDispatch::IntegrationTest
 
     within('.change-history__past') do
       assert page.has_content? 'This is another change'
-      assert page.has_content? 'This is why we made this change and it has a second line of text'
-
       assert page.has_content? 'Guidance first published'
     end
   end
@@ -123,8 +120,7 @@ class GuideTest < ActionDispatch::IntegrationTest
         "change_history" => [
           {
             "public_timestamp"  => "2015-09-01T08:17:10+00:00",
-            "note"  => "Guidance first published",
-            "reason_for_change" => ""
+            "note"  => "Guidance first published"
           }
         ]
       })
