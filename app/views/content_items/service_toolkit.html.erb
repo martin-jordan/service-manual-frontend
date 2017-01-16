@@ -20,7 +20,7 @@
 <div class="full-page-width-wrapper">
   <% @content_item.collections.each do |collection| %>
   <div class="collection">
-    <h2 class="collection__title"><%= collection["title"] %></h2>
+    <h2 id="<%= collection["title"].parameterize %>" class="collection__title"><%= collection["title"] %></h2>
     <p class="collection__description"><%= collection["description"] %></p>
 
     <% collection["links"].each_slice(2) do |row_of_links| %>
