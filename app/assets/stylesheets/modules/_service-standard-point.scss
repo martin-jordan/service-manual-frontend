@@ -6,6 +6,10 @@
   margin-top: 1.5em;
   padding-top: 1.5em;
 
+  &:first-child {
+    margin-top: 0;
+  }
+
   &__title {
     @include bold-24;
     margin-bottom: 0.5em;
