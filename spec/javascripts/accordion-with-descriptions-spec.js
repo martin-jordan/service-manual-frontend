@@ -105,43 +105,66 @@ describe('An accordion with descriptions module', function () {
     expect($subsectionHeader).toContainElement('.subsection__icon');
   });
 
-  describe('When the "Open all" button is clicked', function () {
+  describe('Clicking the "Open all" button', function () {
 
     it('adds a .subsection--is-open class to each subsection to hide the icon', function () {
       accordion.start($element);
-      clickOpenAll();
+      clickOpenCloseAll();
 
       expect($element.find('.subsection--is-open').length).toEqual(2);
     });
 
     it('adds an aria-expanded attribute to each subsection button', function () {
       accordion.start($element);
-      clickOpenAll();
+      clickOpenCloseAll();
 
       expect($element.find('.js-subsection-button[aria-expanded="true"]').length).toEqual(2);
     });
 
     it('removes the .js-hidden class from each subsection content to hide the list of links', function () {
       accordion.start($element);
-      clickOpenAll();
+      clickOpenCloseAll();
 
       expect($element.find('.js-subsection-content.js-hidden').length).toEqual(0);
     });
 
     it('changes the Open/Close all button text to "Close all"', function () {
       accordion.start($element);
-      clickOpenAll();
+      clickOpenCloseAll();
 
       expect($element.find('.js-subsection-controls button')).toContainText("Close all");
     });
 
-    function clickOpenAll() {
-      $element.find('.js-subsection-controls button').click();
-    }
+    it("triggers a google analytics custom event", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      clickOpenCloseAll();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionAllOpened', {
+        label: 'Open All'
+      });
+    });
 
   });
 
-  describe('When a section is open', function () {
+  describe('Clicking the "Close all" button', function () {
+    it("triggers a google analytics custom event", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      clickOpenCloseAll();
+      clickOpenCloseAll();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionAllClosed', {
+        label: 'Close All'
+      });
+    });
+  });
+
+  describe('Opening a section', function () {
 
     // When a section is open (testing: toggleSection, openSection)
     it("does not have a class of js-hidden", function () {
@@ -178,9 +201,47 @@ describe('An accordion with descriptions module', function () {
       expect(storedItem).toEqual('Opened');
     });
 
+    it("triggers a google analytics custom event when clicking on the title", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionButton = $element.find('.subsection__title button:first');
+      $subsectionButton.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionOpened', {
+        label: 'Topic Section One - Heading Click'
+      });
+    });
+
+    it("triggers a google analytics custom event when clicking on the icon", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionIcon = $element.find('.subsection__icon');
+      $subsectionIcon.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionOpened', {
+        label: 'Topic Section One - Plus Click'
+      });
+    });
+
+    it("triggers a google analytics custom event when clicking in space in the header", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionHeader = $element.find('.subsection__header');
+      $subsectionHeader.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionOpened', {
+        label: 'Topic Section One - Click Elsewhere'
+      });
+    });
   });
 
-  describe('When a section is closed', function () {
+  describe('Closing a section', function () {
 
     // When a section is closed (testing: toggleSection, closeSection)
     it("has a class of js-hidden", function () {
@@ -218,6 +279,48 @@ describe('An accordion with descriptions module', function () {
       expect(removedItem).not.toExist();
     });
 
+    it("triggers a google analytics custom event when clicking on the title", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionButton = $element.find('.subsection__title button:first');
+      $subsectionButton.click();
+      $subsectionButton.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionClosed', {
+        label: 'Topic Section One - Heading Click'
+      });
+    });
+
+    it("triggers a google analytics custom event when clicking on the icon", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionIcon = $element.find('.subsection__icon');
+      $subsectionIcon.click();
+      $subsectionIcon.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionClosed', {
+        label: 'Topic Section One - Minus Click'
+      });
+    });
+
+    it("triggers a google analytics custom event when clicking in space in the header", function () {
+      GOVUK.analytics = {trackEvent: function() {}};
+      spyOn(GOVUK.analytics, 'trackEvent');
+
+      accordion.start($element);
+      var $subsectionHeader = $element.find('.subsection__header');
+      $subsectionHeader.click();
+      $subsectionHeader.click();
+
+      expect(GOVUK.analytics.trackEvent).toHaveBeenCalledWith('pageElementInteraction', 'accordionClosed', {
+        label: 'Topic Section One - Click Elsewhere'
+      });
+    });
+
   });
 
   describe('When linking to a topic section', function () {
@@ -246,4 +349,7 @@ describe('An accordion with descriptions module', function () {
     });
   });
 
+  function clickOpenCloseAll() {
+    $element.find('.js-subsection-controls button').click();
+  }
 });

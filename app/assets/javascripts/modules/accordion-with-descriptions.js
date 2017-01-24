@@ -11,7 +11,6 @@
       // Prevent FOUC, remove class hiding content
       $element.removeClass('js-hidden');
 
-      var $subsectionButtons = $element.find('.subsection__button');
       var $subsectionHeaders = $element.find('.subsection__header');
       var totalSubsections = $element.find('.subsection__content').length;
 
@@ -23,7 +22,7 @@
       addIconsToSubsections();
       addAriaControlsAttrForOpenCloseAllButton();
 
-      closeOpenSections();
+      closeAllSections();
       checkSessionStorage();
       openLinkedSection();
 
@@ -55,7 +54,7 @@
 
         // Wrap each title in a button, with aria controls matching the ID of the subsection
         $subsectionTitle.each(function(index) {
-          $(this).wrapInner( '<button class="subsection__button js-subsection-button" aria-expanded="false" aria-controls="subsection_content_' + index +'"></a>' );
+          $(this).wrapInner( '<button class="subsection__button js-subsection-button" aria-expanded="false" aria-controls="subsection_content_' + index +'"></button>' );
         });
       }
 
@@ -76,25 +75,26 @@
         $openOrCloseAllButton.attr('aria-controls', ariaControlsValue);
       }
 
-      function closeOpenSections() {
-        var $subsectionContent = $element.find('.subsection__content');
-        closeSection($subsectionContent);
+      function closeAllSections() {
+        $.each($element.find('.js-subsection'), function () {
+          var subsectionView = new SubsectionView($(this));
+          subsectionView.close();
+        });
       }
 
       function openLinkedSection() {
         var anchor = getActiveAnchor(),
-            section;
+            $subsection;
 
         if (!anchor.length) {
           return;
         }
 
-        section = $element.find(anchor)
-          .parents('.subsection')
-          .find('.subsection__content');
+        $subsection = $element.find(anchor).parents('.js-subsection');
 
-        if (section.length) {
-          openSection(section);
+        if ($subsection.length) {
+          var subsectionView = new SubsectionView($subsection);
+          subsectionView.open();
         }
       }
 
@@ -139,24 +139,19 @@
       }
 
       function bindToggleForSubsections() {
-        // Add toggle functionality individual sections
-        $subsectionHeaders.on('click', function(e) {
-          toggleSection($(this).next());
-          toggleIcon($(this));
-          toggleState($(this).find('.subsection__button'));
-          setOpenCloseAllText();
-          setSessionStorage();
-          removeSessionStorage();
-          return false;
-        });
+        $element.find('.subsection__header').on('click', function(event) {
+          var $subsectionHeader = $(this);
+          var $subsection = $subsectionHeader.parent('.js-subsection');
+          var subsectionView = new SubsectionView($subsection);
 
-        $subsectionButtons.on('click', function(e) {
-          toggleSection($(this).parent().parent().next());
-          toggleIcon($(this).parent().parent());
-          toggleState($(this));
+          subsectionView.toggle();
           setOpenCloseAllText();
           setSessionStorage();
           removeSessionStorage();
+
+          var subsectionToggleClick = new SubsectionToggleClick(subsectionView, event);
+          subsectionToggleClick.track();
+
           return false;
         });
       }
@@ -171,10 +166,18 @@
             $openOrCloseAllButton.text("Close all");
             $openOrCloseAllButton.attr("aria-expanded", "true");
             action = 'open';
+
+            track('pageElementInteraction', 'accordionAllOpened', {
+              label: 'Open All'
+            });
           } else {
             $openOrCloseAllButton.text("Open all");
             $openOrCloseAllButton.attr("aria-expanded", "false");
             action = 'close';
+
+            track('pageElementInteraction', 'accordionAllClosed', {
+              label: 'Close All'
+            });
           }
 
           $element.find('.js-subsection').each(function() {
@@ -205,10 +208,11 @@
         });
       }
 
-      function openStoredSections($section) {
-        toggleSection($section);
-        toggleIcon($section);
-        toggleState($section.parent().find('.subsection__button'));
+      function openStoredSections($sectionContent) {
+        var $subsection = $sectionContent.parent('.js-subsection');
+        var subsectionView = new SubsectionView($subsection);
+        subsectionView.open();
+
         setOpenCloseAllText();
       }
 
@@ -222,44 +226,103 @@
         }
       }
 
-      function toggleSection($node) {
-        if ($($node).hasClass('js-hidden')) {
-          openSection($node);
+      function isSubsectionClosed($subsection) {
+        var $subsectionContent = $subsection.find('.js-subsection-content');
+
+        return $subsectionContent.hasClass('js-hidden');
+      }
+
+    }
+
+    function SubsectionView ($subsectionElement) {
+      var that = this;
+
+      // The 'Content' is the container of links to guides
+      this.$subsectionContent = $subsectionElement.find('.js-subsection-content');
+      // The 'Button' is a button element that is wrapped around the title for
+      // accessibility reasons
+      this.$subsectionButton = $subsectionElement.find('.js-subsection-button');
+
+      this.title = that.$subsectionButton.text();
+
+      this.toggle = function () {
+        if (that.isClosed()) {
+          that.open();
         } else {
-          closeSection($node);
+          that.close();
         }
       }
 
-      function toggleIcon($node) {
-        if ($($node).parent().hasClass('subsection--is-open')) {
-          $node.parent().removeClass('subsection--is-open');
-          $node.parent().addClass('subsection');
+      this.open = function () {
+        // Show the subsection content
+        that.$subsectionContent.removeClass('js-hidden');
+        // Swap the plus and minus sign
+        $subsectionElement.removeClass('subsection');
+        $subsectionElement.addClass('subsection--is-open');
+        // Tell impaired users that the section is open
+        that.$subsectionButton.attr("aria-expanded", "true");
+      }
+
+      this.close = function () {
+        // Hide the subsection content
+        that.$subsectionContent.addClass('js-hidden');
+        // Swap the plus and minus sign
+        $subsectionElement.removeClass('subsection--is-open');
+        $subsectionElement.addClass('subsection');
+        // Tell impaired users that the section is closed
+        that.$subsectionButton.attr("aria-expanded", "false");
+      }
+
+      this.isClosed = function () {
+        return that.$subsectionContent.hasClass('js-hidden');
+      }
+    }
+
+    // A contructor for an object that represents a click event on a subsection which
+    // handles the complexity of sending different tracking labels to Google Analytics
+    // depending on which part of the subsection the user clicked.
+    function SubsectionToggleClick (subsectionView, event) {
+      var that = this;
+
+      this.$target = $(event.target);
+
+      this.track = function () {
+        track('pageElementInteraction', that._trackingAction(), { label: that._trackingLabel() });
+      }
+
+      this._trackingAction = function () {
+        return (subsectionView.isClosed() ? 'accordionClosed' : 'accordionOpened');
+      }
+
+      this._trackingLabel = function () {
+        if (that._clickedOnIcon()) {
+          return subsectionView.title + ' - ' + that._iconType() + ' Click';
+        } else if (that._clickedOnHeading()) {
+          return subsectionView.title + ' - Heading Click';
         } else {
-          $node.parent().removeClass('subsection');
-          $node.parent().addClass('subsection--is-open');
+          return subsectionView.title + ' - Click Elsewhere';
         }
       }
 
-      function toggleState($node) {
-        if ($($node).attr('aria-expanded') == "true") {
-          $node.attr("aria-expanded", "false");
-        } else {
-          $node.attr("aria-expanded", "true");
-        }
+      this._clickedOnIcon = function () {
+        return that.$target.hasClass('subsection__icon');
       }
 
-      function openSection($node) {
-        $node.removeClass('js-hidden');
+      this._clickedOnHeading = function () {
+        return that.$target.hasClass('js-subsection-button');
       }
 
-      function closeSection($node) {
-        $node.addClass('js-hidden');
+      this._iconType = function () {
+        return (subsectionView.isClosed() ? 'Minus' : 'Plus');
       }
+    }
 
-      function setExpandedState($node, state) {
-        $node.attr("aria-expanded", state);
+    // A helper that sends an custom event request to Google Analytics if
+    // the GOVUK module is setup
+    function track(category, action, options) {
+      if (GOVUK.analytics && GOVUK.analytics.trackEvent) {
+        GOVUK.analytics.trackEvent(category, action, options);
       }
-
     }
   };
 })(window.GOVUK.Modules);
