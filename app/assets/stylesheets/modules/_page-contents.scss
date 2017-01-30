@@ -29,6 +29,8 @@
 
   &__list a {
     text-decoration: none;
+    // Prevents emboldening from pushing text onto new lines
+    letter-spacing: 0.022em;
 
     &:hover,
     &:focus,
@@ -38,6 +40,7 @@
   }
   // Styles required by GOVUK.HighlightActiveNavItem JS
   &__list .active {
+    letter-spacing: 0;
     font-weight: bold;
   }
 }
