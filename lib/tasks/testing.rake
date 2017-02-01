@@ -1,10 +1,10 @@
 namespace :test do
   desc "Runs contract tests"
-  Rails::TestTask.new(contracts: "test:prepare") do |t|
+  task contracts: "test:prepare" do |t|
     t.pattern = "test/contracts/**/*_test.rb"
   end
 
-  Rails::TestTask.new(presenters: "test:prepare") do |t|
+  task presenters: "test:prepare" do |t|
     t.pattern = "test/presenters/**/*_test.rb"
   end
 end

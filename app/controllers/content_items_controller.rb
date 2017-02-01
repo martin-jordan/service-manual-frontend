@@ -17,7 +17,7 @@ class ContentItemsController < ApplicationController
       render content_item_template
     else
       configure_header_search
-      render text: 'Not found', status: :not_found
+      render body: 'Not found', status: :not_found
     end
   end
 
@@ -100,6 +100,6 @@ private
   end
 
   def error_403(exception)
-    render text: exception.message, status: 403
+    render body: exception.message, status: 403
   end
 end
