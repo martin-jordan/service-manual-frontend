@@ -14,7 +14,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   test "gets item from content store" do
     content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
 
-    get :show, path: path_for(content_item)
+    get :show, params: { path: path_for(content_item) }
     assert_response :success
     assert_equal content_item['title'], assigns[:content_item].title
   end
@@ -23,7 +23,7 @@ class ContentItemsControllerTest < ActionController::TestCase
     content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
     content_store_has_item(content_item['base_path'], content_item, max_age: 20)
 
-    get :show, path: path_for(content_item)
+    get :show, params: { path: path_for(content_item) }
     assert_response :success
     assert_equal "max-age=20, public", @response.headers['Cache-Control']
   end
@@ -32,7 +32,7 @@ class ContentItemsControllerTest < ActionController::TestCase
     content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
     content_store_has_item(content_item['base_path'], content_item, private: true)
 
-    get :show, path: path_for(content_item)
+    get :show, params: { path: path_for(content_item) }
     assert_response :success
     assert_equal "max-age=900, private", @response.headers['Cache-Control']
   end
@@ -44,7 +44,7 @@ class ContentItemsControllerTest < ActionController::TestCase
 
     content_store_has_item(content_item['base_path'], content_item)
 
-    get :show, path: utf8_path
+    get :show, params: { path: utf8_path }
     assert_response :success
   end
 
@@ -53,7 +53,7 @@ class ContentItemsControllerTest < ActionController::TestCase
 
     content_store_does_not_have_item('/' + path)
 
-    get :show, path: path
+    get :show, params: { path: path }
     assert_response :not_found
   end
 
@@ -62,14 +62,14 @@ class ContentItemsControllerTest < ActionController::TestCase
     url = content_store_endpoint + "/content/" + path
     stub_request(:get, url).to_return(status: 403, headers: {})
 
-    get :show, path: path
+    get :show, params: { path: path }
     assert_response :forbidden
   end
 
   test 'renders service manual guides' do
     content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
 
-    get :show, path: path_for(content_item)
+    get :show, params: { path: path_for(content_item) }
     assert_response :success
     assert_equal content_item['title'], assigns[:content_item].title
   end
@@ -77,7 +77,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   test "sets a header to disable 'report a problem'" do
     content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
 
-    get :show, path: path_for(content_item)
+    get :show, params: { path: path_for(content_item) }
 
     assert_equal response.headers['X-Slimmer-Report-a-Problem'], 'false',
       'the header is not set correctly'
@@ -86,7 +86,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   test "does not set a header to disable 'report a problem' for the Service Toolkit" do
     content_item = content_store_has_schema_example('service_manual_service_toolkit', 'service_manual_service_toolkit')
 
-    get :show, path: path_for(content_item)
+    get :show, params: { path: path_for(content_item) }
 
     refute response.headers.key?('X-Slimmer-Report-a-Problem'),
       'Report a problem should not be disabled'
@@ -95,7 +95,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   test 'guides should tell slimmer to scope search results to the manual' do
     content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
 
-    get :show, path: path_for(content_item)
+    get :show, params: { path: path_for(content_item) }
     assert_equal(
       { filter_manual: "/service-manual" }.to_json,
       @response.headers[Slimmer::Headers::SEARCH_PARAMETERS_HEADER]
@@ -105,7 +105,7 @@ class ContentItemsControllerTest < ActionController::TestCase
   test 'the homepage should tell slimmer not to include a search box in the header' do
     content_item = content_store_has_schema_example('service_manual_homepage', 'service_manual_homepage')
 
-    get :show, path: path_for(content_item)
+    get :show, params: { path: path_for(content_item) }
     assert_equal 'true', @response.headers[Slimmer::Headers::REMOVE_SEARCH_HEADER]
   end
 

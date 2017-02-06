@@ -3,7 +3,7 @@ require 'test_helper'
 class PhaseLabelTest < ActionDispatch::IntegrationTest
   test "Beta phase label is displayed for a Service Manual Guide in phase 'beta'" do
     guide_sample = JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', 'service_manual_guide'))
-    guide_sample.merge!("phase" => "beta")
+    guide_sample["phase"] = "beta"
     content_store_has_item("/service-manual/agile", guide_sample.to_json)
 
     visit "/service-manual/agile"
@@ -25,7 +25,7 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
 
   test "Alpha phase label is displayed for a Case Study in phase 'alpha'" do
     case_study = JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', 'service_manual_guide'))
-    case_study.merge!("phase" => "alpha")
+    case_study["phase"] = "alpha"
     content_store_has_item("/government/case-studies/get-britain-building-carlisle-park", case_study.to_json)
 
     visit "/government/case-studies/get-britain-building-carlisle-park"
@@ -45,9 +45,8 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
   end
 
   def assert_has_phase_label(phase)
-    within "[data-template='govuk_component-#{phase}_label']" do
-      assert page.has_content?("#{phase}_label"), "Expected the page to have an '#{phase.titleize}' label"
-    end
+    assert page.has_css?("[data-template='govuk_component-#{phase}_label']"),
+      "Expected the page to have an '#{phase.titleize}' label"
   end
 
   def assert_has_phase_label_message(phase, message)

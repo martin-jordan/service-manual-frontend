@@ -69,7 +69,7 @@ class TopicPresenterTest < ActiveSupport::TestCase
   test '#email_alert_signup does not error if no signup exists' do
     topic = presented_topic(links: { email_alert_signup: [] })
 
-    assert_equal nil, topic.email_alert_signup_link
+    assert_nil topic.email_alert_signup_link
   end
 
 private

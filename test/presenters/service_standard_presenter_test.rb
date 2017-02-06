@@ -67,8 +67,7 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
   end
 
   test '#email_alert_signup does not error if no signup exists' do
-    assert_equal nil,
-      presented_standard(links: { email_alert_signup: [] }).email_alert_signup_link
+    assert_nil presented_standard(links: { email_alert_signup: [] }).email_alert_signup_link
   end
 
 private
