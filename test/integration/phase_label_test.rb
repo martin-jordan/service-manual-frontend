@@ -19,8 +19,18 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
 
     visit "/service-manual/agile"
     assert_has_phase_label phase
-    expected_phase_message = %{This is new guidance. Complete our quick 5-question survey to <a href="https://www.surveymonkey.co.uk/r/servicemanualsurvey?c=/service-manual/agile">help us improve it</a>.}
+    expected_phase_message = %{This is new guidance. Complete our quick 5-question survey to <a target="_blank" rel="noopener noreferrer" href="https://www.surveymonkey.co.uk/r/servicemanualsurvey?c=/service-manual/agile">help us improve it</a>.}
     assert_has_phase_label_message phase, expected_phase_message
+  end
+
+  test "renders custom message for service manual homepage" do
+    content_store_has_schema_example("service_manual_homepage", "service_manual_homepage")
+
+    visit "/service-manual/"
+    assert_has_phase_label_message(
+      'beta',
+      %{Complete our quick 5-question survey to <a target="_blank" rel="noopener noreferrer" href="https://www.surveymonkey.co.uk/r/servicemanualsurvey?c=/service-manual">help us improve our content</a>.}
+    )
   end
 
   test "Alpha phase label is displayed for a Case Study in phase 'alpha'" do
