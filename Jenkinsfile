@@ -65,6 +65,7 @@ node {
 
     stage("Test") {
       govuk.runRakeTask('test')
+      govuk.runRakeTask("spec:javascript")
     }
 
     stage("Deploy") {
