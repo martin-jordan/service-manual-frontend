@@ -42,6 +42,7 @@ describe('An accordion with descriptions module', function () {
 
   afterEach(function() {
     $(document).off();
+    sessionStorage.clear();
   });
 
   it("has a class of js-accordion-with-descriptions to indicate the js has loaded", function () {
@@ -188,14 +189,13 @@ describe('An accordion with descriptions module', function () {
     it("has its state saved in session storage", function () {
       accordion.start($element);
 
-      var GOVUKServiceManualTopic = "GOVUK_service_manual_agile_delivery";
+      var GOVUKServiceManualTopic = "GOVUK_service_manual__";
 
       var $subsectionButton = $element.find('.subsection__title button');
       $subsectionButton.click();
 
-      var $openSubsections = $('.subsection--is-open');
+      var $openSubsections = $element.find('.subsection--is-open');
       var subsectionOpenContentId = $openSubsections.find('.subsection__content').attr('id');
-      sessionStorage.setItem(GOVUKServiceManualTopic+subsectionOpenContentId , 'Opened');
 
       var storedItem = sessionStorage.getItem(GOVUKServiceManualTopic+subsectionOpenContentId);
       expect(storedItem).toEqual('Opened');
@@ -270,13 +270,18 @@ describe('An accordion with descriptions module', function () {
     it("has its state removed in session storage", function () {
       accordion.start($element);
 
-      var GOVUKServiceManualTopic = "GOVUK_service_manual_agile_delivery";
+      var GOVUKServiceManualTopic = "GOVUK_service_manual__";
 
-      var $closedSubsections = $element.find('.subsection');
-      var subsectionClosedContentId = $closedSubsections.find('.subsection__content').attr('id');
-      sessionStorage.removeItem(GOVUKServiceManualTopic+subsectionClosedContentId , 'Opened');
-      var removedItem = sessionStorage.getItem(GOVUKServiceManualTopic+subsectionClosedContentId);
-      expect(removedItem).not.toExist();
+      var $subsection = $element.find('.subsection');
+      var $subsectionButton = $subsection.find('.subsection__title button');
+
+      // Open and close the subsection
+      $subsectionButton.click();
+      $subsectionButton.click();
+
+      var subsectionContentId = $subsection.find('.subsection__content').attr('id');
+      var storedItem = sessionStorage.getItem(GOVUKServiceManualTopic+subsectionContentId);
+      expect(storedItem).toBeNull();
     });
 
     it("triggers a google analytics custom event when clicking on the title", function () {

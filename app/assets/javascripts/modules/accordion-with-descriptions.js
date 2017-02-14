@@ -109,7 +109,7 @@
         $subsectionContent.each(function(index) {
           var subsectionContentId = $(this).attr('id');
           if(sessionStorage.getItem(GOVUKServiceManualTopic+subsectionContentId)){
-            openStoredSections($("#"+subsectionContentId));
+            openStoredSections($element.find("#"+subsectionContentId));
           }
         });
 
@@ -117,9 +117,9 @@
       }
 
       function setSessionStorage() {
-        var isOpenSubsections = $('.subsection--is-open').length;
+        var isOpenSubsections = $element.find('.subsection--is-open').length;
         if (isOpenSubsections) {
-          var $openSubsections = $('.subsection--is-open');
+          var $openSubsections = $element.find('.subsection--is-open');
           $openSubsections.each(function(index) {
             var subsectionOpenContentId = $(this).find('.subsection__content').attr('id');
             sessionStorage.setItem( GOVUKServiceManualTopic+subsectionOpenContentId , 'Opened');
@@ -128,9 +128,9 @@
       }
 
       function removeSessionStorage() {
-        var isClosedSubsections = $('.subsection').length;
+        var isClosedSubsections = $element.find('.subsection').length;
         if (isClosedSubsections) {
-          var $closedSubsections = $('.subsection');
+          var $closedSubsections = $element.find('.subsection');
           $closedSubsections.each(function(index) {
             var subsectionClosedContentId = $(this).find('.subsection__content').attr('id');
             sessionStorage.removeItem( GOVUKServiceManualTopic+subsectionClosedContentId , subsectionClosedContentId);
@@ -217,7 +217,7 @@
       }
 
       function setOpenCloseAllText() {
-        var openSubsections = $('.subsection--is-open').length;
+        var openSubsections = $element.find('.subsection--is-open').length;
         // Find out if the number of is-opens == total number of sections
         if (openSubsections === totalSubsections) {
           $openOrCloseAllButton.text('Close all');
