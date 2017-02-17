@@ -1,6 +1,8 @@
 .improve-this-page {
+  $container-padding: 10px;
+
   position: relative;
-  padding: 10px 10px 0;
+  padding: $container-padding $container-padding 0;
   background-color: $govuk-blue;
   color: $white;
 
@@ -50,6 +52,18 @@
 
   &__error:first-letter {
     text-transform: capitalize;
+  }
+
+  &__close {
+    position: absolute;
+    top: $container-padding;
+    right: $container-padding;
+    padding-top: 5px;
+    @include core-16;
+
+    @include media(tablet) {
+      padding-top: 0;
+    }
   }
 
   @include print {
