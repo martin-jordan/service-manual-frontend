@@ -48,6 +48,8 @@
 
   &__error {
     background-color: $error-colour;
+    padding: 10px;
+    margin-bottom: 10px;
   }
 
   &__error:first-letter {
@@ -55,14 +57,12 @@
   }
 
   &__close {
-    position: absolute;
-    top: $container-padding;
-    right: $container-padding;
-    padding-top: 5px;
+    text-align: right;
+    display: block;
     @include core-16;
 
     @include media(tablet) {
-      padding-top: 0;
+      float: right;
     }
   }
 
