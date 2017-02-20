@@ -1,4 +1,11 @@
 class ServiceStandardPresenter < ContentItemPresenter
+  attr_reader :poster_url
+
+  def initialize(*)
+    super
+    @poster_url = details["poster_url"]
+  end
+
   def points
     Point.load(points_attributes).sort
   end

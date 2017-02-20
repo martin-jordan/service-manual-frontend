@@ -70,6 +70,10 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
     assert_nil presented_standard(links: { email_alert_signup: [] }).email_alert_signup_link
   end
 
+  test "#poster_url returns a link to the service standard poster" do
+    assert_equal "http://example.com/service-standard-poster.pdf", presented_standard.poster_url
+  end
+
 private
 
   def presented_standard(overriden_attributes = {})
