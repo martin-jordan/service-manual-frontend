@@ -22,6 +22,7 @@
     this.$feedbackFormContainer = $element.find('.js-feedback-form');
     this.$feedbackForm = that.$feedbackFormContainer.find('form');
     this.$feedbackFormSubmitButton = that.$feedbackFormContainer.find('[type=submit]');
+    this.$feedbackFormCloseButton = that.$feedbackFormContainer.find('.js-close-feedback-form');
     this.$prompt = $element.find('.js-prompt');
 
     this.onPageIsUsefulButtonClicked = function (callback) {
@@ -36,6 +37,10 @@
       that.$somethingIsWrongButton.on('click', preventingDefault(callback));
     }
 
+    this.onFeedbackFormCloseButtonClicked = function (callback) {
+      that.$feedbackFormCloseButton.on('click', preventingDefault(callback));
+    }
+
     this.onSubmitFeedbackForm = function (callback) {
       that.$feedbackForm.on('submit', preventingDefault(callback));
     }
@@ -48,9 +53,9 @@
       $element.html('Sorry, we’re unable to receive your message right now. We have other ways for you to provide feedback on the <a href=\"/contact/govuk\">contact page</a>.');
     }
 
-    this.showFeedbackForm = function () {
-      that.$prompt.addClass('js-hidden');
-      that.$feedbackFormContainer.removeClass('js-hidden');
+    this.toggleFeedbackForm = function () {
+      that.$prompt.toggleClass('js-hidden');
+      that.$feedbackFormContainer.toggleClass('js-hidden');
     }
 
     this.feedbackFormContainerData = function () {
@@ -127,6 +132,7 @@
       that.bindPageIsNotUsefulButton();
       that.bindSomethingIsWrongButton();
       that.bindSubmitFeedbackButton();
+      this.bindCloseFeedbackFormButton();
     }
 
     this.bindPageIsUsefulButton = function () {
@@ -143,7 +149,7 @@
       var handler = function () {
         that.trackEvent(view.pageIsNotUsefulTrackEventParams());
 
-        view.showFeedbackForm();
+        view.toggleFeedbackForm();
       }
 
       view.onPageIsNotUsefulButtonClicked(handler);
@@ -153,10 +159,18 @@
       var handler = function () {
         that.trackEvent(view.somethingIsWrongTrackEventParams());
 
-        view.showFeedbackForm();
+        view.toggleFeedbackForm();
       }
 
       view.onSomethingIsWrongButtonClicked(handler);
+    }
+
+    this.bindCloseFeedbackFormButton = function () {
+      var handler = function () {
+        view.toggleFeedbackForm();
+      }
+
+      view.onFeedbackFormCloseButtonClicked(handler);
     }
 
     this.bindSubmitFeedbackButton = function () {

@@ -10,6 +10,7 @@ describe("Improve this page", function () {
         '</div>' +
       '</div>' +
       '<div class="js-feedback-form js-hidden" data-track-category="improve-this-page" data-track-action="give-feedback">' +
+        '<a href="#" class="improve-this-page__close js-close-feedback-form" aria-hidden="true">Close</a>' +
         '<div class="js-errors"></div>' +
         '<form>' +
           '<input type="hidden" name="url" value="http://example.com/path/to/page"></input>' +
@@ -243,6 +244,16 @@ describe("Improve this page", function () {
       });
 
       expect($('.improve-this-page').html()).toBe("Sorry, we’re unable to receive your message right now. We have other ways for you to provide feedback on the <a href=\"/contact/govuk\">contact page</a>.");
+    });
+
+    it("hides the form when the close button is pressed", function() {
+      loadImproveThisPage();
+
+      $('a.js-page-is-not-useful').click();
+      $('a.js-close-feedback-form').click();
+
+      expect($('.improve-this-page .js-prompt')).not.toHaveClass('js-hidden');
+      expect($('.improve-this-page .js-feedback-form')).toHaveClass('js-hidden');
     });
   });
 
