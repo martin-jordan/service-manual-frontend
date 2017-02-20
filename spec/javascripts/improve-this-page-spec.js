@@ -243,7 +243,17 @@ describe("Improve this page", function () {
         responseText: ''
       });
 
-      expect($('.improve-this-page').html()).toBe("Sorry, we’re unable to receive your message right now. We have other ways for you to provide feedback on the <a href=\"/contact/govuk\">contact page</a>.");
+      expect($('.improve-this-page').html()).toContainText(
+        'Sorry, we’re unable to receive your message right now. ' + 
+        'If the problem persists, we have other ways for you to provide ' +
+        'feedback on the contact page.'
+      );
+
+      // The form should still be visible
+      expect($('[name=description]').val()).toEqual('The background should be green.');
+      
+      // The submit button should still be enabled
+      expect($('.improve-this-page form [type=submit]')).not.toBeDisabled();
     });
 
     it("hides the form when the close button is pressed", function() {
