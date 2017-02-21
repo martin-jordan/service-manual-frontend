@@ -49,8 +49,15 @@
       $element.html('Thanks for your feedback.');
     }
 
-    this.replaceWithGenericError = function () {
-      $element.html('Sorry, we’re unable to receive your message right now. We have other ways for you to provide feedback on the <a href=\"/contact/govuk\">contact page</a>.');
+    this.renderGenericError = function () {
+      var $errorNode = $('<div/>', {
+        'class': 'improve-this-page__error js-error',
+        'html': 'Sorry, we’re unable to receive your message right now. ' +
+          'If the problem persists, we have other ways for you to provide' +
+          ' feedback on the <a href="/contact/govuk">contact page</a>.'
+      })
+
+      that.$feedbackFormContainer.find('.js-errors').html($errorNode);
     }
 
     this.toggleFeedbackForm = function () {
@@ -188,12 +195,11 @@
 
         view.replaceWithSuccess();
       }).fail(function (xhr) {
+        view.enableSubmitFeedbackButton();
         if (xhr.status == 422) {
           view.renderErrors(xhr.responseJSON.errors);
-
-          view.enableSubmitFeedbackButton();
         } else {
-          view.replaceWithGenericError();
+          view.renderGenericError();
         }
       });
     }
