@@ -1,3 +1,6 @@
+// Here we're using BEM which uses __ to denote an element within a block
+// scss-lint:disable SelectorFormat
+
 .improve-this-page__prompt {
   background-color: $govuk-blue;
   color: $white;
