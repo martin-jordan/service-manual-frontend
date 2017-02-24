@@ -1,72 +1,52 @@
-.improve-this-page {
-  $container-padding: 10px;
-
-  position: relative;
-  padding: $container-padding $container-padding 0;
+.improve-this-page__prompt {
   background-color: $govuk-blue;
   color: $white;
+  padding: 10px $gutter-half 0;
 
   a:link,
   a:visited {
     color: $white;
   }
+}
 
-  input[type="text"],
-  textarea {
-    @include box-sizing(border-box);
-    display: block;
-    width: 100%;
-  }
+.improve-this-page__page-is-useful-button {
+  margin-right: 0.2em;
+}
 
-  &__is-useful-question {
-    @include bold-16;
+.improve-this-page__is-useful-question {
+  @include bold-16;
 
-    display: inline;
-  }
+  display: inline;
+}
 
-  &__page-is-useful-button {
-    margin-right: 0.2em;
-  }
+.improve-this-page__anything-wrong {
+  float: right;
+}
 
-  &__anything-wrong {
-    float: right;
-  }
-
-  &__label {
-    @include bold-16;
-  }
-
-  &__submit {
-    @include button($white);
-
-    color: $govuk-blue;
-  }
-
-  &__section {
-    margin-bottom: 1em;
-  }
-
-  &__error {
-    background-color: $error-colour;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-
-  &__error:first-letter {
-    text-transform: capitalize;
-  }
-
-  &__close {
-    text-align: right;
-    display: block;
-    @include core-16;
-
-    @include media(tablet) {
-      float: right;
-    }
-  }
+.improve-this-page__form {
+  margin-top: $gutter;
+  padding: $gutter-half 0;
+  border-top: 10px solid $govuk-blue;
 
   @include print {
     display: none;
+  }
+
+  .form-control {
+    width: 100%;
+  }
+}
+
+.improve-this-page__close {
+  @include core-16;
+
+  text-align: right;
+  display: block;
+  margin-bottom: 10px;
+
+  @include media(tablet) {
+    display: inherit;
+    float: right;
+    padding-top: 0;
   }
 }
