@@ -418,6 +418,23 @@ describe("Improve this page", function () {
 
       expect(document.activeElement).toBe($('.error-summary').get(0));
     });
+
+    it("associates the error summary with its message so screen readers will read it when the div is focussed", function () {
+      loadImproveThisPage();
+      fillAndSubmitFeedbackForm();
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 422,
+        contentType: 'application/json',
+        responseText: '{"errors": {"path": ["can\'t be blank"], "description": ["can\'t be blank"]}}'
+      });
+
+      var $genericErrorMessage = $('#generic-error-message');
+
+      expect($('.error-summary').attr('aria-labelledby')).toEqual(
+        $genericErrorMessage.attr('id')
+      );
+    });
   })
 
   describe("Submitting a form that fails for some reason", function () {
