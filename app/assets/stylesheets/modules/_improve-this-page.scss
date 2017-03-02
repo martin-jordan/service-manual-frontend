@@ -10,6 +10,10 @@
   a:visited {
     color: $white;
   }
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .improve-this-page__page-is-useful-button {

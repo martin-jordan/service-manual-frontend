@@ -301,6 +301,20 @@ describe("Improve this page", function () {
       expect($prompt).toHaveText("Thanks for your feedback.");
     });
 
+    if("focusses the success message", function () {
+      loadImproveThisPage();
+      fillAndSubmitFeedbackForm();
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        contentType: 'application/json',
+        responseText: '{}'
+      });
+
+      var $prompt = $('.improve-this-page .js-prompt');
+      expect(document.activeElement).toBe($prompt);
+    })
+
     it("hides the form", function() {
       loadImproveThisPage();
       fillAndSubmitFeedbackForm();

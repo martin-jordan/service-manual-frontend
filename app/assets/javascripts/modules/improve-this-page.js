@@ -46,11 +46,14 @@
     }
 
     this.showSuccess = function () {
-      that.$prompt.text('Thanks for your feedback.');
+      that.$prompt.html('<span id="feedback-success-message">Thanks for your feedback.</span>');
 
       if (that.$prompt.hasClass('js-hidden')) {
         that.toggleFeedbackForm();
       }
+
+      that.$prompt.attr('aria-labelledby', 'feedback-success-message');
+      that.$prompt.focus();
     }
 
     this.toggleFeedbackForm = function () {
