@@ -139,7 +139,10 @@
       $('.error-message, .error-summary', that.$feedbackFormContainer).remove();
 
       // Reset aria-describedby associations
-      $('[name]', that.$feedbackFormContainer).attr('aria-describedby', '');
+      $('[name]', that.$feedbackFormContainer).attr({
+        'aria-describedby': '',
+        'aria-invalid': ''
+      });
     }
 
     this.focusFirstError = function() {
@@ -166,7 +169,10 @@
           id: id
         })
       );
-      $field.attr('aria-describedby', id);
+      $field.attr({
+        'aria-describedby': id,
+        'aria-invalid': 'true'
+      });
 
       return true;
     }

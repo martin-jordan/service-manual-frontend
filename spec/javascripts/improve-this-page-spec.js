@@ -380,6 +380,19 @@ describe("Improve this page", function () {
       expect($('label[for=description-field]')).toContainText("Description can't be blank.");
     });
 
+    it("marks fields with validation errors as invalid", function () {
+      loadImproveThisPage();
+      fillAndSubmitFeedbackForm();
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 422,
+        contentType: 'application/json',
+        responseText: '{"errors": {"description": ["can\'t be blank"]}}'
+      });
+
+      expect($('[name=description]')).toHaveAttr('aria-invalid', 'true');
+    });
+
     it("focusses the first form group if there are no generic errors", function () {
       loadImproveThisPage();
       fillAndSubmitFeedbackForm();
