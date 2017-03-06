@@ -1,6 +1,12 @@
 // Here we're using BEM which uses __ to denote an element within a block
 // scss-lint:disable SelectorFormat
 
+.improve-this-page {
+  @include print {
+    display: none;
+  }
+}
+
 .improve-this-page__prompt {
   background-color: $govuk-blue;
   color: $white;
@@ -35,10 +41,6 @@
   margin-top: $gutter;
   padding: $gutter-half 0;
   border-top: 10px solid $govuk-blue;
-
-  @include print {
-    display: none;
-  }
 
   .form-control {
     width: 100%;
