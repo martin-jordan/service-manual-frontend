@@ -19,6 +19,14 @@ This is a Ruby on Rails application that fetches documents from
 The app should start on http://localhost:3122 or
 http://service-manual-frontend.dev.gov.uk on GOV.UK development machines.
 
+Note that the application *does not serve content at its root (/)* - the
+homepage will be found at service-manual-frontend.dev.gov.uk/service-manual but
+only if the content item for the homepage exists in the content store.
+
+You can achieve this by restoring from a production backup, publishing the home
+page using the rake task in service-manual-publisher or by using the dummy
+content store.
+
 ### Running the test suite
 
 The test suite relies on the presence of the

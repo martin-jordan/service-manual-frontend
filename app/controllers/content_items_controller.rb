@@ -39,7 +39,18 @@ private
     presenter_class = Object.const_get(presenter_name)
     presenter_class.new(content_item)
   rescue NameError
-    raise "No support for format \"#{content_item['format']}\""
+    if content_item['base_path'] == '/'
+      raise <<~ERROR
+        This application does not serve anything at its root. The homepage, if
+        published in the content store, can be found at /service-manual.
+        See the README for more information.
+      ERROR
+    else
+      raise <<~ERROR
+        The content item at base path #{content_item['base_path']} is of format
+        \"#{content_item['format']}\", which this application does not support.
+      ERROR
+    end
   end
 
   def content_item_template
