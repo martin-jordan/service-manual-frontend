@@ -14,10 +14,33 @@ This is a Ruby on Rails application that fetches documents from
 
 ### Running the application
 
-`./startup.sh`
+You can use [Bowler](https://github.com/JordanHatch/bowler) to automatically run
+the application and all of its dependencies. To do this, you'll need to check
+out the [development repository](https://github.gds/gds/development) where the
+`Pinfile` is located.
 
-The app should start on http://localhost:3122 or
-http://service-manual-frontend.dev.gov.uk on GOV.UK development machines.
+```
+cd /var/govuk/development
+bowl service-manual-frontend
+```
+
+Alternatively, run `./startup.sh` in the `service-manual-frontend` directory.
+
+```
+cd /var/govuk/service-manual-frontend
+./startup.sh
+```
+
+The application runs on port `3122` by default. If you're using the GDS VM it'll
+be available at http://service-manual-frontend.dev.gov.uk.
+
+Note that the application *does not serve content at its root (/)* - the
+homepage will be found at service-manual-frontend.dev.gov.uk/service-manual but
+only if the content item for the homepage exists in the content store.
+
+You can achieve this by restoring from a production backup, publishing the home
+page using the rake task in service-manual-publisher or by using the dummy
+content store.
 
 ### Running the test suite
 
