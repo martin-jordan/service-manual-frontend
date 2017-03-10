@@ -35,7 +35,7 @@ class GuidePresenter < ContentItemPresenter
   def public_updated_at
     timestamp = content_item["public_updated_at"]
 
-    timestamp.to_time if timestamp
+    timestamp&.to_time
   end
 
   def visible_updated_at

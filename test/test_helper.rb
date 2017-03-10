@@ -49,13 +49,13 @@ class ActionDispatch::IntegrationTest
     stub_shared_component_locales
   end
 
-  def using_javascript_driver(&block)
+  def using_javascript_driver
     begin
       Capybara.current_driver = Capybara.javascript_driver
       use_slimmer = ENV["USE_SLIMMER"]
       ENV["USE_SLIMMER"] = "true"
 
-      block.call
+      yield
     ensure
       Capybara.use_default_driver
       ENV.delete("USE_SLIMMER") unless use_slimmer

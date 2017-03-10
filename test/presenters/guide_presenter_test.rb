@@ -65,7 +65,8 @@ class GuidePresenterTest < ActiveSupport::TestCase
     expected = [
       GuidePresenter::ContentOwner.new(
         "Agile delivery community",
-        "/service-manual/communities/agile-delivery-community")
+        "/service-manual/communities/agile-delivery-community"
+      )
     ]
     assert_equal expected, guide.content_owners
   end

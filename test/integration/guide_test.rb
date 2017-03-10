@@ -10,7 +10,7 @@ class GuideTest < ActionDispatch::IntegrationTest
         govuk_content_schema_example(
           'service_manual_guide',
           'service_manual_guide',
-          'updated_at' => last_saved_at
+          updated_at: last_saved_at
         )
       )
       base_path = example.fetch('base_path')
@@ -119,8 +119,8 @@ class GuideTest < ActionDispatch::IntegrationTest
       "details" => {
         "change_history" => [
           {
-            "public_timestamp"  => "2015-09-01T08:17:10+00:00",
-            "note"  => "Guidance first published"
+            "public_timestamp" => "2015-09-01T08:17:10+00:00",
+            "note" => "Guidance first published"
           }
         ]
       })

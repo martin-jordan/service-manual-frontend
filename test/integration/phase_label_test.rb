@@ -11,7 +11,7 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
     visit guide["base_path"]
     assert_has_phase_label_message(
       'beta',
-      %{This is new guidance. Complete our quick 5-question survey to <a target="_blank" rel="noopener noreferrer" href="https://www.surveymonkey.co.uk/r/servicemanualsurvey?c=#{guide["base_path"]}">help us improve it</a>.}
+      %{This is new guidance. Complete our quick 5-question survey to <a target="_blank" rel="noopener noreferrer" href="https://www.surveymonkey.co.uk/r/servicemanualsurvey?c=#{guide['base_path']}">help us improve it</a>.}
     )
   end
 
@@ -24,7 +24,7 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
     visit homepage["base_path"]
     assert_has_phase_label_message(
       'beta',
-      %{Complete our quick 5-question survey to <a target="_blank" rel="noopener noreferrer" href="https://www.surveymonkey.co.uk/r/servicemanualsurvey?c=#{homepage["base_path"]}">help us improve our content</a>.}
+      %{Complete our quick 5-question survey to <a target="_blank" rel="noopener noreferrer" href="https://www.surveymonkey.co.uk/r/servicemanualsurvey?c=#{homepage['base_path']}">help us improve our content</a>.}
     )
   end
 
@@ -59,8 +59,8 @@ private
       "Expected the page to have an '#{phase.titleize}' label"
   end
 
-  def assert_has_no_phase_label()
-    ['alpha', 'beta'].each do |phase|
+  def assert_has_no_phase_label
+    %w{alpha beta}.each do |phase|
       assert page.has_no_css?("[data-template='govuk_component-#{phase}_label']")
     end
   end
