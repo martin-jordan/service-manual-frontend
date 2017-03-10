@@ -6,6 +6,12 @@
 @import "typography";
 @import "design-patterns/buttons";
 
+// govuk_elements
+@import "elements/buttons";
+@import "elements/forms";
+@import "elements/forms/form-validation";
+@import "elements/elements-typography";
+
 // Mixins
 @import "mixins/helpers";
 @import "mixins/margins";

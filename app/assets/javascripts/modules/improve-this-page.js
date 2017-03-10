@@ -45,24 +45,33 @@
       that.$feedbackForm.on('submit', preventingDefault(callback));
     }
 
-    this.replaceWithSuccess = function () {
-      $element.html('Thanks for your feedback.');
-    }
+    this.showSuccess = function () {
+      that.$prompt.html('<span id="feedback-success-message">Thanks for your feedback.</span>');
 
-    this.renderGenericError = function () {
-      var $errorNode = $('<div/>', {
-        'class': 'improve-this-page__error js-error',
-        'html': 'Sorry, we’re unable to receive your message right now. ' +
-          'If the problem persists, we have other ways for you to provide' +
-          ' feedback on the <a href="/contact/govuk">contact page</a>.'
-      })
+      if (that.$prompt.hasClass('js-hidden')) {
+        that.toggleFeedbackForm();
+      }
 
-      that.$feedbackFormContainer.find('.js-errors').html($errorNode);
+      that.$prompt.attr('aria-labelledby', 'feedback-success-message');
+      that.$prompt.focus();
     }
 
     this.toggleFeedbackForm = function () {
       that.$prompt.toggleClass('js-hidden');
       that.$feedbackFormContainer.toggleClass('js-hidden');
+
+      var formIsVisible = !that.$feedbackFormContainer.hasClass('js-hidden');
+
+      that.updateAriaAttributes(formIsVisible)
+
+      if (formIsVisible) {
+        $('.form-control', that.$feedbackFormContainer).first().focus();
+      }
+    }
+
+    this.updateAriaAttributes = function (formIsVisible) {
+      that.$feedbackFormContainer.attr('aria-hidden', !formIsVisible);
+      $('[aria-controls=improveThisPageForm]').attr('aria-expanded', formIsVisible);
     }
 
     this.feedbackFormContainerData = function () {
@@ -93,26 +102,101 @@
     }
 
     this.renderErrors = function (errors) {
-      that.$feedbackFormContainer.find('.js-error').remove();
+      this.clearErrors();
+      var genericErrors = [];
 
       $.each(errors, function (attrib, messages) {
         $.each(messages, function (index, message) {
-          var $errorNode = $('<div/>', {
-            'class': 'improve-this-page__error js-error',
-            'text': attrib + ' ' + message + '.'
-          });
-          var $field = that.$feedbackFormContainer.find('[name="'+ attrib + '"]');
+          // Uppercase first character of field name
+          var fieldDescription = attrib.charAt(0).toUpperCase() + attrib.slice(1);
+          var errorMessage = fieldDescription + ' ' + message + '.';
 
           // If there is a field with the same name as the error attribute
-          // then display the error inline with the field. If a matching field
-          // doesn't exist then display it above the form.
-          if ($field.length) {
-            $field.before($errorNode);
-          } else {
-            that.$feedbackFormContainer.find('.js-errors').append($errorNode);
+          // then display the error inline with the field.
+          if (that.addErrorToField(attrib, errorMessage)) {
+            return;
           }
+
+          // If a matching field doesn't exist then display it above the form.
+          genericErrors.push(errorMessage);
         });
       });
+
+      if (genericErrors.length) {
+        that.addGenericError(
+          '<h1 class="heading-medium error-summary-heading" id="generic-error-message">' +
+            'There is a problem' +
+          '</h1>' +
+          $('<p>').text(genericErrors.join(' ')).html()
+        );
+      }
+
+      that.focusFirstError();
+    }
+
+    this.clearErrors = function () {
+      // Reset form groups
+      $('.form-group', that.$feedbackFormContainer).removeClass('error');
+
+      // Remove error messages and summaries
+      $('.error-message, .error-summary', that.$feedbackFormContainer).remove();
+
+      // Reset aria-describedby associations
+      $('[name]', that.$feedbackFormContainer).attr({
+        'aria-describedby': '',
+        'aria-invalid': ''
+      });
+    }
+
+    this.focusFirstError = function() {
+      $('.error-summary, .form-group.error .form-control', that.$feedbackFormContainer)
+        .first()
+        .focus();
+    }
+
+    this.addErrorToField = function (field, error) {
+      var $field = that.$feedbackFormContainer.find('[name="'+ field + '"]');
+      var $group = $field.parents('.form-group');
+
+      if (!$field.length || !$group.length) {
+        return false;
+      }
+
+      var id = that.generateIdFromError(error)
+
+      $group.addClass('error');
+      $('label', $group).append(
+        $('<span />', {
+          class: 'error-message',
+          text: error,
+          id: id
+        })
+      );
+      $field.attr({
+        'aria-describedby': id,
+        'aria-invalid': 'true'
+      });
+
+      return true;
+    }
+
+    this.addGenericError = function (errorMessage) {
+      var $errorNode = $('<div/>', {
+        'class': 'error-summary',
+        'role': 'group',
+        'aria-labelledby': 'generic-error-message',
+        'html': errorMessage,
+        'tabindex': -1
+      });
+
+      $('.js-errors', that.$feedbackFormContainer).html($errorNode);
+    }
+
+    this.generateIdFromError = function (text) {
+      return 'error-' + text.toString().toLowerCase().trim()
+        .replace(/&/g, '-and-')    // Replace & with 'and'
+        .replace(/[\s\W-]+/g, '-') // Replace spaces, non-word characters and
+                                   // dashes with a single dash (-)
     }
 
     this.disableSubmitFeedbackButton = function () {
@@ -140,13 +224,16 @@
       that.bindSomethingIsWrongButton();
       that.bindSubmitFeedbackButton();
       this.bindCloseFeedbackFormButton();
+
+      // Add initial ARIA attributes
+      view.updateAriaAttributes(false);
     }
 
     this.bindPageIsUsefulButton = function () {
       var handler = function () {
         that.trackEvent(view.pageIsUsefulTrackEventParams());
 
-        view.replaceWithSuccess();
+        view.showSuccess();
       }
 
       view.onPageIsUsefulButtonClicked(handler);
@@ -193,13 +280,23 @@
       }).done(function () {
         that.trackEvent(view.feedbackFormContainerTrackEventParams());
 
-        view.replaceWithSuccess();
+        view.showSuccess();
       }).fail(function (xhr) {
         view.enableSubmitFeedbackButton();
         if (xhr.status == 422) {
           view.renderErrors(xhr.responseJSON.errors);
         } else {
-          view.renderGenericError();
+          view.clearErrors();
+          view.addGenericError(
+            [
+              '<h1 class="heading-medium error-summary-heading" id="generic-error-message">',
+              '  Sorry, we’re unable to receive your message right now. ',
+              '</h1>',
+              '<p>If the problem persists, we have other ways for you to provide',
+              ' feedback on the <a href="/contact/govuk">contact page</a>.</p>'
+            ].join('')
+          );
+          view.focusFirstError();
         }
       });
     }
