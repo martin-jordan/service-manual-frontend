@@ -1,8 +1,7 @@
 require 'test_helper'
-require 'slimmer/test_helpers/shared_templates'
 
 class ContentItemsControllerTest < ActionController::TestCase
-  include Slimmer::TestHelpers::SharedTemplates
+  include Slimmer::TestHelpers::GovukComponents
 
   test "routing handles translated content paths" do
     translated_path = 'government/case-studies/allez.fr'

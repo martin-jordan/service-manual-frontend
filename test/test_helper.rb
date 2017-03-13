@@ -6,14 +6,14 @@ require 'webmock/minitest'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'slimmer/test'
-require 'slimmer/test_helpers/shared_templates'
+require 'slimmer/test_helpers/govuk_components'
 
 Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |file| require file }
 
 class ActiveSupport::TestCase
   include GovukContentSchemaExamples
   include DraftStackExamples
-  include Slimmer::TestHelpers::SharedTemplates
+  include Slimmer::TestHelpers::GovukComponents
 
   def setup
     stub_shared_component_locales
@@ -34,7 +34,7 @@ Capybara.javascript_driver = :poltergeist
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
-  include Slimmer::TestHelpers::SharedTemplates
+  include Slimmer::TestHelpers::GovukComponents
 
   # When running JS tests with Capybara the app and the test runner run
   # in separate threads. Capybara shoots off http://localhost:<some port>/__identify__
@@ -49,13 +49,13 @@ class ActionDispatch::IntegrationTest
     stub_shared_component_locales
   end
 
-  def using_javascript_driver(&block)
+  def using_javascript_driver
     begin
       Capybara.current_driver = Capybara.javascript_driver
       use_slimmer = ENV["USE_SLIMMER"]
       ENV["USE_SLIMMER"] = "true"
 
-      block.call
+      yield
     ensure
       Capybara.use_default_driver
       ENV.delete("USE_SLIMMER") unless use_slimmer
