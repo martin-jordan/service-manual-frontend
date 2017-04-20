@@ -1,5 +1,5 @@
 class ContentItemPresenter
-  attr_reader :content_item, :title, :description, :format, :locale, :phase, :links
+  attr_reader :content_item, :title, :description, :locale, :phase, :links
 
   def initialize(content_item)
     @content_item = content_item
@@ -30,7 +30,7 @@ class ContentItemPresenter
   end
 
   def format
-    content_item["format"].sub(/^service_manual_/, '')
+    content_item["document_type"].sub(/^service_manual_/, '')
   end
 
 private

@@ -34,7 +34,7 @@ private
   end
 
   def present(content_item)
-    class_name = content_item['format'].sub(/^service_manual_/, '').classify
+    class_name = content_item['document_type'].sub(/^service_manual_/, '').classify
     presenter_name = class_name + 'Presenter'
     presenter_class = Object.const_get(presenter_name)
     presenter_class.new(content_item)
@@ -47,8 +47,9 @@ private
       ERROR
     else
       raise <<~ERROR
-        The content item at base path #{content_item['base_path']} is of format
-        \"#{content_item['format']}\", which this application does not support.
+        The content item at base path #{content_item['base_path']} is of
+        document_type \"#{content_item['document_type']}\", which this
+        application does not support.
       ERROR
     end
   end

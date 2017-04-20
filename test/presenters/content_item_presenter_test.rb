@@ -11,7 +11,7 @@ class ContentItemPresenterTest < ActiveSupport::TestCase
 
   test "#format" do
     assert_equal "a_format",
-      ContentItemPresenter.new("format" => "service_manual_a_format").format
+      ContentItemPresenter.new("document_type" => "service_manual_a_format").format
   end
 
   test "#locale" do
