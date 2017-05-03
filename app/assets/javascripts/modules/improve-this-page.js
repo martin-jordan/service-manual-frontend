@@ -167,9 +167,9 @@
       $group.addClass('error');
       $('label', $group).append(
         $('<span />', {
-          class: 'error-message',
-          text: error,
-          id: id
+          'class': 'error-message',
+          'text': error,
+          'id': id
         })
       );
       $field.attr({
