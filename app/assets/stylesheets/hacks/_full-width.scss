@@ -15,7 +15,9 @@
     border-bottom: none;
   }
 
-  .full-page-width-wrapper {
+  .full-page-width-wrapper,
+  #wrapper .report-a-problem-toggle-wrapper,
+  #wrapper .report-a-problem-container {
     @extend %site-width-container;
   }
 }
