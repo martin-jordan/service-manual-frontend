@@ -2,30 +2,30 @@ source 'https://rubygems.org'
 
 ruby File.read(".ruby-version").strip
 
-gem 'airbrake', '4.0'
+gem "govuk_app_config", "~> 0.2.0"
+gem 'govuk_elements_rails'
 gem 'govuk_frontend_toolkit', '~> 6.0.0'
 gem 'logstasher', '0.6.1'
 gem 'plek', '1.11'
-gem 'rails', '5.0.1'
-gem 'sass-rails', '~> 5.0.6'
-gem 'slimmer', '~> 10.1.0'
-gem 'govuk_elements_rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'unicorn', '4.8'
+gem 'rails', '~> 5.0.0'
 gem 'rails-i18n', '~> 5.0.0'
 gem 'rails_translation_manager', '~> 0.0.2'
+gem 'sass-rails', '~> 5.0.6'
+gem 'slimmer', '~> 11.1.1'
+gem 'uglifier', '>= 1.3.0'
+gem 'unicorn', '4.8'
 
 if ENV['API_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '~> 37.5'
+  gem 'gds-api-adapters', '~> 47.9.1'
 end
 
 group :development, :test do
   gem "jasmine-rails"
   gem 'govuk-lint'
   gem 'phantomjs', '~> 1.9.7'
-  gem 'wraith', '~> 3.1'
+  gem 'wraith', '~> 4.0'
 end
 
 group :development do
