@@ -6,7 +6,7 @@ gem "govuk_app_config", "~> 1.3"
 gem 'govuk_elements_rails'
 gem 'govuk_frontend_toolkit', '~> 7.4.2'
 gem 'plek', '2.1.1'
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.1.5'
 gem 'rails-i18n', '~> 5.1.1'
 gem 'rails_translation_manager', '~> 0.0.2'
 gem 'sass-rails', '~> 5.0.6'
