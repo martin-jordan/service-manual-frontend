@@ -6,7 +6,7 @@ gem "govuk_app_config", "~> 0.2.0"
 gem 'govuk_elements_rails'
 gem 'govuk_frontend_toolkit', '~> 6.0.0'
 gem 'logstasher', '0.6.1'
-gem 'plek', '1.11'
+gem 'plek', '2.1.1'
 gem 'rails', '~> 5.0.0'
 gem 'rails-i18n', '~> 5.0.0'
 gem 'rails_translation_manager', '~> 0.0.2'
