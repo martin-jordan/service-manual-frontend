@@ -16,7 +16,7 @@ gem 'uglifier', '>= 1.3.0'
 if ENV['API_DEV']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '~> 52.0.0'
+  gem 'gds-api-adapters', '~> 52.1.0'
 end
 
 group :development, :test do
