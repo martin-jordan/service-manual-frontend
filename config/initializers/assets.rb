@@ -13,10 +13,10 @@ Rails.application.config.assets.version = '1.0'
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 Rails.application.config.assets.precompile += %w(
-  screen.css
-  screen-ie6.css
-  screen-ie7.css
-  screen-ie8.css
+  application.css
+  application-ie6.css
+  application-ie7.css
+  application-ie8.css
   print.css
 )
 Rails.application.config.assets.precompile += %w(start-modules) if Rails.env.test?
