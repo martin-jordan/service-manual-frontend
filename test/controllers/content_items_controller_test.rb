@@ -73,24 +73,6 @@ class ContentItemsControllerTest < ActionController::TestCase
     assert_equal content_item['title'], assigns[:content_item].title
   end
 
-  test "sets a header to disable 'report a problem'" do
-    content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
-
-    get :show, params: { path: path_for(content_item) }
-
-    assert_equal response.headers['X-Slimmer-Report-a-Problem'], 'false',
-      'the header is not set correctly'
-  end
-
-  test "does not set a header to disable 'report a problem' for the Service Toolkit" do
-    content_item = content_store_has_schema_example('service_manual_service_toolkit', 'service_manual_service_toolkit')
-
-    get :show, params: { path: path_for(content_item) }
-
-    refute response.headers.key?('X-Slimmer-Report-a-Problem'),
-      'Report a problem should not be disabled'
-  end
-
   test 'guides should tell slimmer to scope search results to the manual' do
     content_item = content_store_has_schema_example('service_manual_guide', 'service_manual_guide')
 
