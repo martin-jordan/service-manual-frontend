@@ -10,7 +10,8 @@ gem 'rails', '~> 5.1.5'
 gem 'rails-i18n', '~> 5.1.1'
 gem 'rails_translation_manager', '~> 0.0.2'
 gem 'sass-rails', '~> 5.0.6'
-gem 'slimmer', '~> 11.1.1'
+gem 'slimmer', '~> 12.0.0'
+gem 'govuk_publishing_components', '~> 5.5.6'
 gem 'uglifier', '>= 1.3.0'
 
 if ENV['API_DEV']
