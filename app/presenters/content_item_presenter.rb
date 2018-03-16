@@ -1,5 +1,5 @@
 class ContentItemPresenter
-  attr_reader :content_item, :title, :description, :locale, :phase, :links
+  attr_reader :content_item, :title, :description, :locale, :phase
 
   def initialize(content_item)
     @content_item = content_item

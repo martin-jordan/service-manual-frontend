@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount GovukPublishingComponents::Engine, at: "/component-guide"
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   mount JasmineRails::Engine => '/specs' if defined?(JasmineRails)
 

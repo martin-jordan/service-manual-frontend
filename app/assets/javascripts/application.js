@@ -5,6 +5,7 @@
 //
 //= require_tree ./govuk
 //= require_tree ./modules
+//= require govuk_publishing_components/components/feedback
 
 window.GOVUK.stickAtTopWhenScrolling.init();
 window.GOVUK.stopScrollingAtFooter.addEl($('.js-stick-at-top-when-scrolling'));

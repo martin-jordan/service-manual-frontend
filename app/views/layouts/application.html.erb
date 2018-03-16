@@ -2,10 +2,10 @@
 <html>
 <head>
   <title><%= yield :title %> - GOV.UK</title>
-  <!--[if gt IE 8]><!--><%= stylesheet_link_tag "screen" %><!--<![endif]-->
-  <!--[if IE 6]><%= stylesheet_link_tag "screen-ie6" %><script>var ieVersion = 6;</script><![endif]-->
-  <!--[if IE 7]><%= stylesheet_link_tag "screen-ie7" %><script>var ieVersion = 7;</script><![endif]-->
-  <!--[if IE 8]><%= stylesheet_link_tag "screen-ie8" %><script>var ieVersion = 8;</script><![endif]-->
+  <!--[if gt IE 8]><!--><%= stylesheet_link_tag "application" %><!--<![endif]-->
+  <!--[if IE 6]><%= stylesheet_link_tag "application-ie6" %><script>var ieVersion = 6;</script><![endif]-->
+  <!--[if IE 7]><%= stylesheet_link_tag "application-ie7" %><script>var ieVersion = 7;</script><![endif]-->
+  <!--[if IE 8]><%= stylesheet_link_tag "application-ie8" %><script>var ieVersion = 8;</script><![endif]-->
   <%= stylesheet_link_tag "print", media: "print" %>
 
   <%= javascript_include_tag 'application' %>
@@ -29,7 +29,11 @@
       <%= yield %>
     </main>
 
-    <%= render '/shared/improve_this_page' if @content_item.use_new_style_feedback_form? %>
+    <% if @content_item.use_new_style_feedback_form? %>
+      <%= render '/shared/improve_this_page' %>
+    <% else %>
+      <%= render 'govuk_publishing_components/components/feedback' %>
+    <% end %>
   </div>
 </body>
 </html>

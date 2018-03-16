@@ -1,0 +1,5 @@
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Lint/UriEscapeUnescape:
+  Enabled: false
