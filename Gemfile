@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby File.read(".ruby-version").strip
+ruby File.read('.ruby-version').strip
 
-gem "govuk_app_config", "~> 1.4"
+gem 'govuk_app_config', '~> 1.4'
 gem 'govuk_elements_rails'
 gem 'govuk_frontend_toolkit', '~> 7.4.2'
 gem 'plek', '2.1.1'
@@ -20,7 +20,7 @@ else
 end
 
 group :development, :test do
-  gem "jasmine-rails"
+  gem 'jasmine-rails'
   gem 'govuk-lint'
   gem 'phantomjs', '~> 2.1.1'
   gem 'wraith', '~> 4.0'
