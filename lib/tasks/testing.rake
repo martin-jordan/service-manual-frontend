@@ -11,3 +11,5 @@ end
 
 Rake::Task["test:run"].enhance ["test:contracts", "test:presenters"]
 Rake::Task[:test].comment = "Includes test:contracts and test:presenters"
+
+Rake::Task[:default].enhance ["spec:javascript"]
