@@ -7,8 +7,8 @@ module PhaseLabelHelper
     end
   end
 
-  def surveymonkey_url
-    url = "https://www.surveymonkey.co.uk/r/servicemanualsurvey"
+  def survey_url
+    url = "https://www.smartsurvey.co.uk/s/HGLV5/"
     url += "?c=#{request.path}" if request.path.present?
     url
   end
