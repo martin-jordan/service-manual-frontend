@@ -11,7 +11,7 @@
   <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'start-modules' if Rails.env.test? %>
   <%= csrf_meta_tags %>
-  <%= render partial: 'govuk_component/analytics_meta_tags', locals: { content_item: @content_item.content_item } %>
+  <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.content_item %>
   <% if content_for(:meta_description).present? %>
     <meta name="description" content="<%= content_for(:meta_description) %>" />
   <% end %>
