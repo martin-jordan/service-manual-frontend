@@ -43,21 +43,10 @@ class GuideTest < ActionDispatch::IntegrationTest
 
   test "the breadcrumb contains the topic" do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide')
-    breadcrumbs = [
-      {
-        title: "Service manual",
-        url: "/service-manual"
-      },
-      {
-        title: "Agile",
-        url: "/service-manual/agile"
-      },
-      {
-        title: "Agile Delivery"
-      }
-    ]
-    within shared_component_selector("breadcrumbs") do
-      assert_equal breadcrumbs, JSON.parse(page.text).deep_symbolize_keys.fetch(:breadcrumbs)
+
+    within('.gem-c-breadcrumbs') do
+      assert page.has_link?('Service manual')
+      assert page.has_link?('Agile')
     end
   end
 
