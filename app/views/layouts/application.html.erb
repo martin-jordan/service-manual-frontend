@@ -12,6 +12,7 @@
   <%= javascript_include_tag 'start-modules' if Rails.env.test? %>
   <%= csrf_meta_tags %>
   <%= render 'govuk_publishing_components/components/meta_tags', content_item: @content_item.content_item %>
+  <%= yield(:extra_head) %>
   <% if content_for(:meta_description).present? %>
     <meta name="description" content="<%= content_for(:meta_description) %>" />
   <% end %>
