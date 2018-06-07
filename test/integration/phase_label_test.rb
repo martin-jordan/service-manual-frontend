@@ -9,10 +9,8 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
     )
 
     visit guide["base_path"]
-    assert_has_phase_label_message(
-      'beta',
-      %{This is new guidance. Complete our quick 5-question survey to <a target="_blank" rel="noopener noreferrer" href="https://www.smartsurvey.co.uk/s/HGLV5/?c=#{guide['base_path']}">help us improve it</a>.}
-    )
+
+    assert page.has_content?("Complete our quick 5-question survey")
   end
 
   test "renders custom message for service manual homepage" do
@@ -22,10 +20,8 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
     )
 
     visit homepage["base_path"]
-    assert_has_phase_label_message(
-      'beta',
-      %{Complete our quick 5-question survey to <a target="_blank" rel="noopener noreferrer" href="https://www.smartsurvey.co.uk/s/HGLV5/?c=#{homepage['base_path']}">help us improve our content</a>.}
-    )
+
+    assert page.has_content?("Complete our quick 5-question survey")
   end
 
   test "alpha phase label is displayed for a guide in phase 'alpha'" do
@@ -37,7 +33,7 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
 
     visit guide["base_path"]
 
-    assert_has_phase_label "alpha"
+    assert page.has_content?("alpha")
   end
 
   test "No phase label is displayed for a guide without a phase field" do
@@ -49,25 +45,6 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
 
     visit guide["base_path"]
 
-    assert_has_no_phase_label
-  end
-
-private
-
-  def assert_has_phase_label(phase)
-    assert page.has_css?("[data-template='govuk_component-#{phase}_label']"),
-      "Expected the page to have an '#{phase.titleize}' label"
-  end
-
-  def assert_has_no_phase_label
-    %w{alpha beta}.each do |phase|
-      assert page.has_no_css?("[data-template='govuk_component-#{phase}_label']")
-    end
-  end
-
-  def assert_has_phase_label_message(phase, message)
-    within shared_component_selector("#{phase}_label") do
-      assert_equal message, JSON.parse(page.text).fetch("message").strip
-    end
+    refute page.has_content?("Complete our quick 5-question survey")
   end
 end
