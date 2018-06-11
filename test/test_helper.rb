@@ -5,18 +5,12 @@ require 'webmock/minitest'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'slimmer/test'
-require 'slimmer/test_helpers/govuk_components'
 
 Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |file| require file }
 
 class ActiveSupport::TestCase
   include GovukContentSchemaExamples
   include DraftStackExamples
-  include Slimmer::TestHelpers::GovukComponents
-
-  def setup
-    stub_shared_component_locales
-  end
 end
 
 # Note: This is so that slimmer is skipped, preventing network requests for
@@ -33,7 +27,6 @@ Capybara.javascript_driver = :poltergeist
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
-  include Slimmer::TestHelpers::GovukComponents
 
   # When running JS tests with Capybara the app and the test runner run
   # in separate threads. Capybara shoots off http://localhost:<some port>/__identify__
@@ -43,10 +36,6 @@ class ActionDispatch::IntegrationTest
   # run a lot of services that might give us a false positive.
   driver_requests = %r{/__identify__$}
   WebMock.disable_net_connect! allow: driver_requests
-
-  def setup
-    stub_shared_component_locales
-  end
 
   def using_javascript_driver
     begin
