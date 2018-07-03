@@ -19,7 +19,7 @@
 </head>
 <body<% if content_for?(:body_classes) %> class="<%= content_for(:body_classes) %>"<% end %>>
   <div class="slimmer-inside-header">
-      <h1 class="header-title"><%= content_for(:header_title) || "Service Manual" %></h1>
+      <span class="header-title"><%= content_for(:header_title) || "Service Manual" %></span>
   </div>
 
   <div id="wrapper" class="<%= wrapper_class %>">
