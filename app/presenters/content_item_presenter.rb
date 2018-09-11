@@ -14,11 +14,11 @@ class ContentItemPresenter
   end
 
   def links
-    @_links ||= content_item["links"] || {}
+    @links ||= content_item["links"] || {}
   end
 
   def details
-    @_details ||= content_item["details"] || {}
+    @details ||= content_item["details"] || {}
   end
 
   def include_search_in_header?

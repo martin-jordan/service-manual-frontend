@@ -72,15 +72,15 @@ private
   end
 
   def parent
-    @_topic ||= Array(links["parent"]).first
+    @parent ||= Array(links["parent"]).first
   end
 
   def topic
-    @_topic ||= Array(links["service_manual_topics"]).first
+    @topic ||= Array(links["service_manual_topics"]).first
   end
 
   def change_history
-    @_change_history ||= details.fetch("change_history", {})
+    @change_history ||= details.fetch("change_history", {})
   end
 
   def updated_at

@@ -18,6 +18,6 @@ class HomepagePresenter < ContentItemPresenter
 private
 
   def unsorted_topics
-    @_topics ||= links["children"] || []
+    @unsorted_topics ||= links["children"] || []
   end
 end

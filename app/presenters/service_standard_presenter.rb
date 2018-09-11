@@ -25,7 +25,7 @@ class ServiceStandardPresenter < ContentItemPresenter
 private
 
   def points_attributes
-    @_points_attributes ||= links["children"] || []
+    @points_attributes ||= links["children"] || []
   end
 
   class Point
@@ -48,11 +48,11 @@ private
     end
 
     def title_without_number
-      @_title_without_number ||= title.sub(/\A(\d*)\.(\s*)/, '')
+      @title_without_number ||= title.sub(/\A(\d*)\.(\s*)/, '')
     end
 
     def number
-      @_number ||= Integer(title.scan(/\A(\d*)/)[0][0])
+      @number ||= Integer(title.scan(/\A(\d*)/)[0][0])
     end
   end
 end
