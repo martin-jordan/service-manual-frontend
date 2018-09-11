@@ -27,7 +27,7 @@ class TopicPresenter::TopicGroupTest < ActiveSupport::TestCase
     linked_items = [{ "content_id" => "222", "title" => "Bananas" }]
     group = described_class.new(group_data, linked_items)
 
-    assert_equal ["Bananas"], group.linked_items.map(&:label)
+    assert_equal %w(Bananas), group.linked_items.map(&:label)
   end
 
   test 'present? returns true if there are no visible grouped links' do
