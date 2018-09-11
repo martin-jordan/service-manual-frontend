@@ -36,7 +36,7 @@ class ContentItemPresenter
 private
 
   def display_time(timestamp)
-    I18n.l(Date.parse(timestamp), format: "%-d %B %Y") if timestamp # rubocop:disable Style/FormatStringToken
+    I18n.l(Date.parse(timestamp), format: "%-d %B %Y") if timestamp
   end
 
   def sorted_locales(translations)
