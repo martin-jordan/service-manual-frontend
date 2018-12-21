@@ -19,7 +19,6 @@ group :development, :test do
   gem 'govuk-lint'
   gem 'jasmine-rails'
   gem 'phantomjs', '~> 2.1.1'
-  gem 'wraith', '~> 4.2'
 end
 
 group :development do
@@ -27,6 +26,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'web-console', '~> 3.7'
+  gem 'wraith', '~> 4.2'
 end
 
 group :test do
