@@ -14,7 +14,6 @@ describe("Improve this page", function () {
         '<div class="js-errors"></div>' +
         '<form>' +
           '<input type="hidden" name="url" value="http://example.com/path/to/page"></input>' +
-          '<input type="hidden" name="user_agent" value="Safari"></input>' +
           '<div class="form-group">' +
             '<label class="form-label-bold" for="description-field">' +
               'How should we improve this page?' +
@@ -280,8 +279,7 @@ describe("Improve this page", function () {
         url: ["http://example.com/path/to/page"],
         description: ["The background should be green."],
         name: ["Henry"],
-        email: ["henry@example.com"],
-        user_agent: ["Safari"]
+        email: ["henry@example.com"]
       });
     });
 
@@ -484,7 +482,7 @@ describe("Improve this page", function () {
 
     it("displays a generic error message", function () {
       expect($('.improve-this-page').html()).toContainText(
-        'Sorry, we’re unable to receive your message right now. ' + 
+        'Sorry, we’re unable to receive your message right now. ' +
         'If the problem persists, we have other ways for you to provide ' +
         'feedback on the contact page.'
       );
