@@ -24,7 +24,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   end
 
   test "shows the time it was published if it has been published" do
-    travel_to("2015-10-10") do
+    travel_to Time.zone.local(2015, 10, 10, 0, 0, 0) do
       setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
       within('.metadata') do
