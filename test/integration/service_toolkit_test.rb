@@ -88,9 +88,6 @@ class ServiceToolkitTest < ActionDispatch::IntegrationTest
     within(the_first_collection) do
       assert page.has_link? "Service Standard",
                             href: 'https://www.gov.uk/service-manual/service-standard'
-
-      assert page.has_link? "Service Manual",
-                            href: 'https://www.gov.uk/service-manual'
     end
 
     within(the_second_collection) do
