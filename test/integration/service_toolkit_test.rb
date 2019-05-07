@@ -11,7 +11,7 @@ class ServiceToolkitTest < ActionDispatch::IntegrationTest
     setup_and_visit_example('service_manual_service_toolkit', 'service_manual_service_toolkit')
 
     refute page.has_css?('.improve-this-page'),
-      'Improve this page component should not be present on the page'
+           'Improve this page component should not be present on the page'
   end
 
   test 'the service toolkit displays the introductory hero' do
@@ -58,15 +58,15 @@ class ServiceToolkitTest < ActionDispatch::IntegrationTest
 
     within(the_first_collection) do
       assert page.has_link? "The Digital Service Standard",
-        href: 'https://www.gov.uk/service-manual/service-standard'
+                            href: 'https://www.gov.uk/service-manual/service-standard'
 
       assert page.has_link? "Service Manual",
-        href: 'https://www.gov.uk/service-manual'
+                            href: 'https://www.gov.uk/service-manual'
     end
 
     within(the_second_collection) do
       assert page.has_link? "Digital Marketplace",
-        href: 'https://www.gov.uk/digital-marketplace'
+                            href: 'https://www.gov.uk/digital-marketplace'
     end
   end
 

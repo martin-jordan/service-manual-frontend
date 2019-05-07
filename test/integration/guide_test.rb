@@ -105,14 +105,14 @@ class GuideTest < ActionDispatch::IntegrationTest
 
   test 'omits the previous history if there is only one change' do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide',
-      "details" => {
-        "change_history" => [
-          {
-            "public_timestamp" => "2015-09-01T08:17:10+00:00",
-            "note" => "Guidance first published"
-          }
-        ]
-      })
+                            "details" => {
+                              "change_history" => [
+                                {
+                                  "public_timestamp" => "2015-09-01T08:17:10+00:00",
+                                  "note" => "Guidance first published"
+                                }
+                              ]
+                            })
 
     refute page.has_content? 'Show all page updates'
     refute page.has_css? '.change-history__past'
@@ -120,9 +120,9 @@ class GuideTest < ActionDispatch::IntegrationTest
 
   test 'omits the latest change and previous change if the guide has no history' do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide',
-      "details" => {
-        "change_history" => []
-      })
+                            "details" => {
+                              "change_history" => []
+                            })
 
     refute page.has_content? 'Last update:'
     refute page.has_content? 'Show all page updates'
