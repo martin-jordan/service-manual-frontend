@@ -55,15 +55,15 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
     }
 
     assert ServiceStandardPresenter.new(content_item_hash).breadcrumbs,
-      [
-        { title: "Service manual", url: "/service-manual" },
-        { title: "Digital Service Standard" },
-      ]
+           [
+             { title: "Service manual", url: "/service-manual" },
+             { title: "Digital Service Standard" },
+           ]
   end
 
   test '#email_alert_signup returns a link to the email alert signup' do
     assert_equal "/service-manual/service-standard/email-signup",
-      presented_standard.email_alert_signup_link
+                 presented_standard.email_alert_signup_link
   end
 
   test '#email_alert_signup does not error if no signup exists' do

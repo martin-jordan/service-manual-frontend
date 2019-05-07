@@ -34,9 +34,9 @@ class TopicTest < ActionDispatch::IntegrationTest
 
     within('.related-communities') do
       assert page.has_link?("Agile delivery community",
-        href: "/service-manual/communities/agile-delivery-community")
+                            href: "/service-manual/communities/agile-delivery-community")
       assert page.has_link?("User research community",
-        href: "/service-manual/communities/user-research-community")
+                            href: "/service-manual/communities/user-research-community")
     end
   end
 
@@ -44,7 +44,7 @@ class TopicTest < ActionDispatch::IntegrationTest
     setup_and_visit_example('service_manual_topic', 'service_manual_topic')
 
     assert page.has_link?("email",
-      href: "/service-manual/test-expanded-topic/email-signup")
+                          href: "/service-manual/test-expanded-topic/email-signup")
   end
 
   test "it includes anchors for headings" do

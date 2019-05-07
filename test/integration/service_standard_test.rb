@@ -53,7 +53,7 @@ class ServiceStandardTest < ActionDispatch::IntegrationTest
     setup_and_visit_example('service_manual_service_standard', 'service_manual_service_standard')
 
     assert page.has_link?("email",
-      href: "/service-manual/service-standard/email-signup")
+                          href: "/service-manual/service-standard/email-signup")
   end
 
   def points
