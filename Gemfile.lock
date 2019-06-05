@@ -183,7 +183,7 @@ GEM
     parser (2.6.3.0)
       ast (~> 2.4.0)
     phantomjs (2.1.1.0)
-    plek (2.1.1)
+    plek (3.0.0)
     poltergeist (1.17.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -362,7 +362,7 @@ DEPENDENCIES
   jasmine-rails
   listen (>= 3.0.5, < 3.2)
   phantomjs (~> 2.1.1)
-  plek (= 2.1.1)
+  plek (= 3.0.0)
   poltergeist
   pry-byebug
   rails (~> 5.2.3)
