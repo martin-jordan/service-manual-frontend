@@ -24,6 +24,7 @@
     this.$feedbackFormSubmitButton = that.$feedbackFormContainer.find('[type=submit]');
     this.$feedbackFormCloseButton = that.$feedbackFormContainer.find('.js-close-feedback-form');
     this.$prompt = $element.find('.js-prompt');
+    this.$refocus = this.$prompt;
 
     this.onPageIsUsefulButtonClicked = function (callback) {
       that.$pageIsUsefulButton.on('click', preventingDefault(callback));
@@ -66,6 +67,8 @@
 
       if (formIsVisible) {
         $('.form-control', that.$feedbackFormContainer).first().focus();
+      } else {
+        this.$refocus.focus();
       }
     }
 
@@ -80,6 +83,14 @@
 
     this.feedbackFormContainerTrackEventParams = function () {
       return that.getTrackEventParams(that.$feedbackFormContainer);
+    }
+
+    this.setPageIsNotUsefulFocus  = function (callback) {
+      this.$refocus = this.$pageIsNotUsefulButton;
+    }
+
+    this.setSomethingIsWrongFocus  = function (callback) {
+      this.$refocus = this.$somethingIsWrongButton;
     }
 
     this.pageIsUsefulTrackEventParams = function () {
@@ -243,6 +254,7 @@
       var handler = function () {
         that.trackEvent(view.pageIsNotUsefulTrackEventParams());
 
+        view.setPageIsNotUsefulFocus();
         view.toggleFeedbackForm();
       }
 
@@ -253,6 +265,7 @@
       var handler = function () {
         that.trackEvent(view.somethingIsWrongTrackEventParams());
 
+        view.setSomethingIsWrongFocus();
         view.toggleFeedbackForm();
       }
 
@@ -263,7 +276,6 @@
       var handler = function () {
         view.toggleFeedbackForm();
       }
-
       view.onFeedbackFormCloseButtonClicked(handler);
     }
 
