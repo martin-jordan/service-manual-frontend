@@ -1,4 +1,7 @@
-// The main application stylesheet
+$govuk-compatibility-govuktemplate: true;
+$govuk-compatibility-govukfrontendtoolkit: true;
+$govuk-compatibility-govukelements: true;
+@import "govuk_publishing_components/all_components";
 
 @import "common";
 
@@ -25,5 +28,3 @@
 @import "modules/service-standard-point";
 @import "modules/subsections";
 @import "modules/typography";
-
-@import "govuk_publishing_components/all_components";
