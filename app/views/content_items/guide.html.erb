@@ -102,7 +102,7 @@
         </dl>
       </div>
     <% if @content_item.previous_changes.present? %>
-      <p><a href="#full-history" data-controls="full-history" data-expanded="false" role="button" aria-controls="full-history" aria-expanded="false">+ Show all page updates (<%= @content_item.previous_changes.length + 1 %>)</a></p>
+      <p><a href="#full-history" data-controls="full-history" data-toggled-text="- Hide all page updates (<%= @content_item.previous_changes.length + 1 %>)" data-expanded="false" role="button" aria-controls="full-history" aria-expanded="false">+ Show all page updates (<%= @content_item.previous_changes.length + 1 %>)</a></p>
       <ol id="full-history" class="change-history__past js-hidden" aria-live="polite" role="region">
       <% @content_item.previous_changes.each do |previous_change| %>
         <li>
