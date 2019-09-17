@@ -35,5 +35,5 @@ group :test do
   gem 'poltergeist'
   gem 'pry-byebug'
   gem 'rails-controller-testing'
-  gem 'webmock', '~> 3.7.3', require: false
+  gem 'webmock', '~> 3.7.4', require: false
 end
