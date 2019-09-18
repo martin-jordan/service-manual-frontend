@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'pry'
 
 class GuideTest < ActionDispatch::IntegrationTest
   test "shows the time it was saved if it hasn't been published yet" do
@@ -18,7 +17,7 @@ class GuideTest < ActionDispatch::IntegrationTest
       content_store_has_item(base_path, example)
       visit base_path
 
-      within('.app-c-metadata--heading') do
+      within('.metadata') do
         assert page.has_content?('5 minutes ago')
       end
     end
@@ -28,7 +27,7 @@ class GuideTest < ActionDispatch::IntegrationTest
     travel_to Time.zone.local(2015, 10, 10, 0, 0, 0) do
       setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
-      within('.app-c-metadata--heading') do
+      within('.metadata') do
         assert page.has_content?('about 16 hours ago')
       end
     end
@@ -37,7 +36,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   test "service manual guide shows content owners" do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
-    within('.app-c-metadata--heading') do
+    within('.metadata') do
       assert page.has_link?('Agile delivery community')
     end
   end
@@ -54,7 +53,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   test "service manual guide does not show published by" do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide_community')
 
-    within('.gem-c-metadata') do
+    within('.metadata') do
       refute page.has_content?('Published by')
     end
   end
@@ -62,7 +61,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   test "displays the description for a point" do
     setup_and_visit_example('service_manual_guide', 'point_page')
 
-    within('.app-c-page-header__summary') do
+    within('.page-header__summary') do
       assert page.has_content?('Research to develop a deep knowledge of who the service users are')
     end
   end
@@ -70,7 +69,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   test "does not display the description for a normal guide" do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
-    refute page.has_css?('.app-c-page-header__summary')
+    refute page.has_css?('.page-header__summary')
   end
 
   test "displays a link to give feedback" do
@@ -82,7 +81,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   test 'displays the published date of the most recent change' do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
-    within('.app-c-change-history') do
+    within('.change-history') do
       assert page.has_content? 'Last update: 9 October 2015'
     end
   end
@@ -90,7 +89,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   test 'displays the most recent change history for a guide' do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
-    within('.app-c-change-history') do
+    within('.change-history') do
       assert page.has_content? 'This is our latest change'
     end
   end
@@ -98,7 +97,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   test 'displays the change history for a guide' do
     setup_and_visit_example('service_manual_guide', 'service_manual_guide')
 
-    within('.app-c-change-history__past') do
+    within('.change-history__past') do
       assert page.has_content? 'This is another change'
       assert page.has_content? 'Guidance first published'
     end
@@ -116,7 +115,7 @@ class GuideTest < ActionDispatch::IntegrationTest
                             })
 
     refute page.has_content? 'Show all page updates'
-    refute page.has_css? '.app-c-change-history__past'
+    refute page.has_css? '.change-history__past'
   end
 
   test 'omits the latest change and previous change if the guide has no history' do
@@ -127,6 +126,6 @@ class GuideTest < ActionDispatch::IntegrationTest
 
     refute page.has_content? 'Last update:'
     refute page.has_content? 'Show all page updates'
-    refute page.has_css? '.app-c-change-history__past'
+    refute page.has_css? '.change-history__past'
   end
 end

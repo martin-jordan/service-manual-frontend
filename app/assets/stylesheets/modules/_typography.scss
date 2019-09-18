@@ -1,16 +1,11 @@
 // Text
-.app-c-body,
-.app-c-body-s {
-  line-height: 1.45;
-}
+p {
+  margin-top: em(5, 16);
+  margin-bottom: em(20, 16);
 
-.app-link--inverse {
-  &:link,
-  &:visited {
-    color: govuk-colour("white");
+  @include media(tablet) {
+    margin-top: em(5);
+    margin-bottom: em(20);
   }
 
-  &:focus {
-    @include govuk-focused-text;
-  }
 }

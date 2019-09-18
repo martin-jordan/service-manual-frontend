@@ -1,17 +1,17 @@
 .notice {
   clear: both;
   @include responsive-bottom-margin;
-  padding: govuk-spacing(3);
+  padding: $gutter-half;
 
-  border: 5px solid $govuk-brand-colour;
+  border: 5px solid $govuk-blue;
 
   @include media(tablet) {
-    padding: govuk-spacing(4);
+    padding: $gutter-two-thirds;
   }
 
   &__title {
     @include bold-36;
-    margin-bottom: govuk-spacing(2);
+    margin-bottom: $gutter-one-third;
   }
 
   &__description {
