@@ -1,16 +1,16 @@
 @mixin responsive-bottom-margin {
-  margin-bottom: govuk-spacing(3);
+  margin-bottom: $gutter-half;
 
   @include media(tablet) {
-    margin-bottom: govuk-spacing(7);
+    margin-bottom: $gutter * 1.5;
   }
 }
 
 @mixin responsive-top-margin {
-  margin-top: govuk-spacing(3);
+  margin-top: $gutter-half;
 
   @include media(tablet) {
-    margin-top: govuk-spacing(7);
+    margin-top: $gutter * 1.5;
   }
 }
 
@@ -21,11 +21,11 @@
 
 
 @mixin gutter-bottom-margin {
-  margin-bottom: govuk-spacing(6);
+  margin-bottom: $gutter;
 }
 
 @mixin gutter-top-margin {
-  margin-top: govuk-spacing(6);
+  margin-top: $gutter;
 }
 
 @mixin gutter-vertical-margins {
@@ -34,9 +34,9 @@
 }
 
 @mixin gutter-bottom-margin-to-double {
-  margin-bottom: govuk-spacing(3);
+  margin-bottom: $gutter;
 
   @include media(tablet) {
-    margin-bottom: govuk-spacing(9);
+    margin-bottom: $gutter * 2;
   }
 }

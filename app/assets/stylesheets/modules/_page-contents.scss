@@ -1,15 +1,43 @@
-.app-c-page-contents {
+.page-contents {
+  margin-top: 1em;
+
+  @include media(tablet) {
+    margin-top: 0;
+    padding: 2em 0;
+  }
+
+  &__title {
+    @include bold-16;
+    margin-bottom: 5px;
+  }
+
   &__list li {
-    margin-left: govuk-spacing(0);
-    padding-right: govuk-spacing(3);
+    @include core-16;
+    list-style-type: none;
+    margin-bottom: 5px;
+    margin-left: $gutter-half;
+    padding-right: $gutter-half;
 
     &:before {
-      content: "– ";
-      display: inline-block;
-      padding-right: govuk-spacing(1);
+      content: "–";
+      float: left;
+      display: block;
+      width: $gutter-half;
+      margin-left: -$gutter-half;
     }
   }
 
+  &__list a {
+    text-decoration: none;
+    // Prevents emboldening from pushing text onto new lines
+    letter-spacing: 0.022em;
+
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: underline;
+    }
+  }
   // Styles required by GOVUK.HighlightActiveNavItem JS
   &__list .active {
     letter-spacing: 0;

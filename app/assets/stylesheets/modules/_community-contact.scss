@@ -1,6 +1,7 @@
-.app-c-community-contact {
+.community-contact {
+  @include gutter-vertical-margins;
   @include media(tablet) {
     text-align: right;
-    padding-top: govuk-spacing(8);
+    padding-top: $gutter-half;
   }
 }
