@@ -2,6 +2,13 @@
   "name": "Service Manual Frontend",
   "repository": "https://github.com/alphagov/service-manual-frontend",
   "env": {
+    "BASIC_AUTH_USERNAME": {
+      "required": true
+    },
+    "BASIC_AUTH_PASSWORD": {
+      "required": true
+    },
+    "REQUIRE_BASIC_AUTH": "true",
     "GOVUK_APP_DOMAIN": {
       "value": "www.gov.uk"
     },
