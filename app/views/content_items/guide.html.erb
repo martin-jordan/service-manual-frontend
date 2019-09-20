@@ -16,7 +16,7 @@
   <div class="govuk-grid-row">
 
     <div class="govuk-grid-column-two-thirds">
-      <div class="app-c-page-header">
+      <div class="app-page-header">
 
       <%= render "govuk_publishing_components/components/title", {
         context: @content_item.category_title,
@@ -24,14 +24,14 @@
         margin_bottom: 8
       } %>
       <% if @content_item.show_description? %>
-        <p class="govuk-body-l app-c-page-header__summary">
+        <p class="govuk-body-l app-page-header__summary">
           <%= @content_item.description %>
         </p>
       <% end %>
       </div>
     </div>
 
-    <div class="govuk-grid-column-one-third app-c-community-contact govuk-!-padding-bottom-5">
+    <div class="govuk-grid-column-one-third app-community-contact govuk-!-padding-bottom-5">
       <p>
         <%= link_to "Give feedback about this page", "/contact/govuk", class: "govuk-link" %>
       </p>
@@ -40,7 +40,7 @@
 
   <!-- Metadata-->
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds app-c-metadata--heading">
+    <div class="govuk-grid-column-two-thirds app-metadata--heading">
       <%= render "govuk_publishing_components/components/metadata", {
         last_updated: "#{time_ago_in_words(@content_item.visible_updated_at)} ago",
         from: @content_item.content_owners.map { |content_owner|
@@ -55,7 +55,7 @@
       <!--  Page contents -->
       <div class="page-contents js-page-contents js-stick-at-top-when-scrolling js-sticky-resize">
         <h2 class="govuk-heading-s govuk-!-margin-bottom-1 govuk-!-margin-top-3">Page contents:</h2>
-        <ul class="govuk-list app-c-page-contents__list">
+        <ul class="govuk-list app-page-contents__list">
           <% @content_item.header_links.each do |header_link| %>
             <li class="govuk-body-s"><%= link_to(header_link[:title], header_link[:href], class: 'govuk-link') %></li>
           <% end %>
@@ -68,8 +68,8 @@
         <%= render "govuk_publishing_components/components/govspeak", content: @content_item.body.html_safe %>
       </div>
 
-      <div class="app-c-change-history govuk-!-margin-top-6" data-module="gem-toggle">
-        <div class="app-c-change-history__latest-change">
+      <div class="app-change-history govuk-!-margin-top-6" data-module="gem-toggle">
+        <div class="app-change-history__latest-change">
           <% if @content_item.content_owners.any? %>
             <%= render "govuk_publishing_components/components/metadata", {
               last_updated: time_ago_in_words(@content_item.visible_updated_at),
@@ -100,7 +100,7 @@
                 + Show all page updates (<%= @content_item.previous_changes.length %>)
             </a>
           </p>
-          <ol id="full-history" class="app-c-change-history__past govuk-list js-hidden" aria-live="polite" role="region">
+          <ol id="full-history" class="app-change-history__past govuk-list js-hidden" aria-live="polite" role="region">
             <% @content_item.previous_changes.each do |previous_change| %>
               <li>
                 <%= render partial: 'shared/change_history', locals: { change: previous_change, compressed: true} %>

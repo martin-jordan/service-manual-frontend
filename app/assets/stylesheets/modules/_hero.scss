@@ -1,4 +1,4 @@
-.app-c-hero {
+.app-hero {
   background-color: $govuk-brand-colour;
   color: govuk-colour("white");
   margin-bottom: govuk-spacing(3);
@@ -15,11 +15,11 @@
   }
 }
 
-.app-c-hero-lead {
+.app-hero-lead {
   line-height: 1.35;
 }
 
-.app-c-hero__heading--inverse,
-.app-c-hero__body--inverse {
+.app-hero__heading--inverse,
+.app-hero__body--inverse {
   color: govuk-colour("white");
 }
