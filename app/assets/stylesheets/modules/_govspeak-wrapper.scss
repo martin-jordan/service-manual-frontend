@@ -4,16 +4,4 @@
   @include media(tablet) {
     padding-top: 1.875em;
   }
-
-  .govuk-govspeak p,
-  .govuk-govspeak ol,
-  .govuk-govspeak ul {
-    line-height: 1.45;
-    // govspeak margin bottom is 20px
-    margin-bottom: govuk-spacing(3);
-  }
-
-  .govuk-govspeak h2 {
-    @extend %govuk-heading-m;
-  }
 }

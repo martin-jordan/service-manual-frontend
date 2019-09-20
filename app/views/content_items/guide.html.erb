@@ -14,23 +14,20 @@
 
   <!-- Page title and contact -->
   <div class="govuk-grid-row">
-
     <div class="govuk-grid-column-two-thirds">
       <div class="app-page-header">
-
-      <%= render "govuk_publishing_components/components/title", {
-        context: @content_item.category_title,
-        title: @content_item.title,
-        margin_bottom: 8
-      } %>
-      <% if @content_item.show_description? %>
-        <p class="govuk-body-l app-page-header__summary">
-          <%= @content_item.description %>
-        </p>
-      <% end %>
+        <%= render "govuk_publishing_components/components/title", {
+          context: @content_item.category_title,
+          title: @content_item.title,
+          margin_bottom: 8
+        } %>
+        <% if @content_item.show_description? %>
+          <p class="govuk-body-l app-page-header__summary">
+            <%= @content_item.description %>
+          </p>
+        <% end %>
       </div>
     </div>
-
     <div class="govuk-grid-column-one-third app-community-contact govuk-!-padding-bottom-5">
       <p>
         <%= link_to "Give feedback about this page", "/contact/govuk", class: "govuk-link" %>
@@ -52,12 +49,15 @@
 
   <div class="govuk-grid-row" data-module="highlight-active-section-heading">
     <div class="govuk-grid-column-one-third">
+
       <!--  Page contents -->
       <div class="page-contents js-page-contents js-stick-at-top-when-scrolling js-sticky-resize">
         <h2 class="govuk-heading-s govuk-!-margin-bottom-1 govuk-!-margin-top-3">Page contents:</h2>
         <ul class="govuk-list app-page-contents__list">
           <% @content_item.header_links.each do |header_link| %>
-            <li class="govuk-body-s"><%= link_to(header_link[:title], header_link[:href], class: 'govuk-link') %></li>
+            <li class="govuk-body-s">
+              <%= link_to(header_link[:title], header_link[:href], class: 'govuk-link') %>
+            </li>
           <% end %>
         </ul>
       </div>
@@ -67,7 +67,6 @@
       <div class="govspeak-wrapper govuk-!-padding-top-2">
         <%= render "govuk_publishing_components/components/govspeak", content: @content_item.body.html_safe %>
       </div>
-
       <div class="app-change-history govuk-!-margin-top-6" data-module="gem-toggle">
         <div class="app-change-history__latest-change">
           <% if @content_item.content_owners.any? %>
