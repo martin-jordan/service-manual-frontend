@@ -1,12 +1,12 @@
-require File.expand_path('../config/environment', __dir__)
-require 'rails/test_help'
-require 'minitest/mock'
-require 'webmock/minitest'
-require 'capybara/rails'
-require 'capybara/poltergeist'
-require 'slimmer/test'
+require File.expand_path("../config/environment", __dir__)
+require "rails/test_help"
+require "minitest/mock"
+require "webmock/minitest"
+require "capybara/rails"
+require "capybara/poltergeist"
+require "slimmer/test"
 
-Dir[File.dirname(__FILE__) + '/support/**/*.rb'].each { |file| require file }
+Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each { |file| require file }
 
 class ActiveSupport::TestCase
   include GovukContentSchemaExamples
@@ -52,7 +52,7 @@ class ActionDispatch::IntegrationTest
 
   def setup_and_visit_example(format, name, overrides = {})
     example = govuk_content_schema_example(format, name, overrides)
-    base_path = example.fetch('base_path')
+    base_path = example.fetch("base_path")
 
     content_store_has_item(base_path, example)
     visit base_path

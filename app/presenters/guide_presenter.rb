@@ -29,7 +29,7 @@ class GuidePresenter < ContentItemPresenter
   end
 
   def show_description?
-    !!details['show_description']
+    !!details["show_description"]
   end
 
   def public_updated_at
@@ -47,7 +47,7 @@ class GuidePresenter < ContentItemPresenter
     if change.present?
       Change.new(
         visible_updated_at,
-        change["note"]
+        change["note"],
       )
     end
   end
@@ -56,7 +56,7 @@ class GuidePresenter < ContentItemPresenter
     change_history.drop(1).map do |change|
       Change.new(
         change["public_timestamp"].to_time,
-        change["note"]
+        change["note"],
       )
     end
   end
@@ -64,7 +64,7 @@ class GuidePresenter < ContentItemPresenter
 private
 
   def links_content_owners_attributes
-    content_item.to_hash.fetch('links', {}).fetch('content_owners', [])
+    content_item.to_hash.fetch("links", {}).fetch("content_owners", [])
   end
 
   def category

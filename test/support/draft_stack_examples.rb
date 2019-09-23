@@ -5,6 +5,6 @@ module DraftStackExamples
   # across all schemas, the things that are different can hopefully
   # be managed in this helper.
   def simulate_example_as_first_edition_on_draft_stack(hash)
-    hash.except('public_updated_at')
+    hash.except("public_updated_at")
   end
 end

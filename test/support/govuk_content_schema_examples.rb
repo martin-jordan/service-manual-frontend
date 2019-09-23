@@ -1,4 +1,4 @@
-require 'gds_api/test_helpers/content_store'
+require "gds_api/test_helpers/content_store"
 
 # Include this module to get access to the GOVUK Content Schema examples in the
 # tests.
@@ -13,7 +13,7 @@ require 'gds_api/test_helpers/content_store'
 # with the content store.
 
 GovukContentSchemaTestHelpers.configure do |config|
-  config.schema_type = 'frontend'
+  config.schema_type = "frontend"
   config.project_root = Rails.root
 end
 
@@ -26,13 +26,13 @@ module GovukContentSchemaExamples
 
   def content_store_has_schema_example(schema_name, example_name, overrides = {})
     document = govuk_content_schema_example(schema_name, example_name, overrides)
-    content_store_has_item(document['base_path'], document)
+    content_store_has_item(document["base_path"], document)
     document
   end
 
   def govuk_content_schema_example(schema_name, example_name, overrides = {})
     JSON.parse(
-      GovukContentSchemaTestHelpers::Examples.new.get(schema_name, example_name)
+      GovukContentSchemaTestHelpers::Examples.new.get(schema_name, example_name),
     ).deep_merge(overrides.stringify_keys)
   end
 

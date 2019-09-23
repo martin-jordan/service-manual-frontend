@@ -1,12 +1,12 @@
-require 'test_helper'
+require "test_helper"
 
 class TopicTest < ActionDispatch::IntegrationTest
   setup do
     @topic_example = JSON.parse(
       GovukContentSchemaTestHelpers::Examples.new.get(
-        'service_manual_topic',
-        'service_manual_topic',
-      )
+        "service_manual_topic",
+        "service_manual_topic",
+      ),
     )
   end
 
@@ -30,9 +30,9 @@ class TopicTest < ActionDispatch::IntegrationTest
   end
 
   test "it lists communities in the sidebar" do
-    setup_and_visit_example('service_manual_topic', 'service_manual_topic')
+    setup_and_visit_example("service_manual_topic", "service_manual_topic")
 
-    within('.related-communities') do
+    within(".related-communities") do
       assert page.has_link?("Agile delivery community",
                             href: "/service-manual/communities/agile-delivery-community")
       assert page.has_link?("User research community",
@@ -41,7 +41,7 @@ class TopicTest < ActionDispatch::IntegrationTest
   end
 
   test "it includes a link to subscribe for email alerts" do
-    setup_and_visit_example('service_manual_topic', 'service_manual_topic')
+    setup_and_visit_example("service_manual_topic", "service_manual_topic")
 
     assert page.has_link?("email",
                           href: "/service-manual/test-expanded-topic/email-signup")

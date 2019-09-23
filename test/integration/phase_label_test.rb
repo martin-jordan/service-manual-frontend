@@ -1,11 +1,11 @@
-require 'test_helper'
+require "test_helper"
 
 class PhaseLabelTest < ActionDispatch::IntegrationTest
   test "renders custom message for service manual guide pages" do
     guide = content_store_has_schema_example(
-      'service_manual_guide',
-      'service_manual_guide',
-      phase: 'beta'
+      "service_manual_guide",
+      "service_manual_guide",
+      phase: "beta",
     )
 
     visit guide["base_path"]
@@ -16,7 +16,7 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
   test "renders custom message for service manual homepage" do
     homepage = content_store_has_schema_example(
       "service_manual_homepage",
-      "service_manual_homepage"
+      "service_manual_homepage",
     )
 
     visit homepage["base_path"]
@@ -26,9 +26,9 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
 
   test "alpha phase label is displayed for a guide in phase 'alpha'" do
     guide = content_store_has_schema_example(
-      'service_manual_guide',
-      'service_manual_guide',
-      phase: 'alpha'
+      "service_manual_guide",
+      "service_manual_guide",
+      phase: "alpha",
     )
 
     visit guide["base_path"]
@@ -38,9 +38,9 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
 
   test "No phase label is displayed for a guide without a phase field" do
     guide = content_store_has_schema_example(
-      'service_manual_guide',
-      'service_manual_guide',
-      phase: nil
+      "service_manual_guide",
+      "service_manual_guide",
+      phase: nil,
     )
 
     visit guide["base_path"]

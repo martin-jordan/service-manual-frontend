@@ -11,22 +11,22 @@ class TopicPresenter < ContentItemPresenter
   end
 
   def groups
-    linked_items = content_item['links']['linked_items']
-    topic_groups = Array(content_item['details']['groups']).map do |group_data|
+    linked_items = content_item["links"]["linked_items"]
+    topic_groups = Array(content_item["details"]["groups"]).map do |group_data|
       TopicPresenter::TopicGroup.new(group_data, linked_items)
     end
     topic_groups.select(&:present?)
   end
 
   def content_owners
-    @content_owners ||= Array(content_item['links']['content_owners']).map do |data|
-      ContentOwner.new(data['title'], data['base_path'])
+    @content_owners ||= Array(content_item["links"]["content_owners"]).map do |data|
+      ContentOwner.new(data["title"], data["base_path"])
     end
   end
 
   def email_alert_signup_link
-    signups = content_item['links'].fetch('email_alert_signup', [])
-    signups.first['base_path'] if signups.any?
+    signups = content_item["links"].fetch("email_alert_signup", [])
+    signups.first["base_path"] if signups.any?
   end
 
   def phase
@@ -95,7 +95,7 @@ private
     # ```
 
     links = links.map { |linked_item|
-      link_html = ActionController::Base.helpers.link_to(linked_item.label, linked_item.href, class: 'govuk-link')
+      link_html = ActionController::Base.helpers.link_to(linked_item.label, linked_item.href, class: "govuk-link")
       "<li>#{link_html}</li>"
     }
 
@@ -107,9 +107,9 @@ private
   def parent_breadcrumbs
     [
       {
-        title: 'Service manual',
-        url: '/service-manual'
-      }
+        title: "Service manual",
+        url: "/service-manual",
+      },
     ]
   end
 

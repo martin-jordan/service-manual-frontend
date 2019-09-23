@@ -1,5 +1,5 @@
-require 'gds_api/content_store'
-require 'slimmer/headers'
+require "gds_api/content_store"
+require "slimmer/headers"
 
 class ContentItemsController < ApplicationController
   include Slimmer::Headers
@@ -16,7 +16,7 @@ class ContentItemsController < ApplicationController
       render content_item_template
     else
       configure_header_search
-      render body: 'Not found', status: :not_found
+      render body: "Not found", status: :not_found
     end
   end
 
@@ -25,7 +25,7 @@ private
   def load_content_item
     begin
       @content_item = present(
-        content_store.content_item(content_item_path)
+        content_store.content_item(content_item_path),
       )
     rescue GdsApi::HTTPNotFound
       nil
@@ -33,12 +33,12 @@ private
   end
 
   def present(content_item)
-    class_name = content_item['document_type'].sub(/^service_manual_/, '').classify
-    presenter_name = class_name + 'Presenter'
+    class_name = content_item["document_type"].sub(/^service_manual_/, "").classify
+    presenter_name = class_name + "Presenter"
     presenter_class = Object.const_get(presenter_name)
     presenter_class.new(content_item)
   rescue NameError
-    if content_item['base_path'] == '/'
+    if content_item["base_path"] == "/"
       raise <<~ERROR
         This application does not serve anything at its root. The homepage, if
         published in the content store, can be found at /service-manual.
@@ -68,7 +68,7 @@ private
   end
 
   def content_item_path
-    '/' + URI.encode(params[:path])
+    "/" + URI.encode(params[:path])
   end
 
   def content_store
@@ -90,7 +90,7 @@ private
     # manual.
     set_slimmer_headers(
       search_parameters: {
-        "filter_manual" => "/service-manual"
+        "filter_manual" => "/service-manual",
       }.to_json,
     )
   end
