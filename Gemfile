@@ -6,7 +6,7 @@ gem 'gds-api-adapters', '~> 60.1.0'
 gem 'govuk_app_config', '~> 2.0'
 gem 'govuk_elements_rails'
 gem 'govuk_frontend_toolkit', '~> 8.2.0'
-gem 'govuk_publishing_components', '~> 17.21.0'
+gem 'govuk_publishing_components', '~> 20.3.0'
 gem 'plek', '3.0.0'
 gem 'rails', '~> 5.2.3'
 gem 'rails-i18n', '~> 5.1.3'
@@ -18,7 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'govuk-lint'
   gem 'jasmine-rails'
-  gem 'phantomjs', '~> 2.1.1'
+  gem 'phantomjs', '~> 2.1', '>= 2.1.1.0'
 end
 
 group :development do
