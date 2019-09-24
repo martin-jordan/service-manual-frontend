@@ -1,16 +1,16 @@
-require 'test_helper'
-require 'pry'
+require "test_helper"
+require "pry"
 
 class ServiceStandardTest < ActionDispatch::IntegrationTest
   test "service standard page has a title, summary and intro" do
     setup_and_visit_example(
-      'service_manual_service_standard',
-      'service_manual_service_standard',
+      "service_manual_service_standard",
+      "service_manual_service_standard",
       title: "Service Standard",
       description: "The Service Standard is a set of 14 criteria.",
       details: {
-        body: "All public facing transactional services must meet the standard."
-      }
+        body: "All public facing transactional services must meet the standard.",
+      },
     )
 
     assert page.has_css?(".gem-c-title__text", text: "Service Standard"), "No title found"
@@ -19,7 +19,7 @@ class ServiceStandardTest < ActionDispatch::IntegrationTest
   end
 
   test "service standard page has points" do
-    setup_and_visit_example('service_manual_service_standard', 'service_manual_service_standard')
+    setup_and_visit_example("service_manual_service_standard", "service_manual_service_standard")
 
     assert_equal 3, points.length
 
@@ -43,7 +43,7 @@ class ServiceStandardTest < ActionDispatch::IntegrationTest
   end
 
   test "each point has an anchor tag so that they can be linked to externally" do
-    setup_and_visit_example('service_manual_service_standard', 'service_manual_service_standard')
+    setup_and_visit_example("service_manual_service_standard", "service_manual_service_standard")
 
     within('div[id="criterion-1"]') do
       assert page.has_content?("1. Understand user needs"), "Anchor is incorrect"
@@ -59,13 +59,13 @@ class ServiceStandardTest < ActionDispatch::IntegrationTest
   end
 
   test "it includes a link to subscribe for email alerts" do
-    setup_and_visit_example('service_manual_service_standard', 'service_manual_service_standard')
+    setup_and_visit_example("service_manual_service_standard", "service_manual_service_standard")
 
     assert page.has_link?("email",
                           href: "/service-manual/service-standard/email-signup")
   end
 
   def points
-    find_all('.app-service-standard-point')
+    find_all(".app-service-standard-point")
   end
 end

@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ServiceStandardPresenterTest < ActiveSupport::TestCase
   test "#points gets points from the details" do
@@ -23,8 +23,8 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
           { "title" => "7. Title" },
           { "title" => "11. Title" },
           { "title" => "8. Title" },
-        ]
-      }
+        ],
+      },
     }
 
     points_titles =
@@ -51,7 +51,7 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
 
   test "#breadcrumbs contains a link to the service manual root" do
     content_item_hash = {
-      "title" => "Service Standard"
+      "title" => "Service Standard",
     }
 
     assert ServiceStandardPresenter.new(content_item_hash).breadcrumbs,
@@ -61,12 +61,12 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
            ]
   end
 
-  test '#email_alert_signup returns a link to the email alert signup' do
+  test "#email_alert_signup returns a link to the email alert signup" do
     assert_equal "/service-manual/service-standard/email-signup",
                  presented_standard.email_alert_signup_link
   end
 
-  test '#email_alert_signup does not error if no signup exists' do
+  test "#email_alert_signup does not error if no signup exists" do
     assert_nil presented_standard(links: { email_alert_signup: [] }).email_alert_signup_link
   end
 
@@ -78,8 +78,8 @@ private
 
   def presented_standard(overriden_attributes = {})
     example = GovukContentSchemaTestHelpers::Examples.new.get(
-      'service_manual_service_standard',
-      'service_manual_service_standard'
+      "service_manual_service_standard",
+      "service_manual_service_standard",
     )
 
     example_with_overrides = JSON.parse(example)

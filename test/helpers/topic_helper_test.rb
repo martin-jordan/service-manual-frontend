@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class TopicHelperTest < ActionView::TestCase
   test "topic_related_communities_title invites you to join the only related community" do

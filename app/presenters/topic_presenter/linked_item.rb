@@ -7,11 +7,11 @@ class TopicPresenter::LinkedItem
   end
 
   def label
-    details['title']
+    details["title"]
   end
 
   def href
-    details['base_path']
+    details["base_path"]
   end
 
   def present?
@@ -21,6 +21,6 @@ class TopicPresenter::LinkedItem
 private
 
   def details
-    @details ||= @linked_items.find { |ld| ld['content_id'] == content_id }
+    @details ||= @linked_items.find { |ld| ld["content_id"] == content_id }
   end
 end

@@ -30,7 +30,7 @@ class ContentItemPresenter
   end
 
   def format
-    content_item["document_type"].sub(/^service_manual_/, '')
+    content_item["document_type"].sub(/^service_manual_/, "")
   end
 
 private
@@ -40,6 +40,6 @@ private
   end
 
   def sorted_locales(translations)
-    translations.sort_by { |t| t["locale"] == I18n.default_locale.to_s ? '' : t["locale"] }
+    translations.sort_by { |t| t["locale"] == I18n.default_locale.to_s ? "" : t["locale"] }
   end
 end

@@ -13,13 +13,13 @@ class ServiceStandardPresenter < ContentItemPresenter
   def breadcrumbs
     [
       { title: "Service manual", url: "/service-manual" },
-      { title: title }
+      { title: title },
     ]
   end
 
   def email_alert_signup_link
-    signups = content_item['links'].fetch('email_alert_signup', [])
-    signups.first['base_path'] if signups.any?
+    signups = content_item["links"].fetch("email_alert_signup", [])
+    signups.first["base_path"] if signups.any?
   end
 
 private
@@ -48,7 +48,7 @@ private
     end
 
     def title_without_number
-      @title_without_number ||= title.sub(/\A(\d*)\.(\s*)/, '')
+      @title_without_number ||= title.sub(/\A(\d*)\.(\s*)/, "")
     end
 
     def number

@@ -1,7 +1,7 @@
-require 'test_helper'
+require "test_helper"
 
 class GuidePresenterTest < ActiveSupport::TestCase
-  test 'presents the basic details required to display a Service Manual Guide' do
+  test "presents the basic details required to display a Service Manual Guide" do
     assert_equal "Agile Delivery", presented_guide.title
     assert_equal "guide", presented_guide.format
     assert presented_guide.body.size > 10
@@ -12,7 +12,7 @@ class GuidePresenterTest < ActiveSupport::TestCase
     assert content_owner.href.present?
   end
 
-  test 'breadcrumbs have a root and a topic link' do
+  test "breadcrumbs have a root and a topic link" do
     guide = presented_guide
     assert_equal [
                    { title: "Service manual", url: "/service-manual" },
@@ -33,13 +33,13 @@ class GuidePresenterTest < ActiveSupport::TestCase
 
   test "#category_title is the title of the category" do
     guide = presented_guide
-    assert_equal 'Agile', guide.category_title
+    assert_equal "Agile", guide.category_title
   end
 
   test "#category_title is the title of the parent for a point" do
     example = GovukContentSchemaTestHelpers::Examples.new.get(
-      'service_manual_guide',
-      'point_page'
+      "service_manual_guide",
+      "point_page",
     )
 
     presenter = GuidePresenter.new(JSON.parse(example))
@@ -52,21 +52,21 @@ class GuidePresenterTest < ActiveSupport::TestCase
     assert_nil guide.category_title
   end
 
-  test '#content_owners when stored in the links' do
+  test "#content_owners when stored in the links" do
     guide = presented_guide(
-      'details' => { 'content_owner' => nil },
-      'links' => { 'content_owners' => [{
+      "details" => { "content_owner" => nil },
+      "links" => { "content_owners" => [{
         "content_id" => "e5f09422-bf55-417c-b520-8a42cb409814",
         "title" => "Agile delivery community",
         "base_path" => "/service-manual/communities/agile-delivery-community",
-      }] }
+      }] },
     )
 
     expected = [
       GuidePresenter::ContentOwner.new(
         "Agile delivery community",
-        "/service-manual/communities/agile-delivery-community"
-      )
+        "/service-manual/communities/agile-delivery-community",
+      ),
     ]
     assert_equal expected, guide.content_owners
   end
@@ -81,7 +81,7 @@ class GuidePresenterTest < ActiveSupport::TestCase
 
   test "#public_updated_at returns nil if not available" do
     example = simulate_example_as_first_edition_on_draft_stack(
-      govuk_content_schema_example('service_manual_guide', 'service_manual_guide')
+      govuk_content_schema_example("service_manual_guide", "service_manual_guide"),
     )
     guide = GuidePresenter.new(example)
 
@@ -89,64 +89,64 @@ class GuidePresenterTest < ActiveSupport::TestCase
   end
 
   test "#visible_updated_at returns the public_updated_at" do
-    timestamp = '2015-10-10T09:00:00+00:00'
-    guide = presented_guide('public_updated_at' => timestamp)
+    timestamp = "2015-10-10T09:00:00+00:00"
+    guide = presented_guide("public_updated_at" => timestamp)
 
     assert_equal guide.visible_updated_at, timestamp.to_time
   end
 
   test "#visible_updated_at returns the updated_at time if the public_updated_at hasn't yet been set" do
-    timestamp = '2015-10-10T09:00:00+00:00'
+    timestamp = "2015-10-10T09:00:00+00:00"
     example = simulate_example_as_first_edition_on_draft_stack(
       govuk_content_schema_example(
-        'service_manual_guide',
-        'service_manual_guide',
-        'updated_at' => timestamp
-      )
+        "service_manual_guide",
+        "service_manual_guide",
+        "updated_at" => timestamp,
+      ),
     )
     guide = GuidePresenter.new(example)
 
     assert_equal guide.visible_updated_at, timestamp.to_time
   end
 
-  test '#latest_change returns the details for the most recent change' do
+  test "#latest_change returns the details for the most recent change" do
     expected_history = GuidePresenter::Change.new(
       "2015-10-09T08:17:10+00:00".to_time,
-      "This is our latest change"
+      "This is our latest change",
     )
 
     assert_equal expected_history, presented_guide.latest_change
   end
 
   test "#latest_change timestamp is the updated_at time if public_updated_at hasn't been set" do
-    timestamp = '2015-10-07T09:00:00+00:00'
+    timestamp = "2015-10-07T09:00:00+00:00"
     example = simulate_example_as_first_edition_on_draft_stack(
       govuk_content_schema_example(
-        'service_manual_guide',
-        'service_manual_guide',
-        'updated_at' => timestamp
-      )
+        "service_manual_guide",
+        "service_manual_guide",
+        "updated_at" => timestamp,
+      ),
     )
     guide = GuidePresenter.new(example)
 
     expected_history = GuidePresenter::Change.new(
       timestamp.to_time,
-      "This is our latest change"
+      "This is our latest change",
     )
 
     assert_equal expected_history, guide.latest_change
   end
 
-  test '#previous_changes returns the change history for the guide' do
+  test "#previous_changes returns the change history for the guide" do
     expected_history = [
       GuidePresenter::Change.new(
         "2015-09-09T08:17:10+00:00".to_time,
-        "This is another change"
+        "This is another change",
       ),
       GuidePresenter::Change.new(
         "2015-09-01T08:17:10+00:00".to_time,
-        "Guidance first published"
-      )
+        "Guidance first published",
+      ),
     ]
 
     assert_equal expected_history, presented_guide.previous_changes
@@ -154,9 +154,9 @@ class GuidePresenterTest < ActiveSupport::TestCase
 
 private
 
-  def presented_guide(overriden_attributes = {}, example = 'service_manual_guide')
+  def presented_guide(overriden_attributes = {}, example = "service_manual_guide")
     GuidePresenter.new(
-      JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get('service_manual_guide', example)).merge(overriden_attributes)
+      JSON.parse(GovukContentSchemaTestHelpers::Examples.new.get("service_manual_guide", example)).merge(overriden_attributes),
     )
   end
 end

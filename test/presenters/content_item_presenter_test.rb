@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ContentItemPresenterTest < ActiveSupport::TestCase
   test "#title" do
@@ -19,7 +19,7 @@ class ContentItemPresenterTest < ActiveSupport::TestCase
   end
 
   test "available_translations sorts languages by locale with English first" do
-    translated = govuk_content_schema_example('case_study', 'translated')
+    translated = govuk_content_schema_example("case_study", "translated")
     locales = ContentItemPresenter.new(translated).available_translations
     assert_equal %w(en ar es), locales.map { |t| t["locale"] }
   end
