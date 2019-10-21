@@ -12,7 +12,7 @@ gem "rails", "~> 5.2.3"
 gem "rails-i18n", "~> 5.1.3"
 gem "rails_translation_manager", "~> 0.1.0"
 gem "sass-rails", "~> 5.0.6"
-gem "slimmer", "~> 13.1.0"
+gem "slimmer", "~> 13.2.0"
 gem "uglifier", ">= 1.3.0"
 
 group :development, :test do
