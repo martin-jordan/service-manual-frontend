@@ -1,5 +1,5 @@
 .related {
-  @include media(tablet) {
+  @include govuk-media-query($from: tablet) {
     border-top: 1px solid $govuk-border-colour;
   }
 }

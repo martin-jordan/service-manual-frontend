@@ -5,7 +5,7 @@
   position: relative;
   top: -1px;
 
-  @include media(tablet) {
+  @include govuk-media-query($from: tablet) {
     margin-bottom: govuk-spacing(6);
   }
 

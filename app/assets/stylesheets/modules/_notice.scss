@@ -5,12 +5,12 @@
 
   border: 5px solid $govuk-brand-colour;
 
-  @include media(tablet) {
+  @include govuk-media-query($from: tablet) {
     padding: govuk-spacing(4);
   }
 
   &__title {
-    @include bold-36;
+    @include govuk-font(36, $weight: bold);
     margin-bottom: govuk-spacing(2);
   }
 

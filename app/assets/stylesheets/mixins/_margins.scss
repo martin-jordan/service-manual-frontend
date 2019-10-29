@@ -1,7 +1,7 @@
 @mixin responsive-bottom-margin {
   margin-bottom: govuk-spacing(3);
 
-  @include media(tablet) {
+  @include govuk-media-query($from: tablet) {
     margin-bottom: govuk-spacing(7);
   }
 }
@@ -9,7 +9,7 @@
 @mixin responsive-top-margin {
   margin-top: govuk-spacing(3);
 
-  @include media(tablet) {
+  @include govuk-media-query($from: tablet) {
     margin-top: govuk-spacing(7);
   }
 }
@@ -36,7 +36,7 @@
 @mixin gutter-bottom-margin-to-double {
   margin-bottom: govuk-spacing(3);
 
-  @include media(tablet) {
+  @include govuk-media-query($from: tablet) {
     margin-bottom: govuk-spacing(9);
   }
 }
