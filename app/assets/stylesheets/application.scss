@@ -3,7 +3,6 @@ $govuk-compatibility-govukfrontendtoolkit: true;
 $govuk-compatibility-govukelements: true;
 
 @import "govuk_publishing_components/all_components";
-
 @import "common";
 
 // CSS that could be better, mostly overriding Slimmer...
