@@ -2,6 +2,6 @@
 
 $is-print: true;
 
-@import "common";
-
 @import "govuk_publishing_components/all_components_print";
+@import "mixins/margins";
+@import "mixins/print";

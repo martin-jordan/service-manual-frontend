@@ -3,7 +3,8 @@
 .header-title {
   float: left;
   color: govuk-colour("white");
-  @include bold-24;
+  @include govuk-font(24, $weight: bold);
+  margin-top: 14px;
 
   // When the title appears on its own line (the search box is hidden and only a
   // search toggle is visible) it needs some padding
@@ -19,7 +20,7 @@
   }
 
   // ...and at 24px
-  @include media(tablet) {
+  @include govuk-media-query($from: tablet) {
     margin-top: 8px;
   }
 }
@@ -29,14 +30,14 @@
 // scss-lint:disable IdSelector
 #global-header .header-wrapper .header-global .site-search {
   // On mobile, force the search box onto a 'new line'.
-  @include media(mobile) {
+  @include govuk-media-query($until: tablet) {
     width: 100%;
     float: right;
     margin: 5px 0;
   }
 
   // Slightly reduce the width of the search box to allow room for the title.
-  @include media(tablet) {
+  @include govuk-media-query($from: tablet) {
     width: 40%;
   }
 }
