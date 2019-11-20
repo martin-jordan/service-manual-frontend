@@ -1,0 +1,16 @@
+.sticky-wrapper--fixed {
+  position: fixed;
+  top: 0;
+  bottom: auto;
+}
+
+.sticky-wrapper--bottom {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+}
+
+// fixme rename
+.sticky-wrapper__shim {
+  min-height: 1px;
+}
