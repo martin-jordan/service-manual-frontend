@@ -1,14 +1,12 @@
-/* global describe it expect beforeEach afterEach */
-
-describe('stick-at-top-when-scrolling', function () {
+describe("Stick to top when scrolling", function () {
   'use strict'
+  // var GOVUK = window.GOVUK;
+  // var $ = window.$;
+  // var instance;
 
-  var GOVUK = window.GOVUK;
-  var $ = window.$;
-  var instance;
-
+  var module
+  var $element
   var $stickyElement
-  var $stickyWrapper
 
   // beforeEach(function () {
   //   $stickyElement = $('<div data-module="sticky-element-wrapper"></div>')
@@ -22,14 +20,17 @@ describe('stick-at-top-when-scrolling', function () {
   // })
 
   beforeEach(function () {
-    $stickyElement = $('<div data-sticky-wrapper-element></div>')
-    $stickyWrapper = $('<div data-module="sticky-element-wrapper">').append($stickyElement)
+    module = new GOVUK.Modules.stickAtTopWhenScrolling()
 
-    $('body').append($stickyWrapper)
+    $stickyElement = $('<div data-sticky-wrapper-element></div>')
+    $element = $('<div data-module="sticky-element-wrapper">').append($stickyElement)
+
+    $('body').append($element)
   })
 
   afterEach(function () {
-    $stickyWrapper.remove()
+    //$element.remove()
+    $(document).off()
   })
 
   it ('does something', function () {
@@ -181,4 +182,4 @@ describe('stick-at-top-when-scrolling', function () {
     })
   })
 */
-})
+});
