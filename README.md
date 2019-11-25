@@ -12,29 +12,9 @@ This is a Ruby on Rails application that fetches documents from
 - [content-store](https://github.com/alphagov/content-store) - provides documents
 - [static](https://github.com/alphagov/static) - provides shared GOV.UK assets and templates.
 
-### Running the application
+## Development notes
 
-You can use [Bowler](https://github.com/JordanHatch/bowler) to automatically run
-the application and all of its dependencies. To do this, you'll need to check
-out the [development repository](https://github.gds/gds/development) where the
-`Pinfile` is located.
-
-```
-cd /var/govuk/development
-bowl service-manual-frontend
-```
-
-Alternatively, run `./startup.sh` in the `service-manual-frontend` directory.
-
-```
-cd /var/govuk/service-manual-frontend
-./startup.sh
-```
-
-The application runs on port `3122` by default. If you're using the GDS VM it'll
-be available at http://service-manual-frontend.dev.gov.uk.
-
-Note that the application *does not serve content at its root (/)* - the
+The application *does not serve content at its root (/)* - the
 homepage will be found at service-manual-frontend.dev.gov.uk/service-manual but
 only if the content item for the homepage exists in the content store.
 
