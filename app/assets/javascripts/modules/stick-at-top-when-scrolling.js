@@ -3,13 +3,13 @@
   attach data-module="sticky-element-wrapper" to the parent element that wraps both the menu and content
   attach data-sticky-wrapper-element to the child element that will be sticky
 */
-(function (Modules, root) {
+;(function (Modules, root) {
   'use strict';
 
   var $ = root.$;
   var $window = $(root);
 
-  Modules.StickyElementWrapper = function () {
+  Modules.StickAtTopWhenScrolling = function () {
     var self = this;
 
     self.sticky = {
@@ -20,10 +20,12 @@
     }
 
     self.start = function ($el) {
+      console.log('start')
       self.el = $el
       self.stickyEl = $el.find('[data-sticky-wrapper-element]')
 
       if (self.stickyEl.length) {
+        console.log('self.stickyEl.length')
         self.el.css('position', 'relative')
         self.elHeight = $el.height()
         self.elOffset = self.getElementOffset($el)
@@ -49,9 +51,7 @@
     }
 
     self.getWindowPositions = function getWindowPositions () {
-      return {
-        scrollTop: $window.scrollTop()
-      }
+      return $window.scrollTop()
     }
 
     self.getElementOffset = function (el) {
@@ -71,17 +71,23 @@
     }
 
     self.stick = function () {
+      console.log('stick')
       if (!self.stickyEl.hasClass('sticky-wrapper--fixed')) {
+        console.log('actually sticking')
         var width = self.stickyEl.width()
         self.stickyEl.css('width', width + 'px')
         self.addShim()
         self.removeStickyClass()
         self.stickyEl.addClass('sticky-wrapper--fixed')
+
+        console.log('in code:', self.stickyEl.get(0).outerHTML)
       }
     }
 
-    self.release = function (override = false) {
-      if (self.stickyEl.hasClass('sticky-wrapper--fixed') || override) {
+    self.release = function (override) {
+      override = (typeof override !== 'undefined') ?  override : false;
+
+      if (self.stickyEl.hasClass('sticky-wrapper--fixed') || override === true) {
         self.removeStickyClass()
         self.stickyEl.css('width', '')
         self.stickyEl.siblings('.sticky-wrapper__shim').remove()
@@ -103,13 +109,18 @@
     }
 
     self.checkScroll = function () {
+      console.log('checkScroll')
       if (self.sticky._hasScrolled === true) {
+        console.log('checkScroll', self.sticky._hasScrolled)
         self.sticky._hasScrolled = false
 
         if (self.windowDimensions.width <= 768) {
           self.release()
         } else {
-          var windowVerticalPosition = self.getWindowPositions().scrollTop
+          // we could store the height() values but they can vary, e.g. some menus have bold
+          // highlighting applied, which can force text onto a new line, changing the height
+          var windowVerticalPosition = self.getWindowPositions()
+          console.log(self.getWindowPositions())
           var bottomOfWrapper = self.elOffset + self.el.height() - self.stickyEl.height()
           var stop = self.elOffset + self.el.height() - self.windowDimensions.height
 
@@ -118,12 +129,15 @@
           var atTheBottom = windowVerticalPosition > stop
 
           if (atTheTop) {
+            console.log('top')
             self.release()
           }
           else if (inTheMiddle) {
+            console.log('middle')
             self.stick()
           }
           else if (atTheBottom) {
+            console.log('bottom')
             self.stickToBottom()
           }
         }

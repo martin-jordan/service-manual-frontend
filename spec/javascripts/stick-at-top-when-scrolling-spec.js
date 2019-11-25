@@ -1,29 +1,15 @@
 describe("Stick to top when scrolling", function () {
   'use strict'
-  // var GOVUK = window.GOVUK;
-  // var $ = window.$;
-  // var instance;
 
   var module
   var $element
   var $stickyElement
 
-  // beforeEach(function () {
-  //   $stickyElement = $('<div data-module="sticky-element-wrapper"></div>')
-  //   $stickyWrapper = $('<div>').append($stickyElement)
-
-  //   $('body').append($stickyWrapper)
-  // })
-
-  // afterEach(function () {
-  //   $stickyWrapper.remove()
-  // })
-
   beforeEach(function () {
-    module = new GOVUK.Modules.stickAtTopWhenScrolling()
+    module = new GOVUK.Modules.StickAtTopWhenScrolling()
 
-    $stickyElement = $('<div data-sticky-wrapper-element></div>')
-    $element = $('<div data-module="sticky-element-wrapper">').append($stickyElement)
+    $stickyElement = $('<div data-sticky-wrapper-element style="height: 100px; width: 50px;"></div>')
+    $element = $('<div data-module="sticky-element-wrapper" style="width: 800px; height: 2000px;">').append($stickyElement)
 
     $('body').append($element)
   })
@@ -33,15 +19,7 @@ describe("Stick to top when scrolling", function () {
     $(document).off()
   })
 
-  it ('does something', function () {
-    expect(1).toBe(1)
-  })
-
   /*
-    when starting
-      it should do nothing if no child
-      it should position relative the parent
-      it should position the element appropriately given the scroll position
     when scrolling
       it should stop at the top
       it should fix in the middle
@@ -65,6 +43,47 @@ describe("Stick to top when scrolling", function () {
     when resizing below 768
       it should do nothing
   */
+
+  describe('when starting the module', function () {
+    /*
+    it('should do nothing if no sticky child is found', function () {
+      $element.find('[data-sticky-wrapper-element]').remove()
+      module.start($element)
+      expect($element.attr('style')).not.toContain('position')
+      expect($element.attr('style')).not.toContain('relative')
+    })
+
+    it('should positive relative the parent element', function () {
+      module.start($element)
+      expect($element.attr('style')).toContain('position')
+      expect($element.attr('style')).toContain('relative')
+    })
+
+    it('should position the sticky element at the top if the page is at the top', function () {
+      module.start($element)
+      expect($stickyElement.hasClass('sticky-wrapper--fixed')).toBe(false)
+      expect($stickyElement.hasClass('sticky-wrapper--bottom')).toBe(false)
+    })
+    */
+
+    it('should make the sticky element fixed if the page is part way down', function () {
+      module.getWindowPositions = function () {
+        return 100
+      }
+      module.getWindowDimensions = function () {
+        return {
+          height: 500,
+          width: 1000
+        }
+      }
+      module.start($element)
+      module.sticky._hasScrolled = true
+      module.checkScroll()
+      console.log('in test:', $element.get(0).outerHTML)
+      expect($stickyElement.hasClass('sticky-wrapper--fixed')).toBe(true)
+      expect($stickyElement.hasClass('sticky-wrapper--bottom')).toBe(false)
+    })
+  })
 
 /*
   describe('when stick is called', function () {

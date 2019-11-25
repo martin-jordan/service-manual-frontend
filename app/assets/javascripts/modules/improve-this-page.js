@@ -1,4 +1,4 @@
-(function (Modules) {
+;(function (Modules) {
   "use strict";
 
   function ImproveThisPage () {
