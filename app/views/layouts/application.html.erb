@@ -6,7 +6,6 @@
   <%= stylesheet_link_tag "print", media: "print" %>
 
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag "start-modules" if Rails.env.test? %>
   <%= csrf_meta_tags %>
   <%= render "govuk_publishing_components/components/meta_tags", content_item: @content_item.content_item %>
   <%= yield(:extra_head) %>
