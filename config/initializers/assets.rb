@@ -19,4 +19,3 @@ Rails.application.config.assets.precompile += %w(
   application-ie8.css
   print.css
 )
-Rails.application.config.assets.precompile += %w(start-modules) if Rails.env.test?

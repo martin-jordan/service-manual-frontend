@@ -1,5 +1,4 @@
 $govuk-compatibility-govuktemplate: true;
-$govuk-compatibility-govukfrontendtoolkit: true;
 $govuk-compatibility-govukelements: true;
 
 @import "govuk_publishing_components/all_components";
@@ -22,4 +21,5 @@ $govuk-compatibility-govukelements: true;
 @import "modules/panel";
 @import "modules/related-content";
 @import "modules/service-standard-point";
+@import "modules/sticky";
 @import "modules/typography";
