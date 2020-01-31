@@ -4,7 +4,6 @@ ruby File.read(".ruby-version").strip
 
 gem "gds-api-adapters", "~> 63.3.0"
 gem "govuk_app_config", "~> 2.0"
-gem "govuk_elements_rails"
 gem "govuk_publishing_components", "~> 21.21.3"
 gem "plek", "3.0.0"
 gem "rails", "~> 5.2.4"
