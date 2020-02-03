@@ -10,13 +10,13 @@
 <!--
 ## Pages to check
 
-* https://govuk-service-manual-fr-pr-[ADD-PR-NUMBER-HERE].herokuapp.com/service-manual/
-* https://govuk-service-manual-fr-pr-[ADD-PR-NUMBER-HERE].herokuapp.com/service-manual/helping-people-to-use-your-service
-* https://govuk-service-manual-fr-pr-[ADD-PR-NUMBER-HERE].herokuapp.com/service-manual/design
-* https://govuk-service-manual-fr-pr-[ADD-PR-NUMBER-HERE].herokuapp.com/service-manual/service-assessments
-* https://govuk-service-manual-fr-pr-[ADD-PR-NUMBER-HERE].herokuapp.com/service-manual/service-standard
-* https://govuk-service-manual-fr-pr-[ADD-PR-NUMBER-HERE].herokuapp.com/service-manual/service-standard/point-1-understand-user-needs
-* https://govuk-service-manual-fr-pr-[ADD-PR-NUMBER-HERE].herokuapp.com/service-manual/communities
-* https://govuk-service-manual-fr-pr-[ADD-PR-NUMBER-HERE].herokuapp.com/service-manual/communities/accessibility-community
+* /service-manual/
+* /service-manual/helping-people-to-use-your-service
+* /service-manual/design
+* /service-manual/service-assessments
+*/service-manual/service-standard
+* /service-manual/service-standard/point-1-understand-user-needs
+* /service-manual/communities
+* /service-manual/communities/accessibility-community
 
 -->
