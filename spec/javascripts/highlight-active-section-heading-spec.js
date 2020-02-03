@@ -10,8 +10,8 @@ describe('A highlight active section heading module', function () {
   beforeEach(function () {
     module = new GOVUK.Modules.HighlightActiveSectionHeading()
 
-    $element = $('<div class="grid-row" data-module="highlight-active-section-heading">\
-      <div class="column-third">\
+    $element = $('<div class="govuk-grid-row" data-module="highlight-active-section-heading">\
+      <div class="govuk-grid-column-one-third">\
         <div class="page-contents js-page-contents js-stick-at-top-when-scrolling">\
           <h2 class="page-contents__title">Page contents:</h2>\
           <ul class="page-contents__list">\
@@ -21,7 +21,7 @@ describe('A highlight active section heading module', function () {
           </ul>\
         </div>\
       </div>\
-      <div class="column-two-thirds">\
+      <div class="govuk-grid-column-two-thirds">\
         <div class="govspeak-wrapper">\
           <div class="govuk-govspeak">\
             <h2 id="section-1">Section 1</h2>\
