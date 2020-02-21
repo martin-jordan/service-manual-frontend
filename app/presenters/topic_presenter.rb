@@ -7,7 +7,7 @@ class TopicPresenter < ContentItemPresenter
   end
 
   def breadcrumbs
-    parent_breadcrumbs << topic_breadcrumb
+    parent_breadcrumbs
   end
 
   def groups
@@ -111,9 +111,5 @@ private
         url: "/service-manual",
       },
     ]
-  end
-
-  def topic_breadcrumb
-    { title: title }
   end
 end

@@ -51,12 +51,11 @@ class TopicPresenterTest < ActiveSupport::TestCase
     assert_equal "/service-manual/agile-community", agile_community.href
   end
 
-  test "#breadcrumbs links to the root path and references itself" do
-    topic = presented_topic(title: "Hello")
+  test "#breadcrumbs links to the root path" do
+    topic = presented_topic
 
     expected_breadcrumbs = [
       { title: "Service manual", url: "/service-manual" },
-      { title: "Hello" },
     ]
     assert_equal expected_breadcrumbs, topic.breadcrumbs
   end
