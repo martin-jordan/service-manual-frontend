@@ -24,7 +24,6 @@ class GuidePresenter < ContentItemPresenter
   def breadcrumbs
     crumbs = [{ title: "Service manual", url: "/service-manual" }]
     crumbs << { title: category["title"], url: category["base_path"] } if category
-    crumbs << { title: content_item["title"] }
     crumbs
   end
 

@@ -17,7 +17,6 @@ class GuidePresenterTest < ActiveSupport::TestCase
     assert_equal [
                    { title: "Service manual", url: "/service-manual" },
                    { title: "Agile", url: "/service-manual/agile" },
-                   { title: "Agile Delivery" },
                  ],
                  guide.breadcrumbs
   end
@@ -26,7 +25,6 @@ class GuidePresenterTest < ActiveSupport::TestCase
     presented_guide = presented_guide("links" => {})
     assert_equal [
                    { title: "Service manual", url: "/service-manual" },
-                   { title: "Agile Delivery" },
                  ],
                  presented_guide.breadcrumbs
   end

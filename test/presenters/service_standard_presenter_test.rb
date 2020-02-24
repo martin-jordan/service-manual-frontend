@@ -57,7 +57,6 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
     assert ServiceStandardPresenter.new(content_item_hash).breadcrumbs,
            [
              { title: "Service manual", url: "/service-manual" },
-             { title: "Service Standard" },
            ]
   end
 

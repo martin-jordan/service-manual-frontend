@@ -13,7 +13,6 @@ class ServiceStandardPresenter < ContentItemPresenter
   def breadcrumbs
     [
       { title: "Service manual", url: "/service-manual" },
-      { title: title },
     ]
   end
 
