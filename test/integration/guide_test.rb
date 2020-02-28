@@ -45,7 +45,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   test "the breadcrumb contains the topic" do
     setup_and_visit_example("service_manual_guide", "service_manual_guide")
 
-    within(".gem-c-breadcrumbs") do
+    within(".gem-c-breadcrumbs.gem-c-breadcrumbs--collapse-on-mobile") do
       assert page.has_link?("Service manual")
       assert page.has_link?("Agile")
     end
