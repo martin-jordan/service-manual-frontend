@@ -5,7 +5,10 @@
   <%= render 'shared/custom_phase_message', phase: @content_item.phase %>
 <% end %>
 <div class="govuk-width-container">
-  <%= render "govuk_publishing_components/components/breadcrumbs", breadcrumbs: @content_item.breadcrumbs %>
+  <%= render "govuk_publishing_components/components/breadcrumbs", {
+    breadcrumbs: @content_item.breadcrumbs,
+    collapse_on_mobile: true
+  } %>
 
   <!-- Page title and contact -->
   <div class="govuk-grid-row">
