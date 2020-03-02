@@ -14,9 +14,9 @@ gem "slimmer", "~> 13.2.0"
 gem "uglifier", ">= 1.3.0"
 
 group :development, :test do
-  gem "rubocop-govuk"
   gem "jasmine-rails"
   gem "phantomjs", "~> 2.1", ">= 2.1.1.0"
+  gem "rubocop-govuk"
 end
 
 group :development do
