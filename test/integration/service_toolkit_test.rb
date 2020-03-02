@@ -11,7 +11,7 @@ class ServiceToolkitTest < ActionDispatch::IntegrationTest
     setup_and_visit_example("service_manual_service_toolkit", "service_manual_service_toolkit")
 
     assert_not page.has_css?(".improve-this-page"),
-           "Improve this page component should not be present on the page"
+               "Improve this page component should not be present on the page"
   end
 
   test "the service toolkit displays the introductory hero" do
