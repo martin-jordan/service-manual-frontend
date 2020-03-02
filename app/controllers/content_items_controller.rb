@@ -100,6 +100,6 @@ private
   end
 
   def error_403(exception)
-    render body: exception.message, status: 403
+    render body: exception.message, status: :forbidden
   end
 end
