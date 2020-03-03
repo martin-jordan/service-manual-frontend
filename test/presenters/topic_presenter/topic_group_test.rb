@@ -41,6 +41,6 @@ class TopicPresenter::TopicGroupTest < ActiveSupport::TestCase
     linked_items = []
     group = described_class.new(group_data, linked_items)
 
-    refute group.present?
+    assert_not group.present?
   end
 end

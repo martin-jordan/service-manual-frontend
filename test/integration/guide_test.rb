@@ -55,7 +55,7 @@ class GuideTest < ActionDispatch::IntegrationTest
     setup_and_visit_example("service_manual_guide", "service_manual_guide_community")
 
     within(".gem-c-metadata") do
-      refute page.has_content?("Published by")
+      assert_not page.has_content?("Published by")
     end
   end
 
@@ -70,7 +70,7 @@ class GuideTest < ActionDispatch::IntegrationTest
   test "does not display the description for a normal guide" do
     setup_and_visit_example("service_manual_guide", "service_manual_guide")
 
-    refute page.has_css?(".app-page-header__summary")
+    assert_not page.has_css?(".app-page-header__summary")
   end
 
   test "displays a link to give feedback" do
@@ -115,8 +115,8 @@ class GuideTest < ActionDispatch::IntegrationTest
                               ],
                             })
 
-    refute page.has_content? "Show all page updates"
-    refute page.has_css? ".app-change-history__past"
+    assert_not page.has_content? "Show all page updates"
+    assert_not page.has_css? ".app-change-history__past"
   end
 
   test "omits the latest change and previous change if the guide has no history" do
@@ -125,8 +125,8 @@ class GuideTest < ActionDispatch::IntegrationTest
                               "change_history" => [],
                             })
 
-    refute page.has_content? "Last update:"
-    refute page.has_content? "Show all page updates"
-    refute page.has_css? ".app-change-history__past"
+    assert_not page.has_content? "Last update:"
+    assert_not page.has_content? "Show all page updates"
+    assert_not page.has_css? ".app-change-history__past"
   end
 end

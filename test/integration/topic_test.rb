@@ -26,7 +26,7 @@ class TopicTest < ActionDispatch::IntegrationTest
 
     visit "/service-manual/test-topic"
 
-    refute page.has_css?('meta[name="description"]', visible: false)
+    assert_not page.has_css?('meta[name="description"]', visible: false)
   end
 
   test "it lists communities in the sidebar" do

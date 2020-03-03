@@ -70,7 +70,7 @@ class GuidePresenterTest < ActiveSupport::TestCase
   end
 
   test "#show_description? is false if not set" do
-    refute GuidePresenter.new({}).show_description?
+    assert_not GuidePresenter.new({}).show_description?
   end
 
   test "#public_updated_at returns a time" do

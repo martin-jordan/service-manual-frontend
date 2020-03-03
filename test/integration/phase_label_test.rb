@@ -45,6 +45,6 @@ class PhaseLabelTest < ActionDispatch::IntegrationTest
 
     visit guide["base_path"]
 
-    refute page.has_content?("Complete our quick 5-question survey")
+    assert_not page.has_content?("Complete our quick 5-question survey")
   end
 end
