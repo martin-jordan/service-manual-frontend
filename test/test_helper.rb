@@ -6,7 +6,7 @@ require "capybara/rails"
 require "capybara/poltergeist"
 require "slimmer/test"
 
-Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each { |file| require file }
+Dir[File.dirname(__FILE__) + "/support/**/*.rb"].sort.each { |file| require file }
 
 class ActiveSupport::TestCase
   include GovukContentSchemaExamples
