@@ -44,12 +44,12 @@ module GovukContentSchemaExamples
     end
 
     def supported_formats
-      %w{
+      %w[
         service_manual_guide
         service_manual_homepage
         service_manual_service_standard
         service_manual_topic
-      }
+      ]
     end
   end
 end

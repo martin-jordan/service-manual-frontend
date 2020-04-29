@@ -9,7 +9,7 @@ class TopicPresenter::TopicGroupTest < ActiveSupport::TestCase
     {
        "name" => "Fruits",
        "description" => "Nice fruits",
-       "content_ids" => %w(111 222),
+       "content_ids" => %w[111 222],
      }
   end
 
@@ -20,14 +20,14 @@ class TopicPresenter::TopicGroupTest < ActiveSupport::TestCase
                    ]
     group = described_class.new(group_data, linked_items)
 
-    assert_equal %w(Apples Bananas), group.linked_items.map(&:label)
+    assert_equal %w[Apples Bananas], group.linked_items.map(&:label)
   end
 
   test "omits grouped but unpublished linked items (not in the links hash)" do
     linked_items = [{ "content_id" => "222", "title" => "Bananas" }]
     group = described_class.new(group_data, linked_items)
 
-    assert_equal %w(Bananas), group.linked_items.map(&:label)
+    assert_equal %w[Bananas], group.linked_items.map(&:label)
   end
 
   test "present? returns true if there are no visible grouped links" do
