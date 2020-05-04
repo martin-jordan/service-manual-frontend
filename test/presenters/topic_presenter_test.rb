@@ -22,7 +22,7 @@ class TopicPresenterTest < ActiveSupport::TestCase
     assert_equal [2, 1], groups.map(&:linked_items).map(&:size)
 
     group_items = groups.find { |li| li.name == "Group 1" }.linked_items
-    assert_equal %w(Accessibility Addresses), group_items.map(&:label)
+    assert_equal %w[Accessibility Addresses], group_items.map(&:label)
     assert_equal ["/service-manual/user-centred-design/accessibility", "/service-manual/user-centred-design/resources/patterns/addresses"], group_items.map(&:href)
   end
 

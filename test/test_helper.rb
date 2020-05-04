@@ -38,16 +38,14 @@ class ActionDispatch::IntegrationTest
   WebMock.disable_net_connect! allow: driver_requests
 
   def using_javascript_driver
-    begin
-      Capybara.current_driver = Capybara.javascript_driver
-      use_slimmer = ENV["USE_SLIMMER"]
-      ENV["USE_SLIMMER"] = "true"
+    Capybara.current_driver = Capybara.javascript_driver
+    use_slimmer = ENV["USE_SLIMMER"]
+    ENV["USE_SLIMMER"] = "true"
 
-      yield
-    ensure
-      Capybara.use_default_driver
-      ENV.delete("USE_SLIMMER") unless use_slimmer
-    end
+    yield
+  ensure
+    Capybara.use_default_driver
+    ENV.delete("USE_SLIMMER") unless use_slimmer
   end
 
   def setup_and_visit_example(format, name, overrides = {})

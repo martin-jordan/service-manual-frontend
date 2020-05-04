@@ -14,9 +14,7 @@ class TopicPresenter::LinkedItem
     details["base_path"]
   end
 
-  def present?
-    details.present?
-  end
+  delegate :present?, to: :details
 
 private
 
