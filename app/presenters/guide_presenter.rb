@@ -28,7 +28,7 @@ class GuidePresenter < ContentItemPresenter
   end
 
   def show_description?
-    !!details["show_description"]
+    details["show_description"].present?
   end
 
   def public_updated_at
