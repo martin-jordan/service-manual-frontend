@@ -52,7 +52,7 @@ class TopicPresenter < ContentItemPresenter
     # This method returns the content in the required shape from the hash
     # supplied by the `groups` method.
 
-    groups.map { |section|
+    groups.map do |section|
       {
         heading: {
           text: section.name,
@@ -65,7 +65,7 @@ class TopicPresenter < ContentItemPresenter
         },
         expanded: visually_expanded?,
       }
-    }
+    end
   end
 
 private
@@ -94,10 +94,10 @@ private
     # </ul>
     # ```
 
-    links = links.map { |linked_item|
+    links = links.map do |linked_item|
       link_html = ActionController::Base.helpers.link_to(linked_item.label, linked_item.href, class: "govuk-link")
       "<li>#{link_html}</li>"
-    }
+    end
 
     list = "<ul class=\"govuk-list\">#{links.join('')}</ul>"
 
