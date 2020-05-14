@@ -30,19 +30,20 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
     points_titles =
       ServiceStandardPresenter.new(content_item_hash).points.map(&:title)
 
-    assert_equal points_titles, [
-      "1. Title",
-      "2. Title",
-      "3. Title",
-      "4. Title",
-      "5. Title",
-      "6. Title",
-      "7. Title",
-      "8. Title",
-      "9. Title",
-      "10. Title",
-      "11. Title",
-    ]
+    assert_equal points_titles,
+                 [
+                   "1. Title",
+                   "2. Title",
+                   "3. Title",
+                   "4. Title",
+                   "5. Title",
+                   "6. Title",
+                   "7. Title",
+                   "8. Title",
+                   "9. Title",
+                   "10. Title",
+                   "11. Title",
+                 ]
   end
 
   test "#points is empty if there aren't any points in the content item" do
