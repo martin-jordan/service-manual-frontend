@@ -70,7 +70,7 @@ class TopicPresenter < ContentItemPresenter
 
 private
 
-  def accordion_section_links links
+  def accordion_section_links(links)
     # Expects `links` to be an array of hashes containing `href` and `label`
     # for the link. For example:
     #
