@@ -86,6 +86,10 @@ module ServiceManualFrontend
     config.action_dispatch.rack_cache = nil
 
     # Path within public/ where assets are compiled to
-    config.assets.prefix = "/service-manual-frontend"
+    config.assets.prefix = "/assets/service-manual-frontend"
+
+    # allow overriding the asset host with an enironment variable, useful for
+    # when router is proxying to this app but asset proxying isn't set up.
+    config.asset_host = ENV["ASSET_HOST"]
   end
 end
