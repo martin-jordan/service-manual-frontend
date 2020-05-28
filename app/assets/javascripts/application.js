@@ -1,5 +1,7 @@
-//= require govuk_publishing_components/dependencies
-//= require govuk_publishing_components/all_components
-//
+//= require govuk_publishing_components/lib
+//= require govuk_publishing_components/components/accordion
+//= require govuk_publishing_components/components/feedback
+//= require govuk_publishing_components/components/govspeak
+
 //= require_tree ./govuk
 //= require_tree ./modules
