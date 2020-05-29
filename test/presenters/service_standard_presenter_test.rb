@@ -4,8 +4,8 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
   test "#points gets points from the details" do
     points = presented_standard.points
 
-    assert points.any? { |point_hash| point_hash.title == "1. Understand user needs" }
-    assert points.any? { |point_hash| point_hash.title == "2. Do ongoing user research" }
+    assert(points.any? { |point_hash| point_hash.title == "1. Understand user needs" })
+    assert(points.any? { |point_hash| point_hash.title == "2. Do ongoing user research" })
   end
 
   test "#points returns points ordered numerically" do
