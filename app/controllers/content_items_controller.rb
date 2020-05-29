@@ -66,7 +66,7 @@ private
   end
 
   def content_item_path
-    "/" + URI.encode(params[:path])
+    "/" + params[:path]
   end
 
   def content_store
