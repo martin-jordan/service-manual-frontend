@@ -34,7 +34,7 @@ class GuidePresenter < ContentItemPresenter
   def public_updated_at
     timestamp = content_item["public_updated_at"]
 
-    timestamp&.to_time
+    Time.zone.parse(timestamp) if timestamp
   end
 
   def visible_updated_at
@@ -54,7 +54,7 @@ class GuidePresenter < ContentItemPresenter
   def previous_changes
     change_history.drop(1).map do |change|
       Change.new(
-        change["public_timestamp"].to_time,
+        Time.zone.parse(change["public_timestamp"]),
         change["note"],
       )
     end
@@ -83,6 +83,6 @@ private
   end
 
   def updated_at
-    content_item["updated_at"].to_time
+    Time.zone.parse(content_item["updated_at"])
   end
 end
