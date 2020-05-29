@@ -52,7 +52,7 @@ class ActionDispatch::IntegrationTest
     example = govuk_content_schema_example(format, name, overrides)
     base_path = example.fetch("base_path")
 
-    content_store_has_item(base_path, example)
+    stub_content_store_has_item(base_path, example)
     visit base_path
   end
 end

@@ -11,7 +11,7 @@ class TopicTest < ActionDispatch::IntegrationTest
   end
 
   test "it uses topic description as meta description" do
-    content_store_has_item("/service-manual/test-topic", @topic_example.to_json)
+    stub_content_store_has_item("/service-manual/test-topic", @topic_example.to_json)
 
     visit "/service-manual/test-topic"
 
@@ -22,7 +22,7 @@ class TopicTest < ActionDispatch::IntegrationTest
 
   test "it doesn't write a meta description if there is none" do
     @topic_example.delete("description")
-    content_store_has_item("/service-manual/test-topic", @topic_example.to_json)
+    stub_content_store_has_item("/service-manual/test-topic", @topic_example.to_json)
 
     visit "/service-manual/test-topic"
 
