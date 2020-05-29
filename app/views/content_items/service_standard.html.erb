@@ -46,7 +46,7 @@
 
     <div class="govuk-grid-column-one-third">
       <aside class="related govuk-!-padding-top-4">
-        <%= render partial: 'shared/email_signup' if @content_item.email_alert_signup_link.present? %>
+        <%= render partial: 'shared/email_signup' %>
         <% if @content_item.poster_url.present? %>
           <div class="related-item">
             <h2 class="govuk-heading-s govuk-!-margin-bottom-2" id="download-poster">

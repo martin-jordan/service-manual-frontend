@@ -62,12 +62,8 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
   end
 
   test "#email_alert_signup returns a link to the email alert signup" do
-    assert_equal "/service-manual/service-standard/email-signup",
+    assert_equal "/email-signup?topic=/service-manual/service-standard",
                  presented_standard.email_alert_signup_link
-  end
-
-  test "#email_alert_signup does not error if no signup exists" do
-    assert_nil presented_standard(links: { email_alert_signup: [] }).email_alert_signup_link
   end
 
   test "#poster_url returns a link to the service standard poster" do

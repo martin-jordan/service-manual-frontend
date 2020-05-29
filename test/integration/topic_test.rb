@@ -49,7 +49,7 @@ class TopicTest < ActionDispatch::IntegrationTest
 
     assert page.has_link?(
       "email",
-      href: "/service-manual/test-expanded-topic/email-signup",
+      href: "/email-signup?topic=/service-manual/test-expanded-topic",
     )
   end
 end
