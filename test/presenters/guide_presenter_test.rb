@@ -90,7 +90,7 @@ class GuidePresenterTest < ActiveSupport::TestCase
     timestamp = "2015-10-10T09:00:00+00:00"
     guide = presented_guide("public_updated_at" => timestamp)
 
-    assert_equal guide.visible_updated_at, timestamp.to_time
+    assert_equal guide.visible_updated_at, Time.zone.parse(timestamp)
   end
 
   test "#visible_updated_at returns the updated_at time if the public_updated_at hasn't yet been set" do
@@ -104,12 +104,12 @@ class GuidePresenterTest < ActiveSupport::TestCase
     )
     guide = GuidePresenter.new(example)
 
-    assert_equal guide.visible_updated_at, timestamp.to_time
+    assert_equal guide.visible_updated_at, Time.zone.parse(timestamp)
   end
 
   test "#latest_change returns the details for the most recent change" do
     expected_history = GuidePresenter::Change.new(
-      "2015-10-09T08:17:10+00:00".to_time,
+      Time.zone.parse("2015-10-09T08:17:10+00:00"),
       "This is our latest change",
     )
 
@@ -128,7 +128,7 @@ class GuidePresenterTest < ActiveSupport::TestCase
     guide = GuidePresenter.new(example)
 
     expected_history = GuidePresenter::Change.new(
-      timestamp.to_time,
+      Time.zone.parse(timestamp),
       "This is our latest change",
     )
 
@@ -138,11 +138,11 @@ class GuidePresenterTest < ActiveSupport::TestCase
   test "#previous_changes returns the change history for the guide" do
     expected_history = [
       GuidePresenter::Change.new(
-        "2015-09-09T08:17:10+00:00".to_time,
+        Time.zone.parse("2015-09-09T08:17:10+00:00"),
         "This is another change",
       ),
       GuidePresenter::Change.new(
-        "2015-09-01T08:17:10+00:00".to_time,
+        Time.zone.parse("2015-09-01T08:17:10+00:00"),
         "Guidance first published",
       ),
     ]

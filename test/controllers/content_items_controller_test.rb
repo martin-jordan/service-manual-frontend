@@ -38,17 +38,6 @@ class ContentItemsControllerTest < ActionController::TestCase
     assert_equal "max-age=900, private", @response.headers["Cache-Control"]
   end
 
-  test "gets item from content store even when url contains multi-byte UTF8 character" do
-    content_item = content_store_has_schema_example("service_manual_guide", "service_manual_guide")
-    utf8_path    = "government/case-studies/caf\u00e9-culture"
-    content_item["base_path"] = "/#{utf8_path}"
-
-    stub_content_store_has_item(content_item["base_path"], content_item)
-
-    get :show, params: { path: utf8_path }
-    assert_response :success
-  end
-
   test "returns 404 for item not in content store" do
     path = "government/case-studies/boost-chocolate-production"
 

@@ -6,16 +6,3 @@ inherit_gem:
 inherit_mode:
   merge:
     - Exclude
-
-Lint/AmbiguousBlockAssociation:
-  Enabled: false
-
-Lint/UriEscapeUnescape:
-  Enabled: false
-
-# These `.to_time` conversions were obviously done for a reason back
-# in the day. I'm not confident enough in RuboCop's autocorrections
-# to change the behaviour by removing them in files like
-# `app/presenters/guide_presenter.rb`.
-Rails/Date:
-  Enabled: false

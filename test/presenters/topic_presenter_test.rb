@@ -14,7 +14,7 @@ class TopicPresenterTest < ActiveSupport::TestCase
 
     assert_equal 2, topic.groups.size
     assert_equal ["Group 1", "Group 2"], topic.groups.map(&:name)
-    assert_equal [true, true], topic.groups.map { |lg| lg.description.present? }
+    assert_equal([true, true], topic.groups.map { |lg| lg.description.present? })
   end
 
   test 'loads linked items within link groups and populates them with data from "links" based on content_id' do
