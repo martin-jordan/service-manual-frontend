@@ -29,7 +29,9 @@
       </div>
       <%= yield %>
     </main>
-    <%= render "govuk_publishing_components/components/feedback" %>
+    <div class="govuk-width-container">
+      <%= render "govuk_publishing_components/components/feedback" %>
+    </div>
   </div>
 </body>
 </html>
