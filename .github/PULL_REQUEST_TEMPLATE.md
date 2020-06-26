@@ -14,7 +14,7 @@
 * /service-manual/helping-people-to-use-your-service
 * /service-manual/design
 * /service-manual/service-assessments
-*/service-manual/service-standard
+* /service-manual/service-standard
 * /service-manual/service-standard/point-1-understand-user-needs
 * /service-manual/communities
 * /service-manual/communities/accessibility-community
