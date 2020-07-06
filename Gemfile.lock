@@ -72,7 +72,6 @@ GEM
     chromedriver-helper (1.2.0)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
-    cliver (0.3.2)
     coderay (1.1.2)
     concurrent-ruby (1.1.6)
     crack (0.4.3)
@@ -168,10 +167,6 @@ GEM
       ast (~> 2.4.0)
     phantomjs (2.1.1.0)
     plek (4.0.0)
-    poltergeist (1.17.0)
-      capybara (~> 2.1)
-      cliver (~> 0.3.1)
-      websocket-driver (>= 0.2.0)
     pry (0.13.0)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -349,7 +344,6 @@ DEPENDENCIES
   listen
   phantomjs
   plek
-  poltergeist
   pry-byebug
   rails (~> 5.2.4, >= 5.2.4.3)
   rails-controller-testing
