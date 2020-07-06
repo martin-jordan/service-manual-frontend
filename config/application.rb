@@ -82,9 +82,6 @@ module ServiceManualFrontend
       "zh-tw",
     ]
 
-    # Disable rack::cache
-    config.action_dispatch.rack_cache = nil
-
     # Path within public/ where assets are compiled to
     config.assets.prefix = "/assets/service-manual-frontend"
 
