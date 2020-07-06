@@ -26,3 +26,5 @@ class ActionDispatch::IntegrationTest
     visit base_path
   end
 end
+
+WebMock.disable_net_connect!(allow_localhost: true)

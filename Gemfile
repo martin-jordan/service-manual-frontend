@@ -14,8 +14,8 @@ gem "slimmer"
 gem "uglifier"
 
 group :development, :test do
-  gem "jasmine-rails"
-  gem "phantomjs"
+  gem "jasmine"
+  gem "jasmine_selenium_runner", require: false
   gem "rubocop-govuk"
 end
 
@@ -32,5 +32,6 @@ group :test do
   gem "govuk-content-schema-test-helpers"
   gem "pry-byebug"
   gem "rails-controller-testing"
+  gem "webdrivers"
   gem "webmock", require: false
 end
