@@ -17,7 +17,7 @@ class ServiceToolkitTest < ActionDispatch::IntegrationTest
   test "the service toolkit displays the introductory hero" do
     setup_and_visit_example("service_manual_service_toolkit", "service_manual_service_toolkit")
 
-    assert page.has_content? <<-TEXT
+    assert page.has_content? <<~TEXT.chomp
       Design and build government services
       All you need to design, build and run services that meet government standards.
     TEXT
