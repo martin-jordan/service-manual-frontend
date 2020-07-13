@@ -52,6 +52,8 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Allow access to the application using dev.gov.uk hostnames
-  config.hosts << "draft-service-manual-frontend.dev.gov.uk"
-  config.hosts << "service-manual-frontend.dev.gov.uk"
+  config.hosts += %w[
+    draft-service-manual-frontend.dev.gov.uk
+    service-manual-frontend.dev.gov.uk
+  ]
 end
