@@ -2,11 +2,12 @@ source "https://rubygems.org"
 
 ruby File.read(".ruby-version").strip
 
+gem "rails", "6.0.3.2"
+
 gem "gds-api-adapters"
 gem "govuk_app_config"
 gem "govuk_publishing_components"
 gem "plek"
-gem "rails", "~> 6.0.3", ">= 6.0.3.2"
 gem "rails-i18n"
 gem "rails_translation_manager"
 gem "sass-rails"
