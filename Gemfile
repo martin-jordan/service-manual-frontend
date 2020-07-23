@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby File.read(".ruby-version").strip
 
-gem "gds-api-adapters", "~> 67.0.0"
+gem "gds-api-adapters", "~> 67.0.1"
 gem "govuk_app_config", "~> 2.2"
 gem "govuk_publishing_components", "~> 21.59.0"
 gem "plek", "4.0.0"
