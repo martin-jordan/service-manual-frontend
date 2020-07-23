@@ -1,5 +1,7 @@
 require_relative "boot"
 
+require "rails"
+
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "action_controller/railtie"
@@ -15,15 +17,11 @@ Bundler.require(*Rails.groups)
 module ServiceManualFrontend
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.1
+    config.load_defaults 6.0
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
-
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
+    # Application configuration can go into files in config/initializers
+    # -- all .rb files in that directory are automatically loaded after loading
+    # the framework and any gems in your application.
 
     # Explicitly set default locale
     config.i18n.default_locale = :en
@@ -82,11 +80,14 @@ module ServiceManualFrontend
       "zh-tw",
     ]
 
-    # Disable rack::cache
-    config.action_dispatch.rack_cache = nil
-
     # Path within public/ where assets are compiled to
     config.assets.prefix = "/assets/service-manual-frontend"
+
+    # Using a sass css compressor causes a scss file to be processed twice
+    # (once to build, once to compress) which breaks the usage of "unquote"
+    # to use CSS that has same function names as SCSS such as max.
+    # https://github.com/alphagov/govuk-frontend/issues/1350
+    config.assets.css_compressor = nil
 
     # allow overriding the asset host with an enironment variable, useful for
     # when router is proxying to this app but asset proxying isn't set up.
