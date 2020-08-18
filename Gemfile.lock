@@ -284,7 +284,7 @@ GEM
       rubyzip (>= 1.2.2)
     sentry-raven (3.0.0)
       faraday (>= 1.0)
-    slimmer (15.0.0)
+    slimmer (15.1.0)
       activesupport
       json
       nokogiri (~> 1.7)
