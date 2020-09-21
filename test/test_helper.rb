@@ -1,4 +1,8 @@
 require File.expand_path("../config/environment", __dir__)
+
+require "simplecov"
+SimpleCov.start "rails"
+
 require "rails/test_help"
 require "minitest/mock"
 require "webmock/minitest"
