@@ -15,7 +15,7 @@ gem "uglifier"
 group :development, :test do
   gem "govuk_test"
   gem "jasmine"
-  gem "jasmine_selenium_runner", require: false
+  gem "jasmine_selenium_runner"
   gem "rubocop-govuk"
 end
 
