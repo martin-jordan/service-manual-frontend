@@ -30,6 +30,7 @@ group :test do
   gem "govuk-content-schema-test-helpers"
   gem "pry-byebug"
   gem "rails-controller-testing"
+  gem "simplecov"
   gem "webdrivers"
   gem "webmock", require: false
 end
