@@ -11,12 +11,12 @@ require "slimmer/test"
 
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].sort.each { |file| require file }
 
+GovukTest.configure
+
 class ActiveSupport::TestCase
   include GovukContentSchemaExamples
   include DraftStackExamples
 end
-
-Capybara.default_driver = :rack_test
 
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
@@ -31,7 +31,4 @@ class ActionDispatch::IntegrationTest
   end
 end
 
-WebMock.disable_net_connect!(
-  allow_localhost: true,
-  allow: ["chromedriver.storage.googleapis.com"],
-)
+WebMock.disable_net_connect!(allow_localhost: true)
