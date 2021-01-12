@@ -1,5 +1,5 @@
-describe("Improve this page", function () {
-   var FIXTURE =
+describe('Improve this page', function () {
+  var FIXTURE =
     '<div class="improve-this-page">' +
       '<div class="js-prompt">' +
         '<span class="improve-this-page__is-useful-question">Is this page useful?</span>' +
@@ -36,479 +36,478 @@ describe("Improve this page", function () {
           '</div>' +
         '</form>' +
       '</div>' +
-    '</div>';
+    '</div>'
 
   beforeEach(function () {
-    setFixtures(FIXTURE);
-  });
+    setFixtures(FIXTURE)
+  })
 
-  it("hides the form", function () {
-    loadImproveThisPage();
+  it('hides the form', function () {
+    loadImproveThisPage()
 
-    expect($('.js-feedback-form')).toHaveClass('js-hidden');
-  });
+    expect($('.js-feedback-form')).toHaveClass('js-hidden')
+  })
 
-  it("shows the prompt", function () {
-    loadImproveThisPage();
+  it('shows the prompt', function () {
+    loadImproveThisPage()
 
-    expect($('.improve-this-page .js-prompt')).not.toHaveClass('js-hidden');
-  });
+    expect($('.improve-this-page .js-prompt')).not.toHaveClass('js-hidden')
+  })
 
-  it("conveys that the feedback form is hidden", function() {
-    loadImproveThisPage();
+  it('conveys that the feedback form is hidden', function () {
+    loadImproveThisPage()
 
-    expect($('.js-feedback-form').attr('aria-hidden')).toBe('true');
-  });
+    expect($('.js-feedback-form').attr('aria-hidden')).toBe('true')
+  })
 
-  it("conveys that the form is not expanded", function () {
-    loadImproveThisPage();
+  it('conveys that the form is not expanded', function () {
+    loadImproveThisPage()
 
-    expect($('.js-page-is-not-useful').attr('aria-expanded')).toBe('false');
-    expect($('.js-something-is-wrong').attr('aria-expanded')).toBe('false');
-  });
+    expect($('.js-page-is-not-useful').attr('aria-expanded')).toBe('false')
+    expect($('.js-something-is-wrong').attr('aria-expanded')).toBe('false')
+  })
 
   describe("Clicking the 'page was useful' link", function () {
-    it("displays a success message", function () {
-      loadImproveThisPage();
-      $('a.js-page-is-useful').click();
+    it('displays a success message', function () {
+      loadImproveThisPage()
+      $('a.js-page-is-useful').click()
 
       var $prompt = $('.improve-this-page .js-prompt')
 
-      expect($prompt).not.toHaveClass('js-hidden');
-      expect($prompt).toHaveText("Thanks for your feedback.");
-    });
-
-    it("triggers a Google Analytics event", function () {
-      var analytics = {
-        trackEvent: function() {}
-      };
-
-      withGovukAnalytics(analytics, function () {
-        spyOn(GOVUK.analytics, 'trackEvent');
-
-        loadImproveThisPage();
-
-        $('a.js-page-is-useful').click();
-
-        expect(GOVUK.analytics.trackEvent).
-          toHaveBeenCalledWith('improve-this-page', 'page-is-useful');
-      });
-    });
-  });
-
-  describe("Clicking the 'page was not useful' link", function () {
-    it("shows the feedback form", function () {
-      loadImproveThisPage();
-      $('a.js-page-is-not-useful').click();
-
-      expect($('.improve-this-page .js-feedback-form')).not.toHaveClass('js-hidden');
-    });
-
-    it("hides the prompt", function () {
-      loadImproveThisPage();
-      $('a.js-page-is-not-useful').click();
-
-      expect($('.improve-this-page .js-prompt')).toHaveClass('js-hidden');
-    });
-
-    it("conveys that the form is now visible", function () {
-      loadImproveThisPage();
-      $('a.js-page-is-not-useful').click();
-
-      expect($('.js-feedback-form').attr('aria-hidden')).toBe('false');
-    });
-
-    it("conveys that the form is now expanded", function () {
-      loadImproveThisPage();
-      $('a.js-page-is-not-useful').click();
-
-      expect($('.js-page-is-not-useful').attr('aria-expanded')).toBe('true');
-      expect($('.js-something-is-wrong').attr('aria-expanded')).toBe('true');
-    });
-
-    it("focusses the first field in the form", function () {
-      loadImproveThisPage();
-      $('a.js-page-is-not-useful').click();
-
-      expect(document.activeElement).toBe($('.form-control').get(0));
-    });
-
-    it("triggers a Google Analytics event", function () {
-      var analytics = {
-        trackEvent: function() {}
-      };
-
-      withGovukAnalytics(analytics, function () {
-        spyOn(GOVUK.analytics, 'trackEvent');
-
-        loadImproveThisPage();
-
-        $('a.js-page-is-not-useful').click();
-
-        expect(GOVUK.analytics.trackEvent).
-          toHaveBeenCalledWith('improve-this-page', 'page-is-not-useful');
-      });
-    });
-  });
-
-  describe("Clicking the 'something is wrong with the page' link", function () {
-    it("shows the feedback form", function () {
-      loadImproveThisPage();
-      $('a.js-something-is-wrong').click();
-
-      expect($('.improve-this-page .js-feedback-form')).not.toHaveClass('js-hidden');
-    });
-
-    it("hides the prompt", function () {
-      loadImproveThisPage();
-      $('a.js-something-is-wrong').click();
-
-      expect($('.improve-this-page .js-prompt')).toHaveClass('js-hidden');
-    });
-
-    it("conveys that the form is now visible", function () {
-      loadImproveThisPage();
-      $('a.js-something-is-wrong').click();
-
-      expect($('.js-feedback-form').attr('aria-hidden')).toBe('false');
-    });
-
-    it("conveys that the form is now expanded", function () {
-      loadImproveThisPage();
-      $('a.js-something-is-wrong').click();
-
-      expect($('.js-page-is-not-useful').attr('aria-expanded')).toBe('true');
-      expect($('.js-something-is-wrong').attr('aria-expanded')).toBe('true');
-    });
-
-    it("focusses the first field in the form", function () {
-      loadImproveThisPage();
-      $('a.js-page-is-not-useful').click();
-
-      expect(document.activeElement).toBe($('.form-control').get(0));
-    });
-
-    it("triggers a Google Analytics event", function () {
-      var analytics = {
-        trackEvent: function() {}
-      };
-
-      withGovukAnalytics(analytics, function () {
-        spyOn(GOVUK.analytics, 'trackEvent');
-
-        loadImproveThisPage();
-
-        $('a.js-something-is-wrong').click();
-
-        expect(GOVUK.analytics.trackEvent).
-          toHaveBeenCalledWith('improve-this-page', 'something-is-wrong');
-      });
-    });
-  });
-
-  describe("Clicking the close link", function () {
-    beforeEach(function () {
-      loadImproveThisPage();
-
-      $('a.js-something-is-wrong').click();
-      $('a.js-close-feedback-form').click();
+      expect($prompt).not.toHaveClass('js-hidden')
+      expect($prompt).toHaveText('Thanks for your feedback.')
     })
 
-    it("hides the form", function() {
-      expect($('.improve-this-page .js-feedback-form')).toHaveClass('js-hidden');
-    });
-
-    it("shows the prompt", function() {
-      expect($('.improve-this-page .js-prompt')).not.toHaveClass('js-hidden');
-    });
-
-    it("conveys that the feedback form is hidden", function() {
-      loadImproveThisPage();
-
-      expect($('.js-feedback-form').attr('aria-hidden')).toBe('true');
-    });
-
-    it("conveys that the form is not expanded", function () {
-      loadImproveThisPage();
-
-      expect($('.js-page-is-not-useful').attr('aria-expanded')).toBe('false');
-      expect($('.js-something-is-wrong').attr('aria-expanded')).toBe('false');
-    });
-  })
-
-  describe("Successfully submitting the feedback form", function () {
-
-    beforeEach(function() {
-      jasmine.Ajax.install();
-    });
-
-    afterEach(function() {
-      jasmine.Ajax.uninstall();
-    });
-
-    it("triggers a Google Analytics event", function () {
+    it('triggers a Google Analytics event', function () {
       var analytics = {
-        trackEvent: function() {}
-      };
+        trackEvent: function () {}
+      }
 
       withGovukAnalytics(analytics, function () {
-        spyOn(GOVUK.analytics, 'trackEvent');
+        spyOn(GOVUK.analytics, 'trackEvent')
 
-        loadImproveThisPage();
-        fillAndSubmitFeedbackForm();
+        loadImproveThisPage()
+
+        $('a.js-page-is-useful').click()
+
+        expect(GOVUK.analytics.trackEvent)
+          .toHaveBeenCalledWith('improve-this-page', 'page-is-useful')
+      })
+    })
+  })
+
+  describe("Clicking the 'page was not useful' link", function () {
+    it('shows the feedback form', function () {
+      loadImproveThisPage()
+      $('a.js-page-is-not-useful').click()
+
+      expect($('.improve-this-page .js-feedback-form')).not.toHaveClass('js-hidden')
+    })
+
+    it('hides the prompt', function () {
+      loadImproveThisPage()
+      $('a.js-page-is-not-useful').click()
+
+      expect($('.improve-this-page .js-prompt')).toHaveClass('js-hidden')
+    })
+
+    it('conveys that the form is now visible', function () {
+      loadImproveThisPage()
+      $('a.js-page-is-not-useful').click()
+
+      expect($('.js-feedback-form').attr('aria-hidden')).toBe('false')
+    })
+
+    it('conveys that the form is now expanded', function () {
+      loadImproveThisPage()
+      $('a.js-page-is-not-useful').click()
+
+      expect($('.js-page-is-not-useful').attr('aria-expanded')).toBe('true')
+      expect($('.js-something-is-wrong').attr('aria-expanded')).toBe('true')
+    })
+
+    it('focusses the first field in the form', function () {
+      loadImproveThisPage()
+      $('a.js-page-is-not-useful').click()
+
+      expect(document.activeElement).toBe($('.form-control').get(0))
+    })
+
+    it('triggers a Google Analytics event', function () {
+      var analytics = {
+        trackEvent: function () {}
+      }
+
+      withGovukAnalytics(analytics, function () {
+        spyOn(GOVUK.analytics, 'trackEvent')
+
+        loadImproveThisPage()
+
+        $('a.js-page-is-not-useful').click()
+
+        expect(GOVUK.analytics.trackEvent)
+          .toHaveBeenCalledWith('improve-this-page', 'page-is-not-useful')
+      })
+    })
+  })
+
+  describe("Clicking the 'something is wrong with the page' link", function () {
+    it('shows the feedback form', function () {
+      loadImproveThisPage()
+      $('a.js-something-is-wrong').click()
+
+      expect($('.improve-this-page .js-feedback-form')).not.toHaveClass('js-hidden')
+    })
+
+    it('hides the prompt', function () {
+      loadImproveThisPage()
+      $('a.js-something-is-wrong').click()
+
+      expect($('.improve-this-page .js-prompt')).toHaveClass('js-hidden')
+    })
+
+    it('conveys that the form is now visible', function () {
+      loadImproveThisPage()
+      $('a.js-something-is-wrong').click()
+
+      expect($('.js-feedback-form').attr('aria-hidden')).toBe('false')
+    })
+
+    it('conveys that the form is now expanded', function () {
+      loadImproveThisPage()
+      $('a.js-something-is-wrong').click()
+
+      expect($('.js-page-is-not-useful').attr('aria-expanded')).toBe('true')
+      expect($('.js-something-is-wrong').attr('aria-expanded')).toBe('true')
+    })
+
+    it('focusses the first field in the form', function () {
+      loadImproveThisPage()
+      $('a.js-page-is-not-useful').click()
+
+      expect(document.activeElement).toBe($('.form-control').get(0))
+    })
+
+    it('triggers a Google Analytics event', function () {
+      var analytics = {
+        trackEvent: function () {}
+      }
+
+      withGovukAnalytics(analytics, function () {
+        spyOn(GOVUK.analytics, 'trackEvent')
+
+        loadImproveThisPage()
+
+        $('a.js-something-is-wrong').click()
+
+        expect(GOVUK.analytics.trackEvent)
+          .toHaveBeenCalledWith('improve-this-page', 'something-is-wrong')
+      })
+    })
+  })
+
+  describe('Clicking the close link', function () {
+    beforeEach(function () {
+      loadImproveThisPage()
+
+      $('a.js-something-is-wrong').click()
+      $('a.js-close-feedback-form').click()
+    })
+
+    it('hides the form', function () {
+      expect($('.improve-this-page .js-feedback-form')).toHaveClass('js-hidden')
+    })
+
+    it('shows the prompt', function () {
+      expect($('.improve-this-page .js-prompt')).not.toHaveClass('js-hidden')
+    })
+
+    it('conveys that the feedback form is hidden', function () {
+      loadImproveThisPage()
+
+      expect($('.js-feedback-form').attr('aria-hidden')).toBe('true')
+    })
+
+    it('conveys that the form is not expanded', function () {
+      loadImproveThisPage()
+
+      expect($('.js-page-is-not-useful').attr('aria-expanded')).toBe('false')
+      expect($('.js-something-is-wrong').attr('aria-expanded')).toBe('false')
+    })
+  })
+
+  describe('Successfully submitting the feedback form', function () {
+    beforeEach(function () {
+      jasmine.Ajax.install()
+    })
+
+    afterEach(function () {
+      jasmine.Ajax.uninstall()
+    })
+
+    it('triggers a Google Analytics event', function () {
+      var analytics = {
+        trackEvent: function () {}
+      }
+
+      withGovukAnalytics(analytics, function () {
+        spyOn(GOVUK.analytics, 'trackEvent')
+
+        loadImproveThisPage()
+        fillAndSubmitFeedbackForm()
 
         jasmine.Ajax.requests.mostRecent().respondWith({
           status: 200,
           contentType: 'text/plain',
           responseText: ''
-        });
+        })
 
-        expect(GOVUK.analytics.trackEvent).
-          toHaveBeenCalledWith('improve-this-page', 'give-feedback');
-      });
-    });
-
-    it("submits the feedback to the feedback frontend", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
-
-      request = jasmine.Ajax.requests.mostRecent();
-      expect(request.url).toBe('/contact/govuk/page_improvements');
-      expect(request.method).toBe('POST');
-      expect(request.data()).toEqual({
-        url: ["http://example.com/path/to/page"],
-        description: ["The background should be green."],
-        name: ["Henry"],
-        email: ["henry@example.com"]
-      });
-    });
-
-    it("displays a success message", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
-
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        status: 200,
-        contentType: 'application/json',
-        responseText: '{}'
-      });
-
-      var $prompt = $('.improve-this-page .js-prompt');
-
-      expect($prompt).not.toHaveClass('js-hidden');
-      expect($prompt).toHaveText("Thanks for your feedback.");
-    });
-
-    if("focusses the success message", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
-
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        status: 200,
-        contentType: 'application/json',
-        responseText: '{}'
-      });
-
-      var $prompt = $('.improve-this-page .js-prompt');
-      expect(document.activeElement).toBe($prompt);
+        expect(GOVUK.analytics.trackEvent)
+          .toHaveBeenCalledWith('improve-this-page', 'give-feedback')
+      })
     })
 
-    it("hides the form", function() {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
+    it('submits the feedback to the feedback frontend', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
+
+      request = jasmine.Ajax.requests.mostRecent()
+      expect(request.url).toBe('/contact/govuk/page_improvements')
+      expect(request.method).toBe('POST')
+      expect(request.data()).toEqual({
+        url: ['http://example.com/path/to/page'],
+        description: ['The background should be green.'],
+        name: ['Henry'],
+        email: ['henry@example.com']
+      })
+    })
+
+    it('displays a success message', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
 
       jasmine.Ajax.requests.mostRecent().respondWith({
         status: 200,
         contentType: 'application/json',
         responseText: '{}'
-      });
+      })
 
-      expect($('.js-feedback-form')).toHaveClass('js-hidden');
-    });
+      var $prompt = $('.improve-this-page .js-prompt')
 
-    it("removes the links to show the feedback form", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
+      expect($prompt).not.toHaveClass('js-hidden')
+      expect($prompt).toHaveText('Thanks for your feedback.')
+    })
+
+    if ('focusses the success message', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
 
       jasmine.Ajax.requests.mostRecent().respondWith({
         status: 200,
         contentType: 'application/json',
         responseText: '{}'
-      });
+      })
 
-      expect($('.js-page-is-not-useful, .js-something-is-wrong').length).toBe(0);
-    });
-  });
+      var $prompt = $('.improve-this-page .js-prompt')
+      expect(document.activeElement).toBe($prompt)
+    }) {
+      it('hides the form', function () {
+        loadImproveThisPage()
+        fillAndSubmitFeedbackForm()
 
-  describe("Submitting a form with invalid data", function () {
-    beforeEach(function() {
-      jasmine.Ajax.install();
-    });
+        jasmine.Ajax.requests.mostRecent().respondWith({
+          status: 200,
+          contentType: 'application/json',
+          responseText: '{}'
+        })
 
-    afterEach(function() {
-      jasmine.Ajax.uninstall();
-    });
+        expect($('.js-feedback-form')).toHaveClass('js-hidden')
+      })
+    }
 
-    it("disables the submit button until the server responds", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
+    it('removes the links to show the feedback form', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
 
-      expect($('.improve-this-page form [type=submit]')).toBeDisabled();
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 200,
+        contentType: 'application/json',
+        responseText: '{}'
+      })
+
+      expect($('.js-page-is-not-useful, .js-something-is-wrong').length).toBe(0)
+    })
+  })
+
+  describe('Submitting a form with invalid data', function () {
+    beforeEach(function () {
+      jasmine.Ajax.install()
+    })
+
+    afterEach(function () {
+      jasmine.Ajax.uninstall()
+    })
+
+    it('disables the submit button until the server responds', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
+
+      expect($('.improve-this-page form [type=submit]')).toBeDisabled()
 
       jasmine.Ajax.requests.mostRecent().respondWith({
         status: 422,
         contentType: 'application/json',
         responseText: '{"errors": {"description": ["can\'t be blank"]}}'
-      });
+      })
 
-      expect($('.improve-this-page form [type=submit]')).not.toBeDisabled();
-    });
+      expect($('.improve-this-page form [type=submit]')).not.toBeDisabled()
+    })
 
     it('retains the feedback the user originally entered', function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
 
       jasmine.Ajax.requests.mostRecent().respondWith({
         status: 422,
         contentType: 'application/json',
         responseText: '{"errors": {"description": ["can\'t be blank"]}}'
-      });
+      })
 
-      expect($('[name=description]').val()).toEqual('The background should be green.');
-      expect($('[name=name]').val()).toEqual('Henry');
-      expect($('[name=email]').val()).toEqual('henry@example.com');
-    });
+      expect($('[name=description]').val()).toEqual('The background should be green.')
+      expect($('[name=name]').val()).toEqual('Henry')
+      expect($('[name=email]').val()).toEqual('henry@example.com')
+    })
 
-    it("displays validation errors in the label of each field", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
-
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        status: 422,
-        contentType: 'application/json',
-        responseText: '{"errors": {"description": ["can\'t be blank"]}}'
-      });
-
-      expect($('label[for=description-field]')).toContainText("Description can't be blank.");
-    });
-
-    it("marks fields with validation errors as invalid", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
+    it('displays validation errors in the label of each field', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
 
       jasmine.Ajax.requests.mostRecent().respondWith({
         status: 422,
         contentType: 'application/json',
         responseText: '{"errors": {"description": ["can\'t be blank"]}}'
-      });
+      })
 
-      expect($('[name=description]')).toHaveAttr('aria-invalid', 'true');
-    });
+      expect($('label[for=description-field]')).toContainText("Description can't be blank.")
+    })
 
-    it("focusses the first form group if there are no generic errors", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
+    it('marks fields with validation errors as invalid', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
 
       jasmine.Ajax.requests.mostRecent().respondWith({
         status: 422,
         contentType: 'application/json',
         responseText: '{"errors": {"description": ["can\'t be blank"]}}'
-      });
+      })
 
-      expect(document.activeElement).toBe($('[name=description]').get(0));
-    });
+      expect($('[name=description]')).toHaveAttr('aria-invalid', 'true')
+    })
+
+    it('focusses the first form group if there are no generic errors', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 422,
+        contentType: 'application/json',
+        responseText: '{"errors": {"description": ["can\'t be blank"]}}'
+      })
+
+      expect(document.activeElement).toBe($('[name=description]').get(0))
+    })
 
     it("displays a generic error if the field isn't a visible part of the form", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
 
       jasmine.Ajax.requests.mostRecent().respondWith({
         status: 422,
         contentType: 'application/json',
         responseText: '{"errors": {"path": ["can\'t be blank"], "another": ["weird error"]}}'
-      });
+      })
 
-      expect($('.improve-this-page .error-summary')).toContainText("Path can't be blank. Another weird error.");
-    });
+      expect($('.improve-this-page .error-summary')).toContainText("Path can't be blank. Another weird error.")
+    })
 
-    it("focusses the generic error if there is one", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
-
-      jasmine.Ajax.requests.mostRecent().respondWith({
-        status: 422,
-        contentType: 'application/json',
-        responseText: '{"errors": {"path": ["can\'t be blank"], "description": ["can\'t be blank"]}}'
-      });
-
-      expect(document.activeElement).toBe($('.error-summary').get(0));
-    });
-
-    it("associates the error summary with its message so screen readers will read it when the div is focussed", function () {
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
+    it('focusses the generic error if there is one', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
 
       jasmine.Ajax.requests.mostRecent().respondWith({
         status: 422,
         contentType: 'application/json',
         responseText: '{"errors": {"path": ["can\'t be blank"], "description": ["can\'t be blank"]}}'
-      });
+      })
 
-      var $genericErrorMessage = $('#generic-error-message');
+      expect(document.activeElement).toBe($('.error-summary').get(0))
+    })
+
+    it('associates the error summary with its message so screen readers will read it when the div is focussed', function () {
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
+
+      jasmine.Ajax.requests.mostRecent().respondWith({
+        status: 422,
+        contentType: 'application/json',
+        responseText: '{"errors": {"path": ["can\'t be blank"], "description": ["can\'t be blank"]}}'
+      })
+
+      var $genericErrorMessage = $('#generic-error-message')
 
       expect($('.error-summary').attr('aria-labelledby')).toEqual(
         $genericErrorMessage.attr('id')
-      );
-    });
+      )
+    })
   })
 
-  describe("Submitting a form that fails for some reason", function () {
-    beforeEach(function() {
-      jasmine.Ajax.install();
+  describe('Submitting a form that fails for some reason', function () {
+    beforeEach(function () {
+      jasmine.Ajax.install()
 
-      loadImproveThisPage();
-      fillAndSubmitFeedbackForm();
+      loadImproveThisPage()
+      fillAndSubmitFeedbackForm()
 
       jasmine.Ajax.requests.mostRecent().respondWith({
         status: 500,
         contentType: 'text/plain',
         responseText: ''
-      });
-    });
+      })
+    })
 
-    afterEach(function() {
-      jasmine.Ajax.uninstall();
-    });
+    afterEach(function () {
+      jasmine.Ajax.uninstall()
+    })
 
-    it("displays a generic error message", function () {
+    it('displays a generic error message', function () {
       expect($('.improve-this-page').html()).toContainText(
         'Sorry, we’re unable to receive your message right now. ' +
         'If the problem persists, we have other ways for you to provide ' +
         'feedback on the contact page.'
-      );
-    });
+      )
+    })
 
     it('retains the feedback the user originally entered', function () {
-      expect($('[name=description]').val()).toEqual('The background should be green.');
-      expect($('[name=name]').val()).toEqual('Henry');
-      expect($('[name=email]').val()).toEqual('henry@example.com');
-    });
+      expect($('[name=description]').val()).toEqual('The background should be green.')
+      expect($('[name=name]').val()).toEqual('Henry')
+      expect($('[name=email]').val()).toEqual('henry@example.com')
+    })
 
     it('re-enables the submit button', function () {
-      expect($('.improve-this-page form [type=submit]')).not.toBeDisabled();
-    });
+      expect($('.improve-this-page form [type=submit]')).not.toBeDisabled()
+    })
   })
 
   function loadImproveThisPage () {
-    var improveThisPage = new GOVUK.Modules.ImproveThisPage();
-    improveThisPage.start($('.improve-this-page'));
+    var improveThisPage = new GOVUK.Modules.ImproveThisPage()
+    improveThisPage.start($('.improve-this-page'))
   }
 
   function fillAndSubmitFeedbackForm () {
-    $form = $('.improve-this-page form');
-    $form.find("[name=description]").val("The background should be green.");
-    $form.find("[name=name]").val("Henry");
-    $form.find("[name=email]").val("henry@example.com");
-    $form.find("[type=submit]").click();
+    $form = $('.improve-this-page form')
+    $form.find('[name=description]').val('The background should be green.')
+    $form.find('[name=name]').val('Henry')
+    $form.find('[name=email]').val('henry@example.com')
+    $form.find('[type=submit]').click()
   }
-});
+})
