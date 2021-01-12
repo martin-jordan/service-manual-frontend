@@ -121,12 +121,13 @@
         }
 
         var distanceBetweenHeadings = self.getDistanceBetweenHeadings(headingPosition, nextHeadingPosition)
+        var isPastHeading
+
         if (distanceBetweenHeadings) {
-          var isPastHeading = (windowVerticalPosition >= headingPosition && windowVerticalPosition < (headingPosition + distanceBetweenHeadings))
-        }
-        // when distanceBetweenHeadings is false (as there isn't a next heading)
-        else {
-          var isPastHeading = (windowVerticalPosition >= headingPosition && windowVerticalPosition < footerPosition.top)
+          isPastHeading = (windowVerticalPosition >= headingPosition && windowVerticalPosition < (headingPosition + distanceBetweenHeadings))
+        } else {
+          // when distanceBetweenHeadings is false (as there isn't a next heading)
+          isPastHeading = (windowVerticalPosition >= headingPosition && windowVerticalPosition < footerPosition.top)
         }
 
         if (isPastHeading) {

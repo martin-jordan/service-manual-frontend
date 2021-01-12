@@ -295,7 +295,7 @@
         view.showSuccess()
       }).fail(function (xhr) {
         view.enableSubmitFeedbackButton()
-        if (xhr.status == 422) {
+        if (xhr.status === 422) {
           view.renderErrors(xhr.responseJSON.errors)
         } else {
           view.clearErrors()

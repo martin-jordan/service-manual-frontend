@@ -161,7 +161,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
           var action = ''
 
           // update button text
-          if ($openOrCloseAllButton.text() == 'Open all') {
+          if ($openOrCloseAllButton.text() === 'Open all') {
             $openOrCloseAllButton.text('Close all')
             $openOrCloseAllButton.attr('aria-expanded', 'true')
             action = 'open'
@@ -184,7 +184,7 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
             var $button = $subsection.find('.js-subsection-button')
             var $subsectionContent = $subsection.find('.js-subsection-content')
 
-            if (action == 'open') {
+            if (action === 'open') {
               $button.attr('aria-expanded', 'true')
               $subsectionContent.removeClass('js-hidden')
               $subsection.removeClass('subsection')
@@ -223,12 +223,6 @@ window.GOVUK.Modules = window.GOVUK.Modules || {};
         } else {
           $openOrCloseAllButton.text('Open all')
         }
-      }
-
-      function isSubsectionClosed ($subsection) {
-        var $subsectionContent = $subsection.find('.js-subsection-content')
-
-        return $subsectionContent.hasClass('js-hidden')
       }
     }
 

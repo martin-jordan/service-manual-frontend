@@ -1,3 +1,5 @@
+/* global setFixtures, withGovukAnalytics */
+
 describe('Improve this page', function () {
   var FIXTURE =
     '<div class="improve-this-page">' +
@@ -271,7 +273,7 @@ describe('Improve this page', function () {
       loadImproveThisPage()
       fillAndSubmitFeedbackForm()
 
-      request = jasmine.Ajax.requests.mostRecent()
+      var request = jasmine.Ajax.requests.mostRecent()
       expect(request.url).toBe('/contact/govuk/page_improvements')
       expect(request.method).toBe('POST')
       expect(request.data()).toEqual({
@@ -298,7 +300,7 @@ describe('Improve this page', function () {
       expect($prompt).toHaveText('Thanks for your feedback.')
     })
 
-    if ('focusses the success message', function () {
+    it('hides the form', function () {
       loadImproveThisPage()
       fillAndSubmitFeedbackForm()
 
@@ -308,22 +310,8 @@ describe('Improve this page', function () {
         responseText: '{}'
       })
 
-      var $prompt = $('.improve-this-page .js-prompt')
-      expect(document.activeElement).toBe($prompt)
-    }) {
-      it('hides the form', function () {
-        loadImproveThisPage()
-        fillAndSubmitFeedbackForm()
-
-        jasmine.Ajax.requests.mostRecent().respondWith({
-          status: 200,
-          contentType: 'application/json',
-          responseText: '{}'
-        })
-
-        expect($('.js-feedback-form')).toHaveClass('js-hidden')
-      })
-    }
+      expect($('.js-feedback-form')).toHaveClass('js-hidden')
+    })
 
     it('removes the links to show the feedback form', function () {
       loadImproveThisPage()
@@ -504,7 +492,7 @@ describe('Improve this page', function () {
   }
 
   function fillAndSubmitFeedbackForm () {
-    $form = $('.improve-this-page form')
+    var $form = $('.improve-this-page form')
     $form.find('[name=description]').val('The background should be green.')
     $form.find('[name=name]').val('Henry')
     $form.find('[name=email]').val('henry@example.com')
