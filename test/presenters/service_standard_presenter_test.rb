@@ -62,7 +62,7 @@ class ServiceStandardPresenterTest < ActiveSupport::TestCase
   end
 
   test "#email_alert_signup returns a link to the email alert signup" do
-    assert_equal "/email-signup?topic=/service-manual/service-standard",
+    assert_equal "/email-signup?link=/service-manual/service-standard",
                  presented_standard.email_alert_signup_link
   end
 

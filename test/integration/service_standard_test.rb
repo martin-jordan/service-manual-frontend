@@ -63,7 +63,7 @@ class ServiceStandardTest < ActionDispatch::IntegrationTest
 
     assert page.has_link?(
       "email",
-      href: "/email-signup?topic=/service-manual/service-standard",
+      href: "/email-signup?link=/service-manual/service-standard",
     )
   end
 
