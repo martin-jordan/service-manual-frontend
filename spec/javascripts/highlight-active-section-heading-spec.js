@@ -1,4 +1,3 @@
-/* eslint-env jasmine */
 /* eslint-disable no-multi-str */
 
 describe('A highlight active section heading module', function () {
@@ -87,8 +86,6 @@ describe('A highlight active section heading module', function () {
       }
     }
     module.start($element)
-
-    var $anchors = $element.find('.js-page-contents a')
 
     isLinkHighlighted('#section-3')
   })

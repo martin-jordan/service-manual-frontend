@@ -63,7 +63,7 @@
       if (_hasScrolled) {
         _hasScrolled = false
         var windowDimensions = self.getWindowDimensions()
-        if ( windowDimensions.width <= 768) {
+        if (windowDimensions.width <= 768) {
           self.removeActiveItem()
         } else {
           self.updateActiveNavItem()
@@ -72,7 +72,7 @@
     }
 
     self.getAnchors = function () {
-      $.each(self.$anchors, function(i) {
+      $.each(self.$anchors, function (i) {
         var anchorID = $(this).attr('href')
         // e.g. anchorIDs['#meeting-the-digital-service-standard', '#understand-your-users', '#research-continually']
         anchorIDs.push(anchorID)
@@ -100,8 +100,7 @@
       var windowVerticalPosition = self.getWindowPositions().scrollTop
       var footerPosition = self.getFooterPosition($('#footer'))
 
-      $.each(self.$anchors, function(i) {
-
+      $.each(self.$anchors, function (i) {
         var theID = anchorIDs[i]
         var theNextID = anchorIDs[i + 1]
 
@@ -122,20 +121,19 @@
         }
 
         var distanceBetweenHeadings = self.getDistanceBetweenHeadings(headingPosition, nextHeadingPosition)
+        var isPastHeading
+
         if (distanceBetweenHeadings) {
-          var isPastHeading = (windowVerticalPosition >= headingPosition && windowVerticalPosition < (headingPosition + distanceBetweenHeadings))
-        }
-        // when distanceBetweenHeadings is false (as there isn't a next heading)
-        else {
-          var isPastHeading = (windowVerticalPosition >= headingPosition && windowVerticalPosition < footerPosition.top)
+          isPastHeading = (windowVerticalPosition >= headingPosition && windowVerticalPosition < (headingPosition + distanceBetweenHeadings))
+        } else {
+          // when distanceBetweenHeadings is false (as there isn't a next heading)
+          isPastHeading = (windowVerticalPosition >= headingPosition && windowVerticalPosition < footerPosition.top)
         }
 
         if (isPastHeading) {
           self.setActiveItem(theID)
         }
-
       })
-
     }
 
     self.setActiveItem = function (theID) {

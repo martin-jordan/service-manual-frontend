@@ -8,7 +8,7 @@ gem "govuk_publishing_components"
 gem "plek"
 gem "rails-i18n"
 gem "rails_translation_manager"
-gem "sass-rails"
+gem "sassc-rails"
 gem "slimmer"
 gem "uglifier"
 
