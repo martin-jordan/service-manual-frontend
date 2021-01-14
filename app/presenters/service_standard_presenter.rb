@@ -17,7 +17,7 @@ class ServiceStandardPresenter < ContentItemPresenter
   end
 
   def email_alert_signup_link
-    "/email-signup?topic=#{content_item['base_path']}"
+    "/email-signup?link=#{content_item['base_path']}"
   end
 
 private
