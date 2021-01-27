@@ -4,5 +4,4 @@
 //= require govuk_publishing_components/components/feedback
 //= require govuk_publishing_components/components/govspeak
 
-//= require_tree ./govuk
 //= require_tree ./modules
