@@ -3,10 +3,6 @@ class ServiceToolkitPresenter < ContentItemPresenter
     false
   end
 
-  def use_new_style_feedback_form?
-    false
-  end
-
   def collections
     details.fetch("collections", [])
   end

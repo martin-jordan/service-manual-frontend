@@ -1,8 +1,4 @@
 class HomepagePresenter < ContentItemPresenter
-  def breadcrumbs
-    []
-  end
-
   def include_search_in_header?
     false
   end
