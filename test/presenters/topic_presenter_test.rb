@@ -26,6 +26,19 @@ class TopicPresenterTest < ActiveSupport::TestCase
     assert_equal ["/service-manual/user-centred-design/accessibility", "/service-manual/user-centred-design/resources/patterns/addresses"], group_items.map(&:href)
   end
 
+  test "returns accordion content data" do
+    accordion_content = presented_topic.accordion_content
+    first_accordion_section = {
+      heading: { text: "Group 1" },
+      summary: { text: "The first group" },
+      content: { html: "<ul class=\"govuk-list\">\n<li><a class=\"govuk-link\" href=\"/service-manual/user-centred-design/accessibility\">Accessibility</a></li>\n<li><a class=\"govuk-link\" href=\"/service-manual/user-centred-design/resources/patterns/addresses\">Addresses</a></li>\n</ul>" },
+      expanded: true,
+    }
+
+    assert_equal 2, accordion_content.count
+    assert_equal first_accordion_section, accordion_content.first
+  end
+
   test "does not fail if there are no linked_groups" do
     topic = presented_topic(details: { groups: nil })
 

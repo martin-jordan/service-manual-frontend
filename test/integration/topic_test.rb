@@ -44,6 +44,27 @@ class TopicTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "it doesn't display content in accordian if not eligible" do
+    setup_and_visit_example("service_manual_topic", "service_manual_topic")
+
+    assert_not page.has_css?(".gem-c-accordion")
+  end
+
+  test "it displays content using an accordian if eligible" do
+    content_item = govuk_content_schema_example("service_manual_topic", "service_manual_topic")
+    third_linked_item = { content_id: SecureRandom.uuid, title: "linky", base_path: "/basey" }
+    third_group = { name: "Group 3", description: "The third group", content_ids: [third_linked_item[:content_id]] }
+
+    content_item["links"]["linked_items"] << third_linked_item
+    content_item["details"]["groups"] << third_group
+    content_item["details"]["visually_collapsed"] = true
+
+    stub_content_store_has_item(content_item["base_path"], content_item)
+    visit content_item["base_path"]
+
+    assert page.has_css?(".gem-c-accordion")
+  end
+
   test "it includes a link to subscribe for email alerts" do
     setup_and_visit_example("service_manual_topic", "service_manual_topic")
 
