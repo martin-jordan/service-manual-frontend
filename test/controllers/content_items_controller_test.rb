@@ -81,6 +81,33 @@ class ContentItemsControllerTest < ActionController::TestCase
     assert_equal "true", @response.headers[Slimmer::Headers::REMOVE_SEARCH_HEADER]
   end
 
+  test "raises error if content item's document type is unsupported" do
+    path = "government/some-type/mysterious-document"
+    base_path = "/" + path
+    error_message = <<~"ERROR"
+      The content item at base path #{base_path} is of
+      document_type \"some-type\", which this
+      application does not support.
+    ERROR
+
+    stub_content_store_has_item(base_path, { base_path: base_path, document_type: "some-type" })
+
+    error = assert_raises(RuntimeError) { get :show, params: { path: path } }
+    assert_match error_message, error.message
+  end
+
+  test "raises error if request is for the applications root" do
+    stub_content_store_has_item("/", { base_path: "/", document_type: "some-type" })
+    error_message = <<~ERROR
+      This application does not serve anything at its root. The homepage, if
+      published in the content store, can be found at /service-manual.
+      See the README for more information.
+    ERROR
+
+    error = assert_raises(RuntimeError) { get :show, params: { path: "" } }
+    assert_match error_message, error.message
+  end
+
   def path_for(content_item)
     content_item["base_path"].sub(/^\//, "")
   end

@@ -1,6 +1,9 @@
 class TopicPresenter < ContentItemPresenter
   ContentOwner = Struct.new(:title, :href)
 
+  attr_reader :visually_collapsed
+  alias_method :visually_collapsed?, :visually_collapsed
+
   def initialize(content_item)
     super
     @visually_collapsed = content_item["details"]["visually_collapsed"]
@@ -30,10 +33,6 @@ class TopicPresenter < ContentItemPresenter
 
   def phase
     "beta"
-  end
-
-  def visually_collapsed?
-    @visually_collapsed
   end
 
   def visually_expanded?

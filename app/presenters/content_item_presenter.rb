@@ -25,19 +25,11 @@ class ContentItemPresenter
     true
   end
 
-  def use_new_style_feedback_form?
-    true
-  end
-
   def format
     content_item["document_type"].sub(/^service_manual_/, "")
   end
 
 private
-
-  def display_time(timestamp)
-    I18n.l(Date.parse(timestamp), format: "%-d %B %Y") if timestamp
-  end
 
   def sorted_locales(translations)
     translations.sort_by { |t| t["locale"] == I18n.default_locale.to_s ? "" : t["locale"] }
