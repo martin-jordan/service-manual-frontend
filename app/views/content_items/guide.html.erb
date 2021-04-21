@@ -79,7 +79,7 @@
         <div class="app-change-history__latest-change">
           <% if @content_item.content_owners.any? %>
             <%= render "govuk_publishing_components/components/metadata", {
-              last_updated: time_ago_in_words(@content_item.visible_updated_at),
+              last_updated: "#{time_ago_in_words(@content_item.visible_updated_at)} ago",
               from: @content_item.content_owners.map { |content_owner|
                 link_to(content_owner.title, content_owner.href)
               }
