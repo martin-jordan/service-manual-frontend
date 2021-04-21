@@ -6,10 +6,4 @@ module PhaseLabelHelper
              message: message
     end
   end
-
-  def survey_url
-    url = "https://www.gov.uk/service-manual/communities/contact-the-service-manual-and-service-standard-team"
-    url += "?c=#{request.path}" if request.path.present?
-    url
-  end
 end
